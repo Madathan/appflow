@@ -1,0 +1,11 @@
+.black-cell {
+    background-color: black;
+    color: white;
+    padding: 8px; /* Adjust padding as needed */
+  }
+  /* reportTable.css */
+
+/* Hide the webkit scrollbar */
+::-webkit-scrollbar {
+  width: 0;
+}
