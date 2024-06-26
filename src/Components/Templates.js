@@ -1,64 +1,53 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import TemplateFetch from './TempalateFeach';
+import Cookies from 'js-cookie';
 
-function Templates()
-{
+const Templates = () => {
+  const [templates, setTemplates] = useState([]);
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData) {
+        try {
+          const response = await fetch('https://ci4backend.smartyuppies.com/Templates/fetchTemplate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              access_token: userData.access_token,
+              app_id: userData.app_id,
+              username: userData.username
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const result = await response.json();
+          console.log("Template data:", result.data);
+          setTemplates(result.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [userData]);
+
   return (
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div className="max-w-lg rounded-lg shadow-lg bg-gray-100 h-fit border-solid border-gray-200 border mb-20 hover:scale-110 transition-transform duration-700 ">
-        <div className="p-6">
-          <h5 className="text-xl font-bold tracking-tight text-gray-900 text-center">Hello</h5>
-          <p className="text-center">hwllw memnadnuabdabdbwdbwdb</p>
-          <hr />
-          <br />
-          <div>
-            <input type="file" className="rounded-lg w-full" />
-          </div>
-          <br />
-          <div className="flex justify-center">
-            <button className="px-8 py-2 text-sm flex font-medium text-center text-white bg-green-700 rounded-lg relative b-20 group-hover:bg-white focus:ring-4 focus:ring-blue-300">
-              <span className="group-hover:text-green-700">click</span>
-            </button>
-          </div>
-        </div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold text-center mb-8">Templates</h1>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {templates.map((template, index) => (
+          <TemplateFetch key={index} template={template} />
+        ))}
       </div>
+    </div>
+  );
+};
 
-      <div className="max-w-lg rounded-lg shadow-lg border-solid border-gray-200 border bg-gray-100 h-fit mb-20 hover:scale-110 transition-transform duration-700 ">
-        <div className="p-6">
-          <h5 className="text-xl font-bold tracking-tight text-gray-900 text-center">Hello</h5>
-          <p className="text-center">hwllw memnadnuabdabdbwdbwdb</p>
-          <hr />
-          <br />
-          <div>
-            <input type="file" className="rounded-lg w-full" />
-          </div>
-          <br />
-          <div className="flex justify-center">
-            <button className="px-8 py-2 text-sm flex font-medium text-center text-white bg-green-700 rounded-lg relative b-20 group-hover:bg-white focus:ring-4 focus:ring-blue-300">
-              <span className="group-hover:text-green-700">click</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-lg rounded-lg shadow-lg border-solid border-gray-200 border bg-gray-100  h-fit mb-20 hover:scale-110 transition-transform duration-700 group ">
-        <div className="p-6">
-          <h5 className="text-xl font-bold tracking-tight text-gray-900 text-center">Hello</h5>
-          <p className="text-center">hwllw memnadnuabdabdbwdbwdb</p>
-          <hr />
-          <br />
-          <div>
-            <input type="file" className="rounded-lg w-full" />
-          </div>
-          <br />
-          <div className="flex justify-center">
-            <button className="px-8 py-2 text-sm flex font-medium text-center text-white bg-green-700 rounded-lg relative b-20 group-hover:bg-white focus:ring-4 focus:ring-blue-300">
-              <span className="group-hover:text-green-700">click</span>
-            </button>
-          </div>
-        </div>
-      </div>
-</div>
-  )
-}
-
-export default Templates
+export default Templates;

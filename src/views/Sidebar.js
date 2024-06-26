@@ -18,20 +18,20 @@ const Sidebar = ({ open, setOpen, menus }) => {
         {menus?.map((menu) => (
           <React.Fragment key={menu.id}>
             {open ? (
-              <h1 className={`text-sm text-gray-400 font-medium py-1 transition-all duration-1000 ease-in-out`}>{menu.title}</h1>
+              <h1 className={`text-sm text-gray-200 font-medium py-1 transition-all duration-1000 ease-in-out`}>{menu.title}</h1>
             ) : (
               <h1 className={`text-sm text-white font-medium py-1 transition-all duration-1000 ease-in-out`} style={{ width: "10px", textAlign: "center" }}></h1>
             )}
             <NavLink
               to={menu.nav}
-              className={`flex items-center p-2 rounded-full transition-all duration-1000 ease-in-out ${open ? 'hover:bg-[#00a727]' : ''} ${!open ? 'text-white' : ''} ${menu.nav === window.location.pathname ? 'bg-[#00a727] text-white' : ''}`}
+              className={`flex items-center p-2 rounded-full transition-all duration-1000 ease-in-out  ${open ? 'hover:bg-[#00a727]' : ''} ${!open ? 'text-white' : ''} ${menu.nav === window.location.pathname ? 'bg-[#00a727] text-white' : ''}`}
               onClick={() => setOpen(true)}
             >
               <div className={`${open ? 'pl-2' : 'pl-1'} transform ${!open ? 'duration-1000' : ''}`}>
-                {React.createElement(menu.icon, { size: '23' })}
+                {React.createElement(menu.icon, { size: '18' })}
               </div>
               <h2
-                className={`whitespace-pre uppercase text-white text-sm  font-sans transition-all duration-1000 ease-in-out p-3 font-semibold ${!open ? ' opacity-0 overflow-hidden' : ''}`}
+                className={`whitespace-pre uppercase text-white text-[13px]  font-sans transition-all duration-1000 ease-in-out p-3 font-semibold ${!open ? ' opacity-0 overflow-hidden' : '-'}`}
               >
                 {menu.name}
               </h2>

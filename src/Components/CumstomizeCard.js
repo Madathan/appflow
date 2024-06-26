@@ -1,4 +1,3 @@
-// CustomCard.js
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AiFillDelete } from 'react-icons/ai';

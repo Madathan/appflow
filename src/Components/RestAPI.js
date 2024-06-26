@@ -117,7 +117,7 @@ const RestAPI = ({ open }) => {
                     className="border border-[--second] border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
-                    value={105581585784909}
+                    value={chat.phone_number_id}
                   />
                 </div>
                 <div className="p-4">
@@ -131,7 +131,7 @@ const RestAPI = ({ open }) => {
                     className="border border-[--second] border-2 p-3 text-black font-bold text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
-                    value={"EAASZCnjWBPK8BO6kZcz...."}
+                    value={chat.access_token}
                   />
                 </div>
               </div>

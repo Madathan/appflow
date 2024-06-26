@@ -3,10 +3,17 @@ import { useNavigate, } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const LoginPage = () => {
+  const navigate=useNavigate()
+  const userData=Cookies.get("userData")
+  //console.log(userData)
+  if(userData!==undefined){
+    navigate("/dashboard")
+  }
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+   const redract = useNavigate();
  
   const handleLogin = async () => {
     try {
@@ -27,7 +34,7 @@ const LoginPage = () => {
         // Assuming the server returns a token or some data upon successful login
         // You can save the token in localStorage or a context/state management solution
         Cookies.set('userData', JSON.stringify(data), { expires: 7,path :"/"});
-        navigate('/Team-Inbox');
+        redract('/Team-Inbox');
         
 
       

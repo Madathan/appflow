@@ -1,15 +1,14 @@
-// CustomizeTeams.js
 import React, { useState } from 'react';
 import profilImage from '../assests/19021603.jpg';
-import Card from './CumstomizeCard';
+import Card from './CumstomizeCard'; // Corrected import statement
 
 function CustomizeTeams() {
   const initialData = [
-    { id: 1, name: 'wasim', password: 12345, image: profilImage },
-    { id: 2, name: 'wasim', password: 12345, image: profilImage },
-    { id: 3, name: 'wasim', password: 12345, image: profilImage },
-    { id: 4, name: 'wasim', password: 12345, image: profilImage },
-    { id: 4, name: 'wasim', password: 12345, image: profilImage }
+    { id: 1, name: 'wasim', password: '12345', image: profilImage },
+    { id: 2, name: 'wasim', password: '12345', image: profilImage },
+    { id: 3, name: 'wasim', password: '12345', image: profilImage },
+    { id: 4, name: 'wasim', password: '12345', image: profilImage },
+    { id: 5, name: 'wasim', password: '12345', image: profilImage } // Changed duplicate id to 5
   ];
 
   const [data, setData] = useState(initialData);

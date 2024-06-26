@@ -34,7 +34,7 @@ import KeywordAutomation from './Components/KeywordAutomation';
 import DashBoard from './Components/DashBoard'
 import Reports from './Components/Reports';
 import CommerceSettings from './Components/CommerceSettings';
-import WooCommerce from './Components/WooCommerce';
+import WooCommerce from './Components/Woocommerse/WooCommerce';
 
 import ConnectAccount from './Components/ConnectAccount';
 import GenerateLicense from './Components/GenerateLicense';
@@ -136,7 +136,7 @@ function App() {
     <div className={`${open ? 'bg-[--primary]' : 'bg-[--third]'}`}>
       <div className='App h-screen '>
         <Sidebar setOpen={setOpen} open={open} menus={menus} />
-        <main className={`bg-white  content w-full overflow-y-auto custom-scrollbar`}>
+        <main className={`bg-[#f8f9fa]  content w-full overflow-y-auto custom-scrollbar`}>
           {shouldShowBreadcrumbs && <BreadCrumbs open={open} menus={menus} />}
           <div className='pl-10 pr-10'>
           <Routes>

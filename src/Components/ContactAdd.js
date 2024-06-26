@@ -4,6 +4,8 @@ import { GiCheckMark } from 'react-icons/gi';
 import { PiChecksBold } from 'react-icons/pi';
 
 const ContactAdd = ({ onClick }) => {
+  const [show, setShow] = useState(false)
+
   const [formData, setFormData] = useState({
     name: '',
     country: '',
@@ -52,7 +54,7 @@ const ContactAdd = ({ onClick }) => {
       imageFile: null,
     });
   };
-
+  const handleshow=()=>{setShow(!show)};
   return (
     <div className='relative'>
       {/* Black overlay */}
@@ -69,7 +71,10 @@ const ContactAdd = ({ onClick }) => {
         <hr className='mb-4' />
         
         {/* Dropdown and country input */}
-        <div className='bg-white border-solid border-gray border p-4 rounded-xl shadow-xl mb-4'>
+        <button type='button' onClick={handleshow} className='bg-white text-black w-full mb-3 border-gray-200 border-solid border  shadow-lg  font-bold py-2 px-4 rounded'>
+        import via excel
+            </button>     
+         {show &&(<div className='bg-white border-solid border-gray border p-4 rounded-xl shadow-xl mb-4'>
           <div className='flex items-center mb-4'>
             <label htmlFor='imageType' className='mr-2'>Image Type:</label>
             <select
@@ -109,11 +114,11 @@ const ContactAdd = ({ onClick }) => {
             />
           </div>
           <div className='text-center'>
-            <button type='button' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            <button type='button' className='bg-blue-500  w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
               Your Button Text
             </button>
           </div>
-        </div>
+        </div>)}
 
         {/* Form for additional inputs */}
         <form onSubmit={handleSubmit} className='space-y-4'>
@@ -222,7 +227,7 @@ const ContactAdd = ({ onClick }) => {
             </div>
           </div>
           <div className='text-center'>
-            <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            <button type='submit' className='bg-blue-500 w-full shadow-lg hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
               Submit
             </button>
           </div>

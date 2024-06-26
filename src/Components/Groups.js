@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu from './GroupDropdownMenu';
 import Cookies from 'js-cookie';
 import Button from '@mui/material/Button';
+import Groupcreate from './GroupCreateGroup'
 
 function Groups() {
   const [groups, setGroups] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [show, setShow] = useState(false);
+  const[contact,setContact]=useState([]);
+  const[share,setShare]=useState(null);
+
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -27,6 +31,7 @@ function Groups() {
 
         const data = await response.json();
         setGroups(data.distinctGroupsData || []);
+        setContact(data.contacts);
       } catch (error) {
         console.error('Error fetching groups:', error);
       }
@@ -38,9 +43,13 @@ function Groups() {
   }, [userData]);
 
   const toggleDropdown = (id) => {
+    setShare(id)
     setOpenDropdown((prevId) => (prevId === id ? null : id));
+   
   };
-const handleShow=(()=>{setShow(true)})
+
+const handleShow=(()=>{setShow(!show)})
+ const handleShare=(item)=>{ };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -64,26 +73,27 @@ const handleShow=(()=>{setShow(true)})
               >Create Group</Button>
             
         </div>
-        <div className="px-6  h-[498px] pt-4 pb-2 h-[600px] rounded-lg shadow-lg border-solid border-gray-200 border  overflow-x-auto">
+        <div className="px-6 bg-white h-[498px] pt-4 pb-2 h-[553px] rounded-lg shadow-lg border-solid border-gray-200 border  overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
               <tr>
-                <th className="px-4 py-2 text-xs sm:text-sm text-left text-green-500 uppercase border-b">Group Name</th>
-                <th className="px-4 py-2 text-xs sm:text-sm text-left text-green-500 uppercase border-b">Date</th>
-                <th className="px-4 py-2 text-xs sm:text-sm text-left text-green-500 uppercase border-b">Total Members</th>
-                <th className="px-4 py-2 text-xs sm:text-sm text-left text-green-500 uppercase border-b">Actions</th>
+                <th className="px-4 py-2 text-lg sm:text-sm text-left text-black uppercase border-b">Group Name</th>
+                <th className="px-4 py-2 text-lg sm:text-sm text-left text-black uppercase border-b">Date</th>
+                <th className="px-4 py-2 text-lg sm:text-sm text-left text-black uppercase border-b">Total Members</th>
+                <th className="px-4 py-2 text-sm sm:text-sm text-left text-black uppercase border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
               {groups.map((item, index) => (
                 <tr key={item.groupname} className={`${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}>
-                  <td className="px-4 py-2 border-b">{item.groupname}</td>
-                  <td className="px-4 py-2 border-b">{item.date}</td>
-                  <td className="px-4 py-2 border-b">{item.group_member_count}</td>
-                  <td className="px-4 py-2 border-b relative">
+                  <td className="px-4 py-2 border-b text-sm">{item.groupname}</td>
+                  <td className="px-4 py-2 border-b text-sm">{item.date}</td>
+                  <td className="px-4 py-2 border-b text-sm">{item.group_member_count}</td>
+                  <td className="px-4 py-2 border-b  relative text-sm">
                     <DropdownMenu
                       isOpen={openDropdown === item.groupname}
-                      toggleDropdown={() => toggleDropdown(item.groupname)}
+                      toggleDropdown={() => toggleDropdown(item.groupname) }
+                      share={share}  datas={contact}
                     />
                   </td>
                 </tr>
@@ -92,6 +102,8 @@ const handleShow=(()=>{setShow(true)})
           </table>
         </div>
       </motion.div> 
+      {show &&(<Groupcreate onClick={handleShow} data={contact}/>)}
+      
     </motion.div>
   );
 }
