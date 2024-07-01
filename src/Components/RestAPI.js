@@ -79,13 +79,13 @@ const RestAPI = ({ open }) => {
     <>
       <Button
         variant="contained"
-        style={{ backgroundColor: '#007bff', color: '#FFFFFF', marginBottom: '1rem' }}
+        style={{backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem' }}
         onClick={handleToggleApiDetails}
       >
         View
       </Button>
       <div className="mb-2 grid flex grid-cols-1 lg:grid-cols-1 sm:gap-y-8 lg:gap-8">
-        <div className="border w-full pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border-2 rounded">
+        <div className="border w-full   bg-white pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border-2 rounded-lg">
           <div className="grid grid-cols-2 lg:grid-cols-2 sm:grid-cols-1 gap-x-6">
             <div className="flex flex-col justify-between">
               <h1 className="text-center lg:py-2 pb-1 font-semibold text-black sm:text-[35px] text-[35px]">
@@ -99,7 +99,7 @@ const RestAPI = ({ open }) => {
                   type="text"
                   id="REST_API"
                   name="REST_API"
-                  className="border border-[--second] border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                  className="border border-gray-300 border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                   placeholder=""
                   onChange={handleChangeRestApiName}
                   required
@@ -114,7 +114,7 @@ const RestAPI = ({ open }) => {
                     type="text"
                     id="phone_number_id"
                     name="phone_number_id"
-                    className="border border-[--second] border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
+                    className="border border-gray-300 border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
                     value={chat.phone_number_id}
@@ -128,7 +128,7 @@ const RestAPI = ({ open }) => {
                     type="text"
                     id="access_token"
                     name="access_token"
-                    className="border border-[--second] border-2 p-3 text-black font-bold text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
+                    className="border border-gray-300 border-2 p-3 text-black font-bold text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
                     value={chat.access_token}
@@ -151,12 +151,12 @@ const RestAPI = ({ open }) => {
             </div>
           </div>
         </div>
-        <div className="border p-4 col-span-8 border-2 rounded">
+        <div className="border bg-white  p-4 col-span-8 border-2 rounded-lg">
           <div>
             <h1 className="text-center lg:py-3 pb-1 font-semibold sm:text-[35px] text-[35px]">
               Capture Your <span className="text-[--second]">API</span>
             </h1>
-            <p className="py-4 mb-4 lg:mx-10 rounded-[10px] border border-2 border-[--second] px-7 font-bold">
+            <p className="py-4 mb-4 lg:mx-10 rounded-lg border border shadow-lg border-gray-200 px-7 font-bold">
               The REST API enables authentication for building your own API and sending official WhatsApp messages, including text, variables, media, and more.
             </p>
             {showApi && (

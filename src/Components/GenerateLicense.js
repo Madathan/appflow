@@ -17,7 +17,7 @@ const GenerateLicense = () => {
     <>
     <Button
         variant="contained"
-        style={{ backgroundColor: '#007bff', color: '#FFFFFF', marginBottom: '1rem' }}
+        style={{ backgroundColor: 'green', color: '#FFFFFF', marginBottom: '1rem' }}
         onClick={handleToggleApiDetails}
       >
        {opens ? "GenerateLicence" : "view All Licence"}

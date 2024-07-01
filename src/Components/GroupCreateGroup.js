@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GroupCreateGroup = ({ onClick, data }) => {
   const [groupName, setGroupName] = useState('');
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState({});
-
+  
   useEffect(() => {
     const initialCheckboxes = data.reduce((acc, item) => {
       acc[item.id] = false;
@@ -68,6 +70,10 @@ const GroupCreateGroup = ({ onClick, data }) => {
         const responseData = await response.json();
         console.log('Group created:', responseData);
         // Handle success (e.g., close modal, show success message)
+        toast.success('Successfully Created', {
+          position: 'top-center',
+          autoClose: 2000,
+        });
       } else {
         console.error('Failed to create group', response.status, response.statusText);
         const errorData = await response.json();
@@ -159,6 +165,7 @@ const GroupCreateGroup = ({ onClick, data }) => {
           </form>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

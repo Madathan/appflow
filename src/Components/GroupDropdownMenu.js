@@ -3,6 +3,10 @@
     import { motion } from 'framer-motion';
     import GroupView from './GroupView';
     import GroupAdd from './GroupAdd.js';
+    import { ToastContainer, toast } from 'react-toastify';
+    import 'react-toastify/dist/ReactToastify.css';
+
+
     const DropdownMenu = ({ isOpen, toggleDropdown, share ,datas}) => {
     const [view, setView] = useState(false);
     const [add,setAdd]=useState(false);
@@ -41,7 +45,10 @@
 
         // Optionally handle success response
         console.log('Item deleted successfully');
-
+        toast.success('Successfully Deleted', {
+            position: 'top-center',
+            autoClose: 2000,
+          });
         // Close dropdown or perform any other action after deletion
         toggleDropdown(); // Example: close dropdown after delete
         } catch (error) {
@@ -51,6 +58,7 @@
 
     return (
         <div className="relative inline-block text-left">
+          <ToastContainer />
         <button onClick={toggleDropdown} className='bg-white rounded-lg  border-solid border-gray-200 border shadow-lg p-2 text-white focus:outline-none'>
             <MdOutlineTipsAndUpdates className='text-black' size="18px" />
         </button>

@@ -4,6 +4,10 @@ import Cookies from 'js-cookie';
 
 const Templates = () => {
   const [templates, setTemplates] = useState([]);
+  const [show, setShow] = useState(true);
+  const [penting, setPenting] = useState(false);
+
+
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
   useEffect(() => {
@@ -38,14 +42,54 @@ const Templates = () => {
     fetchData();
   }, [userData]);
 
+  const handleShow = () => {
+    setShow(!show);
+    setPenting(false)
+  };
+  const handlpendingeShow = () => {
+    setPenting(!penting); 
+    setShow(false);
+
+
+  
+   
+   }
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-8">Templates</h1>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {templates.map((template, index) => (
-          <TemplateFetch key={index} template={template} />
-        ))}
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-2  lg:grid-cols-2 '>
+      <button
+        onClick={handleShow}
+        className="mb-2 px-6 py-2 text-sm shadew-xl font-medium bg-green-600 text-white border-gray-200 border shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700"
+      >
+        Approved
+      </button>
+      <button
+        onClick={handlpendingeShow}
+        className="mb-2 px-6 py-2 text-sm  shadew-xl font-medium bg-green-600 text-white border-gray-200 border shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700"
+      >
+        Penting
+      </button>
       </div>
+      {show && (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {templates
+            .filter(template => template.status === "APPROVED")
+            .map((template, index) => (
+              <TemplateFetch key={index} template={template} />
+            ))}
+        </div>
+      )}
+       {penting && (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {templates
+            .filter(template => template.status !== "APPROVED")
+            .map((template, index) => (
+              <TemplateFetch key={index} template={template} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

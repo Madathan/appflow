@@ -46,7 +46,7 @@ const DashBoard = ({ open, data }) => {
 
         <main className="my-8 overflow-hidden">
           <div className="gap-x-10 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3">
-            <div className="bg-white group shadow-lg my-4 rounded-xl p-6">
+            <div className="bg-white    border-gray-200 rounded-xl border-solid border group shadow-lg my-4 rounded-xl p-6">
               <div className="flex items-center gap-x-2">
                 <div className="bg-white rounded-full p-3 inline-block  group-hover:ring-[--second]  ring-2 ring-[--primary]">
                   <SlEnvolope className="text-2xl  group-hover:text-[--second] text-[--primary]" />
@@ -117,7 +117,7 @@ const DashBoard = ({ open, data }) => {
                 </div>
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center ">
                 <div className="my-4">
                   <div className="bg-[--second] group-hover:bg-[--primary]  rounded-full p-3 inline-block animate-bounce duration:600">
                     <FaArrowTrendUp className="text-xl text-white" />
@@ -139,7 +139,7 @@ const DashBoard = ({ open, data }) => {
             </div> */}
             <Slider {...settings}>
               {data.slice().reverse().map((item, index) => (
-                <div key={index} className={` group text-lg ${open ? 'bg-[--primary]' : 'bg-[--primary]'} text-white my-4 rounded p-6`}>
+                <div key={index} className={` group text-lg  ${open ? 'bg-[--primary]' : 'bg-[--primary]'} text-white my-4 rounded-lg p-6`}>
                   <div className="m-2 flex justify-between">
                     <div className="flex items-center gap-x-3">
                       <div className="p-2 rounded-full  bg-[--second]">

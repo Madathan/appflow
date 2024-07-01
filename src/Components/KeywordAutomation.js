@@ -13,7 +13,6 @@ import CustomEdge from './CustomEdge';
 import ConnectionLine from './ConnectLine';
 import { FaListUl } from "react-icons/fa";
 import ListDrag from './ListDrag';
-import { useNavigate } from 'react-router-dom';
 
 
 const rfStyle = {
@@ -40,7 +39,6 @@ function Flow() {
   const [draggingEnabled, setDraggingEnabled] = useState(true);
   const sidebarRef = useRef(null);
 
-     const nav= (useNavigate)
 
   const extractConnectionData = () => {
     return edges.map((edge) => ({
@@ -178,21 +176,21 @@ function Flow() {
         ref={sidebarRef}
         className="bg-white p-4 flex flex-col rounded-lg"
         style={{
-          width: draggingEnabled ? '120px' : '10px',
+          width: draggingEnabled ? '120px' : '20px',
           height: draggingEnabled ? '90%' : '90%',
          
           transition: 'width 0.5s ease-in-out',
         }}
       >
-        <div className="flex items-center mb-4 rounded-2xl">
+        <div className="flex items-center mb-4  rounded-2xl">
           <button
             onClick={toggleDraggingEnabled}
             className="text-gray-600 hover:text-gray-800 focus:outline-none"
           >
             {draggingEnabled ? (
-              <MdOutlineKeyboardDoubleArrowLeft className="ml-10 text-black text-4xl" />
+              <MdOutlineKeyboardDoubleArrowLeft className="ml-8 text-black bg-white border-soild border-gray-200 border  shadow-lg rounded-full text-4xl" />
             ) : (
-              <MdOutlineKeyboardDoubleArrowRight className="relative right-2 bottom-1 right-7 text-4xl rounded-xl text-black" />
+              <MdOutlineKeyboardDoubleArrowRight className="relative right-2  bg-white border-soild border-gray-200 border  bottom-1 right-7 text-4xl rounded-full text-black" />
             )}
           </button>
         </div>
@@ -200,7 +198,7 @@ function Flow() {
           className={`flex-grow overflow-y-auto ${draggingEnabled ? 'opacity-100' : 'opacity-0'} transition-opacity`}
         >
           <div
-            className="bg-white rounded-lg shadow-xl p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-green-500"
+            className="bg-white rounded-lg shadow-xl p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarItemClick}
           >
             <GiClick className="text-center ml-5 text-green-700 mx-20" />
@@ -208,7 +206,7 @@ function Flow() {
             <p className="text-center ml-1 text-gray-600">Button</p>
           </div>
           <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-green-500"
+            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleAddCustomNode}
           >
             <FaImage className="text-center ml-5 text-green-700" />
@@ -216,7 +214,7 @@ function Flow() {
             <p className="text-center ml-1 text-gray-600">Button</p>
           </div>
           <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-green-500"
+            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarImgDocument}
           >
             <GrDocumentPdf className="text-center ml-5 text-green-700" />
@@ -224,7 +222,7 @@ function Flow() {
             <p className="text-center ml-1 text-gray-600">Button</p>
           </div>
           <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-green-500"
+            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarList}
           >
             <FaListUl className="text-center ml-5 text-green-700" />
@@ -245,15 +243,15 @@ function Flow() {
       <div className='ml-16'>
             <button
                 onClick={handleSubmit}
-                className=" mt-2   bg-green-500 text-white p-2 rounded-xl   text-sm"
+                className=" mt-2   bg-green-800 text-white p-2 rounded-xl   text-sm"
               >
-                save changes
+                Save Changes
               </button>
               </div>
             <div className='ml-30'>
                 <button
              
-                  className="text-right mt-2  ml-20 bg-green-500 text-white p-2 rounded-xl   text-sm"
+                  className="text-right mt-2  ml-20 bg-green-800 text-white p-2 rounded-xl   text-sm"
                 >
                    Flow Detail
                 </button>

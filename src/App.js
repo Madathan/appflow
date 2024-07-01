@@ -1,9 +1,10 @@
 import './App.css';
 import { useState } from 'react';
 import Sidebar from './views/Sidebar';
-import Login from './LoginPage'
-import CrmTable from './Components/CrmTable'
+import Login from './LoginPage';
+import CrmTable from './Components/CrmTable';
 //menu icons
+
 import ProtectedRoute from './ProtectedRoute/Index';
 import { RxDashboard } from "react-icons/rx";
 import { TbShoppingCartHeart } from "react-icons/tb";
@@ -35,7 +36,7 @@ import DashBoard from './Components/DashBoard'
 import Reports from './Components/Reports';
 import CommerceSettings from './Components/CommerceSettings';
 import WooCommerce from './Components/Woocommerse/WooCommerce';
-
+import CampaignSelect from './Components/CampaignSelect';
 import ConnectAccount from './Components/ConnectAccount';
 import GenerateLicense from './Components/GenerateLicense';
 import { RiAiGenerate } from "react-icons/ri";
@@ -136,7 +137,7 @@ function App() {
     <div className={`${open ? 'bg-[--primary]' : 'bg-[--third]'}`}>
       <div className='App h-screen '>
         <Sidebar setOpen={setOpen} open={open} menus={menus} />
-        <main className={`bg-[#f8f9fa]  content w-full overflow-y-auto custom-scrollbar`}>
+        <main className={`bg-[#f8f9fa]      content w-full overflow-y-auto custom-scrollbar`}>
           {shouldShowBreadcrumbs && <BreadCrumbs open={open} menus={menus} />}
           <div className='pl-10 pr-10'>
           <Routes>
@@ -159,6 +160,9 @@ function App() {
 
   <Route path='/CrmTable' element={<ProtectedRoute><CrmTable/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } />
+  <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
+  <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
+
   <Route path='/' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />
 </Routes>

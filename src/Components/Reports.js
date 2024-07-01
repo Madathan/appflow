@@ -192,7 +192,7 @@ const Reports = ({ open }) => {
   return (
     <div>
       <div>
-        <div className={`bg-white border-2 mb-4 border-[--second] rounded-xl px-5 py-3`}>
+        <div className={`bg-white  border-solid border shadow-lg   mb-4 border-gary-200 rounded-xl px-5 py-3`}>
           <div className={`flex  justify-between items-center  text-lg font-bold`}>
             <h2>LATEST CAMPAIGNS</h2>
             <button className="flex gap-x-1  group  py-2.5 px-3.5 items-center border-[3px] rounded-full hover:bg-[--second]  border-[--second] ">
@@ -200,7 +200,7 @@ const Reports = ({ open }) => {
             </button>
           </div>
         </div>
-        <div className={`bg-white border-2 mb-4 border-black rounded-xl px-5 py-3`}>
+        <div className={`bg-white mb-4 border-gray-300   border border-solid shadow-lg rounded-xl px-5 py-3`}>
           <ThemeProvider theme={getMuiTheme()}>
             <div style={{ textTransform: 'uppercase', fontWeight: '900', height: '90%', width: '100%' }}>
               <MUIDataTable
