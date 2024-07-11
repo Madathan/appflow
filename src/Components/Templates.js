@@ -31,7 +31,7 @@ const Templates = () => {
           }
 
           const result = await response.json();
-          console.log("Template data:", result.data);
+         // console.log("Template data:", result.data);
           setTemplates(result.data);
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -58,16 +58,16 @@ const Templates = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-8">Templates</h1>
-      <div className='grid grid-cols-1 gap-4 md:grid-cols-2  lg:grid-cols-2 '>
+      <div className='lg:flex justify-center ml-10 gap-4'>
       <button
         onClick={handleShow}
-        className="mb-2 px-6 py-2 text-sm shadew-xl font-medium bg-green-600 text-white border-gray-200 border shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700"
+        className="mb-2 px-6 py-2 text-sm shadew-xl font-medium  text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-400 hover:text-white"
       >
         Approved
       </button>
       <button
         onClick={handlpendingeShow}
-        className="mb-2 px-6 py-2 text-sm  shadew-xl font-medium bg-green-600 text-white border-gray-200 border shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700"
+        className="mb-2 px-6 py-2 text-sm  shadew-xl font-medium text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-400 hover:text-white"
       >
         Penting
       </button>

@@ -96,6 +96,7 @@ const GroupView = ({ onClose, onClick }) => {
               <th className=" px-4 py-2 text-sm font-medium text-gray-700">Phone Number</th>
             </tr>
           </thead>
+          <div className='overflow-y-auto max-h-[580px]'>
           <tbody>
             {phones && phones.map((phone) => (
               <tr key={phone.id} className="">
@@ -105,12 +106,14 @@ const GroupView = ({ onClose, onClick }) => {
                     checked={phone.selected}
                     onChange={() => handleCheckboxChange(phone.id)}
                     className="form-checkbox h-4 w-4 rounded-lg text-blue-600"
+                  
                   />
                 </td>
                 <td className="px-4 py-2">{phone.phone_number}</td>
               </tr>
             ))}
           </tbody>
+          </div>
         </table>
         <button
           onClick={handleUpdateClick}

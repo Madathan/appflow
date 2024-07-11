@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CampaignTemplates from './CampaignTemplates';
 import { RxUpdate } from "react-icons/rx";
-import Select from '@mui/material/Select';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,9 +44,9 @@ const CommerceSettings = () => {
         group: '',
         lead: ''
     });
-
     const navigate = useNavigate();
     const [selectedTemplate, setSelectedTemplate] = useState([]); // State to hold selected template
+    const [error, setError] = useState(''); // State to hold error message
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,21 +65,27 @@ const CommerceSettings = () => {
         });
     };
 
-    const handleSubmit = () => {
-        navigate('/campaignSelect', { state: { formData, selectedTemplate } });
-    };
-
     const onSelectTemplate = (template) => {
         setSelectedTemplate(template);
-        console.log('Selected Template:', selectedTemplate);
+        setError(''); // Clear any previous error message
+        console.log('Selected Template:', selectedTemplate ?? null);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+        if (selectedTemplate.length === 0) {
+            setError('Please select a template before proceeding.');
+        } else {
+            navigate('/campaignSelect', { state: { userData, formData, selectedTemplate } });
+        }
     };
 
     return (
-        <div className="flex flex-col gap-10 md:flex-row h-screen overflow-hidden">
+        <div className="flex flex-col gap-10 md:flex-row lg:h-screen  md:overflow-scroll">
             {/* Left side - Form */}
-            <div className="w-full md:w-1/2 h-4/5 shadow-lg bg-white border-gray-200 rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 overflow-scroll">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center mt-16">Create <span className='text-green-600'>Campaign</span></h2>
-                <form className="w-full max-w-sm">
+            <div className="w-full md:w-1/2 md:h-4/5  shadow-lg bg-white  rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 lg:overflow-y-hidden md:overflow-y-auto">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
+                <form onSubmit={handleSubmit} className="w-full max-w-sm">
                     <div className="mb-3 md:mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2" htmlFor="campaignName">
                             New Campaign Name
@@ -92,7 +97,8 @@ const CommerceSettings = () => {
                             type="text"
                             value={formData.campaignName}
                             onChange={handleChange}
-                            placeholder="Enter Order Form ID"
+                            placeholder="Enter Campaign Name"
+                            required
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
@@ -106,7 +112,8 @@ const CommerceSettings = () => {
                             type="text"
                             value={formData.campaignOwner}
                             onChange={handleChange}
-                            placeholder="Enter Payment Type"
+                            placeholder="Enter Campaign Owner"
+                            required
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
@@ -118,9 +125,10 @@ const CommerceSettings = () => {
                             id="phoneNumber"
                             name="phoneNumber"
                             type="text"
-                            value={formData.phoneNumber}
+                            value={userData.phone_number}
                             onChange={handleChange}
-                            placeholder="Enter Payment Config ID"
+                            placeholder="Enter Phone Number"
+                            required
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
@@ -131,11 +139,12 @@ const CommerceSettings = () => {
                                     type="radio"
                                     className="form-radio text-green-500"
                                     name="audience"
-                                    value="credit_card"
-                                    checked={formData.audience === 'credit_card'}
+                                    value="AllContacts"
+                                    checked={formData.audience === 'AllContacts'}
                                     onChange={handleChange}
+                                    
                                 />
-                                <span className="ml-2">Credit Card</span>
+                                <span className="ml-2">All Contacts</span>
                             </label>
                         </div>
                     </div>
@@ -147,40 +156,32 @@ const CommerceSettings = () => {
                             value={formData.group}
                             onChange={handleGroupChange}
                         >
-                            <option value="">Select Shipping Method</option>
+                            <option value="">Select Group</option>
                             {groups.map((group, index) => (
                                 <option key={index} value={group.groupname}>{group.groupname}</option>
                             ))}
                         </select>
                     </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">Leads:</label>
-                        <select
-                            className="shadow appearance-none text-sm border-none bg-gray-100 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none"
-                            name="lead"
-                            value={formData.lead}
-                            onChange={handleChange}
-                        >
-                            <option value="">Select Currency</option>
-                            <option value="usd">USD - United States Dollar</option>
-                            <option value="eur">EUR - Euro</option>
-                            <option value="gbp">GBP - British Pound</option>
-                        </select>
-                    </div>
+                    {/* Error Message */}
+                    {error && (
+                        <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
+                            {error}
+                        </div>
+                    )}
                     <div className="flex items-center justify-center">
                         <button
                             className="bg-green-700 hover:bg-green-800 text-white flex items-center justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
-                            type="button"
-                            onClick={handleSubmit}
+                            type="submit"
                         >
-                            Update Settings
+                           Start Campaign
                             <RxUpdate className="ml-2" />
                         </button>
+                       
                     </div>
                 </form>
             </div>
             {/* Right side - Campaign Templates */}
-            <div className="w-full md:w-full h-4/5 shadow-lg bg-white border-gray-200 rounded-xl border-solid border overflow-y-auto mt-4 md:mt-0 p-4 md:p-8">
+            <div className="w-full md:w-1/2 md:h-4/5 shadow-lg bg-white border-gray-200 rounded-xl border-solid border overflow-y-auto mt-4 md:mt-0 p-4 md:p-8">
                 <CampaignTemplates onSelectTemplate={onSelectTemplate} />
             </div>
         </div>

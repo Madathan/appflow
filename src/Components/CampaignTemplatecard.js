@@ -15,9 +15,10 @@ const TemplateFetch = ({ template, onSelectTemplate }) => {
                 value={template}
                 onClick={handleClick} // Handle click event to select template
                 className="ml-2"
+                required
             />
             <div className="p-6 text-balance">
-                <h5 className="text-xl font-bold text-gray-900 uppercase text-center text-balance mb-4">{name}<span className='text-black p-3 '>({language})</span></h5>
+                <h5 style={{ wordWrap: 'break-word' }} className="text-xl font-bold text-gray-900 uppercase text-center text-balance mb-4">  {name}<span className='text-black p-3 '>({language})</span></h5>
                 
                 {components.map((component, index) => {
                     if (component.type === 'HEADER') {

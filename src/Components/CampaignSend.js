@@ -27,7 +27,7 @@ const MobileChatApp = ({ name, messages,file }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto border-solid mb-3 border-gray-200 border rounded-xl shadow-xl bg-white p-3">
+    <div className="w-[350px] mx-auto border-solid mb-3 border-gray-200 border rounded-xl shadow-xl bg-white p-3">
       {/* Header with Avatar */}
       <div className="bg-green-500 h-20 text-white flex items-center justify-between px-4 rounded-t-xl">
         <div className="flex items-center">

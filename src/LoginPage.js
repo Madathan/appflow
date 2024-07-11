@@ -7,7 +7,7 @@ const LoginPage = () => {
   const userData=Cookies.get("userData")
   //console.log(userData)
   if(userData!==undefined){
-    navigate("/dashboard")
+    navigate("/dashboard",{replace:true})
   }
   
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ const LoginPage = () => {
  
   const handleLogin = async () => {
     try {
-      const response = await fetch('https://appnew.smartyuppies.com/applogin', {
+      const response = await fetch('https://ci4backend.smartyuppies.com/applogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

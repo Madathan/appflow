@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const GroupCreateGroup = ({ onClick, data }) => {
+import { message } from 'antd';
+const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
   const [groupName, setGroupName] = useState('');
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState({});
@@ -42,7 +42,7 @@ const GroupCreateGroup = ({ onClick, data }) => {
   };
 
   const handleSubmit = async (event) => {
-  
+    event.preventDefault()
 
     const selectedContacts = data
       .filter(item => checkboxes[item.id])
@@ -69,11 +69,13 @@ const GroupCreateGroup = ({ onClick, data }) => {
       if (response.ok) {
         const responseData = await response.json();
         console.log('Group created:', responseData);
+        message.success('License generated successfully')
         // Handle success (e.g., close modal, show success message)
         toast.success('Successfully Created', {
           position: 'top-center',
           autoClose: 2000,
         });
+        onClick();
       } else {
         console.error('Failed to create group', response.status, response.statusText);
         const errorData = await response.json();
@@ -84,9 +86,12 @@ const GroupCreateGroup = ({ onClick, data }) => {
       console.error('Error:', error);
       // Handle error (e.g., show error message)
     }
+    forceUpdate()
   };
 
   return (
+    <>
+      <ToastContainer/>
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="fixed inset-y-0 right-0 max-w-full w-96 bg-white overflow-y-auto shadow-xl">
@@ -165,8 +170,9 @@ const GroupCreateGroup = ({ onClick, data }) => {
           </form>
         </div>
       </div>
-      <ToastContainer/>
+    
     </div>
+    </>
   );
 };
 

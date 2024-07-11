@@ -6,18 +6,20 @@
         <table className="table-auto min-w-full bg-white shadow-md border-collapse">
             <thead>
             <tr className="bg-gray-200">
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">Header </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">Header </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">Header </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">Header </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">Header </th>
+                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">ID
+                </th>
+                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">NAME </th>
+                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">SMARTBANNER TOKEN
+                </th>
+                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">API LINK
+                </th>
                 {/* Add more headers as needed */}
             </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
             {/* Example rows */}
         {datas.map((chats)=>(
-            <tr>
+            <tr key={chats.id}>
                 <td className="px-6 py-4 whitespace-nowrap">{chats.id}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{chats.name}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{chats.smartbanner_token}</td>

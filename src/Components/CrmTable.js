@@ -1,17 +1,70 @@
+// src/components/CrmTable.js
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
 
-// src/components/PhoneTable.js
+const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
-import React from 'react';
+const CrmTable = ({ status }) => {
+    const [phoneData, setPhoneData] = useState([]);
 
-const CrmTable = () => {
-    // Example data (replace with your actual data or fetch from API)
-    const phoneData = [
-        { id: 1, name: 'John Doe', phoneNumber: '+123456789', status: 'Active', source: 'Web', assignedTo: 'John Doe' },
-        { id: 2, name: 'Jane Smith', phoneNumber: '+987654321', status: 'Inactive', source: 'App', assignedTo: 'Jane Smith' },
-        { id: 3, name: 'Michael Johnson', phoneNumber: '+111222333', status: 'Active', source: 'Phone', assignedTo: 'Michael Johnson' },
-        { id: 4, name: 'Emily Brown', phoneNumber: '+444555666', status: 'Active', source: 'Web', assignedTo: 'Emily Brown' },
-        { id: 5, name: 'David Wilson', phoneNumber: '+777888999', status: 'Inactive', source: 'App', assignedTo: 'David Wilson' },
-    ];
+    useEffect(() => {
+        const fetchPhoneData = async () => {
+            try {
+                const response = await fetch(`https://ci4backend.smartyuppies.com/Leads/view/${status.status}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        crm_db_name: chat.crm_db_name,
+                        crm_db_password: chat.crm_db_password,
+                        crm_db_username: chat.crm_db_username
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setPhoneData(data.leadDetails);
+                } else {
+                    console.error('Failed to fetch phone data.');
+                }
+            } catch (error) {
+                console.error('Error fetching phone data:', error);
+            }
+        };
+
+        fetchPhoneData();
+    }, [status.status]); // Ensure this runs whenever `status.status` changes
+
+    const handleAdd = async (phone) => {
+        try {
+            const response = await fetch('https://ci4backend.smartyuppies.com/Contact/addContacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone_number: chat.phone_number,
+                    phone_number_id: chat.phone_number_id,
+                    username: chat.username,
+                    MobileNumber: phone.phonenumber,
+                    Country: phone.country,
+                    EmailAddress: phone.email,
+                    Name: phone.name,
+                }),
+            });
+
+            if (response.ok) {
+                // Optionally, handle the response if needed
+                const data = await response.json();
+                console.log('Contact added successfully:', data);
+            } else {
+                console.error('Failed to add contact.');
+            }
+        } catch (error) {
+            console.error('Error adding contact:', error);
+        }
+    };
 
     return (
         <div className="overflow-x-auto">
@@ -23,16 +76,25 @@ const CrmTable = () => {
                         <th className="py-3 px-6 text-left">Status</th>
                         <th className="py-3 px-6 text-left">Source</th>
                         <th className="py-3 px-6 text-left">Assigned To</th>
+                        <th className="py-3 px-6 text-left">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
                     {phoneData.map((phone) => (
                         <tr key={phone.id} className="border-b border-gray-200 hover:bg-gray-100">
                             <td className="py-3 px-6 text-left">{phone.name}</td>
-                            <td className="py-3 px-6 text-left">{phone.phoneNumber}</td>
+                            <td className="py-3 px-6 text-left">{phone.phonenumber}</td>
                             <td className="py-3 px-6 text-left">{phone.status}</td>
-                            <td className="py-3 px-6 text-left">{phone.source}</td>
-                            <td className="py-3 px-6 text-left">{phone.assignedTo}</td>
+                            <td className="py-3 px-6 text-left">{phone.source_name}</td>
+                            <td className="py-3 px-6 text-left">{phone.assigned_name}</td>
+                            <td className="py-3 px-6 text-left">
+                                <button
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 hover:bg-blue-700 focus:outline-none"
+                                    onClick={() => handleAdd(phone)}
+                                >
+                                    Add Contact
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

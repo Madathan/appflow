@@ -158,12 +158,11 @@ function App() {
   <Route path='/Commercesettings' element={<ProtectedRoute><CommerceSettings  /></ProtectedRoute>} />
   <Route path='/WooCommerce' element={<ProtectedRoute><WooCommerce  /></ProtectedRoute>} />
 
-  <Route path='/CrmTable' element={<ProtectedRoute><CrmTable/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
   <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
 
-  <Route path='/' element={<Login />} />
+  <Route exact path='/' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />
 </Routes>
           </div>

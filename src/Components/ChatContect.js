@@ -23,12 +23,12 @@ const ChatContect = ({ last_message, name, time,status }) => {
     return ''; // Return empty string if message is null
 };
   return (
-    <div className='p-4 '>
+    <div className='p-2  cursor'>
       <div className='flex items-center justify-between '>
         <div className='flex items-center'>
           {/* Displaying the first letter as the avatar with a random background color */}
           <p
-            className='  bg-gray-700 rounded-full h-12 w-12 flex items-center justify-center text-center text-3xl'
+            className='  bg-green-400 rounded-full h-10 w-10 flex items-center justify-center text-center text-lg'
             style={{ color: 'white' }}
           >
             {firstLetter}

@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '@mui/material/Modal';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
 import Button from '@mui/material/Button';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReportSidebars from './Reportsidebar';
 import Cookies from 'js-cookie';
+import { List } from 'react-content-loader';
 
 const Reports = ({ open }) => {
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [page, setPage] = useState(1); // Initial page number
   const [popup, setPopup] = useState(false);
-  
-  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+  const [loading, setLoading] = useState(true);
 
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true); // Set loading to true when fetching starts
+
       try {
         const response = await fetch(`https://ci4backend.smartyuppies.com/analytics/reports/getReports?page=${page}`, {
           method: 'POST',
@@ -26,7 +28,6 @@ const Reports = ({ open }) => {
           },
           body: JSON.stringify({
             phone_number_id: userData.phone_number_id
-
           })
         });
         if (!response.ok) {
@@ -34,6 +35,7 @@ const Reports = ({ open }) => {
         }
         const jsonData = await response.json();
         setData(jsonData.campaignInfo);
+        setLoading(false);
 
         console.log(jsonData);
       } catch (error) {
@@ -143,8 +145,8 @@ const Reports = ({ open }) => {
               color: '#00a727',
               padding: '4px 12px',
               textAlign: 'center',
-              borderRadius: '20px',
-              border: '3px solid #00a727',
+              borderRadius: '5px',
+              border: '1px solid #00a727',
               textTransform: 'lowercase',
               fontSize: '15px',
               fontWeight: '600',
@@ -187,46 +189,53 @@ const Reports = ({ open }) => {
     print: false,
     viewColumns: true,
     elevation: 0,
+    pagination: false, // Disable default pagination
   };
 
   return (
     <div>
-      <div>
-        <div className={`bg-white  border-solid border shadow-lg   mb-4 border-gary-200 rounded-xl px-5 py-3`}>
-          <div className={`flex  justify-between items-center  text-lg font-bold`}>
-            <h2>LATEST CAMPAIGNS</h2>
-            <button className="flex gap-x-1  group  py-2.5 px-3.5 items-center border-[3px] rounded-full hover:bg-[--second]  border-[--second] ">
-              <span className="text-sm text-[--second] group-hover:text-white">EXPORT</span>
-            </button>
-          </div>
+      {loading ? (
+        <div className='text-center'>
+          <List className='text-gray-200' />
         </div>
-        <div className={`bg-white mb-4 border-gray-300   border border-solid shadow-lg rounded-xl px-5 py-3`}>
-          <ThemeProvider theme={getMuiTheme()}>
-            <div style={{ textTransform: 'uppercase', fontWeight: '900', height: '90%', width: '100%' }}>
-              <MUIDataTable
-                title={'Campaign Report'}
-                data={data}
-                columns={columns}
-                options={options}
-                style={{ width: '100%', margin: '0', padding: '0' }}
-              />
-              <div>
-                {popup && (
-                  <div className='translate-x duration-700'>
-                    <ReportSidebars onClick={handleCloseModal} data={selectedRow} />
+      ) : (
+        <div>
+          <div className={`bg-white border-solid border shadow-lg mb-4 rounded-xl px-5 py-3`}>
+            <div className={`flex justify-between items-center text-lg font-bold`}>
+              <h2>LATEST CAMPAIGNS</h2>
+              <button className="flex gap-x-1 group py-2.5 px-8 items-center border-[1px] rounded-lg hover:bg-[--second] border-[--second]">
+                <span className="text-sm text-green-600 group-hover:text-white">EXPORT</span>
+              </button>
+            </div>
+          </div>
+          <div className={`bg-white mb-4 border-gray-300 border border-solid shadow-lg rounded-xl px-5 py-3`}>
+            <ThemeProvider theme={getMuiTheme()}>
+              <div style={{ textTransform: 'uppercase', fontWeight: '900', height: '90%', width: '100%' }}>
+                <MUIDataTable
+                  title={'Campaign Report'}
+                  data={data}
+                  columns={columns}
+                  options={options}
+                  style={{ width: '100%', margin: '0', padding: '0' }}
+                />
+                <div>
+                  {popup && (
+                    <div className='translate-x duration-700'>
+                      <ReportSidebars onClick={handleCloseModal} data={selectedRow} />
+                    </div>
+                  )}
+                </div>
+                <div className='relative'>
+                  <div className='flex lg:mt-5  gap-5 lg:ml-[1200px]'>
+                    <button onClick={handleDecrement} className='bg-white text-black p-2 shadow-2xl border-solid border-gray-200 border rounded-full text-lg'><FaChevronLeft /></button>
+                    <button onClick={handleIncrement} className='bg-white text-black p-2  shadow-2xl border-solid border-gray-200 border rounded-full text-lg'><FaChevronRight /></button>
                   </div>
-                )}
-              </div>
-              <div className='relative'>
-                <div className='flex gap-5 lg:ml-[1250px]'>
-                  <button onClick={handleDecrement} className='bg-green-500 p-2 text-white rounded-full text-sm'><FaChevronLeft /></button>
-                  <button onClick={handleIncrement} className='bg-green-500 p-2 text-white rounded-full text-sm'><FaChevronRight /></button>
                 </div>
               </div>
-            </div>
-          </ThemeProvider>
+            </ThemeProvider>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

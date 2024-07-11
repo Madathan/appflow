@@ -1,22 +1,47 @@
-import React from 'react';
+import {useState} from 'react';
 import { motion } from 'framer-motion';
 import { AiFillDelete } from 'react-icons/ai';
+import { RiEdit2Line } from 'react-icons/ri'; // Import edit icon
+import CustomizeEdit from './CustimizeTeamEdit'
+const Card = ({ id, title, description, imageUrl, remove }) => {
+  const [show,setShow]=useState(false);
+  const [edit,setEdit]=useState([]);
 
-const Card = ({ id, title, description, imageUrl, onRemove }) => {
+  const handleEdit = (id) => {
+    setShow(true)
+    setEdit(id)
+        
+  };
+  const handlehide=()=>{ setShow(false)}
   return (
     <motion.div
-      className="max-w-sm rounded overflow-hidden shadow-lg h-fit relative"
+      className="max-w-sm rounded overflow-hidden shadow-lg h-fit relative z-0 hover:animate-flipUp" // Add z-index
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
+      <div className="flex justify-end">
+        <button
+          className="bg-blue-500 text-white rounded-full p-1 mr-2  animate-bounce"
+          onClick={()=>handleEdit(id)}
+        >
+          <RiEdit2Line size={20} />
+        </button>
+        <button
+          className="bg-red-500 text-white rounded-full p-1"
+         
+          onClick={() => remove(id)}
+        >
+           {console.log("mkza",id)}
+          <AiFillDelete size={20} />
+        </button>
+      </div>
       <motion.img
-        className="w-full object-cover rounded-lg z-0"
+        className="w-full object-cover rounded-lg"
         src={imageUrl}
         alt="Profile"
         initial={{ x: -100 }}
         animate={{ x: 0 }}
-        transition={{ delay: 0.2, type: 'spring', stiffness: 120 }}
       />
       <div className="px-6 py-4">
         <div className="flex justify-center">
@@ -42,12 +67,8 @@ const Card = ({ id, title, description, imageUrl, onRemove }) => {
           </motion.p>
         </div>
       </div>
-      <button
-        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
-        onClick={() => onRemove(id)}
-      >
-        <AiFillDelete size={20} />
-      </button>
+    {show &&(
+ <CustomizeEdit edit={edit} show={handlehide} />)} 
     </motion.div>
   );
 };

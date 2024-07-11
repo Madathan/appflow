@@ -1,34 +1,33 @@
 import React, { useState, useEffect } from 'react';
 
 const OrderModal = ({ isOpen, onClose, order }) => {
-    const [orderDetails, setOrderDetails] = useState(null);
+    const [orderDetails, setOrderDetails] = useState([]);
 
     useEffect(() => {
         if (isOpen && order) {
             fetchOrderDetails(order.order_id);
-        }
+        } 
     }, [isOpen, order]);
 
     const fetchOrderDetails = async (orderId) => {
         try {
-            const response = await fetch(`https://ci4backend.smartyuppies.com/OrderController/orderDetails`,{
+            const response = await fetch('https://ci4backend.smartyuppies.com//OrderController/orderDetails', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                 phone_number_id: "105581585784909",
-                order_id : orderId
+                    phone_number_id: "105581585784909",
+                    order_id: orderId
                 })
-              }
-                
-            );
+            });
+
             if (!response.ok) {
                 throw new Error('Failed to fetch order details');
             }
+
             const data = await response.json();
-            console.log("details",data.order_address[0]);
-            setOrderDetails(data.order_address[0]);
+            setOrderDetails(data.order_details); // Assuming order_address is an array of details
         } catch (error) {
             console.error('Error fetching order details:', error);
         }
@@ -44,25 +43,20 @@ const OrderModal = ({ isOpen, onClose, order }) => {
                         Close
                     </button>
                 </div>
-                <div className="p-4">
-                    {orderDetails ? (
-                        <>
-                            <p className="text-gray-600 mb-2">Order ID: {orderDetails.name}</p>
-                            {console.log('names',orderDetails.name)}
-                            <p className="text-gray-600 mb-2">Ordered Placed: {orderDetails.orderedPlaced}</p>
-                            <p className="text-gray-600 mb-2">Amount: {orderDetails.amount}</p>
-                            <p className="text-gray-600 mb-2">Payment Status: {orderDetails.paymentStatus}</p>
-                            <p className="text-gray-600 mb-2">Order Status: {orderDetails.orderStatus}</p>
+                <div className="p-4 ">
+                {/*<p className=' bg-white shadow-xl rounded-xl p-3 mb-3'><span>Name</span>:-{order.customer_name}</p>
+                <p className=' bg-white shadow-xl rounded-xl p-3  mb-3'><sapn>Phone</sapn>:-{order.customer_phone_number}</p>
+                <p className=' bg-white shadow-xl rounded-xl p-3  mb-3'><span>ORDERED PLACED</span>:-{order.date}</p>*/}
+                </div>
+                <div className="p-4 bg-gray-100 shadow-xl w-[300px] ml-8 rounded-lg">
+                    <h1 className='mb-4 text-center text-lg '>Order List</h1>
+                    {orderDetails.map((item, index) => (
+                        <div key={index} className="mb-4">
+                            <p className="text-gray-600 p-2 mb-1 pl-4 ">Product Id:-{item.product_retailer_id}</p>
+                            <p className="text-gray-600 p-2 mb-1 ">{item.quantity} * {item.item_price}={item.quantity *item.item_price}</p>
                             {/* Add more order details here */}
-                        </>
-                    ) : (
-                        <>
-                       
-                        
-                        <p className="animate-pulse text-gray-600 bg-gray-300 rounded-full w-full h-10"></p>
-                        
-                                </>
-                    )}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

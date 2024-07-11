@@ -82,10 +82,10 @@ const RestAPI = ({ open }) => {
         style={{backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem' }}
         onClick={handleToggleApiDetails}
       >
-        View
+        View All Rest Api
       </Button>
-      <div className="mb-2 grid flex grid-cols-1 lg:grid-cols-1 sm:gap-y-8 lg:gap-8">
-        <div className="border w-full   bg-white pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border-2 rounded-lg">
+      <div className="mb-2 grid flex grid-cols-1 lg:grid-cols-1 sm:gap-y-8 lg:gap-8 mb-4">
+        <div className="border w-full   pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border-2 rounded-lg">
           <div className="grid grid-cols-2 lg:grid-cols-2 sm:grid-cols-1 gap-x-6">
             <div className="flex flex-col justify-between">
               <h1 className="text-center lg:py-2 pb-1 font-semibold text-black sm:text-[35px] text-[35px]">
@@ -146,12 +146,12 @@ const RestAPI = ({ open }) => {
                 </Button>
               </div>
             </div>
-            <div className="flex justify-center">
-              <img className="h-full" src={api} alt="API Illustration" />
+            <div className="flex justify-center hidden sm:block">
+              <img className="h-full w-full  " src={api} alt="API Illustration" />
             </div>
           </div>
         </div>
-        <div className="border bg-white  p-4 col-span-8 border-2 rounded-lg">
+        <div className="border  p-4 col-span-8 border-2 rounded-lg">
           <div>
             <h1 className="text-center lg:py-3 pb-1 font-semibold sm:text-[35px] text-[35px]">
               Capture Your <span className="text-[--second]">API</span>
@@ -164,12 +164,20 @@ const RestAPI = ({ open }) => {
                 {show.length > 0 ? (
                   <div>
                     <h2 className="text-[--second]">Name:</h2>
-                    <p>{show[0].name}</p>
-                    
+                    <p>{restApiName}</p>
+                  {/* show[0].name*/}
                     <h6 className="mt-3 text-[--second]">smartbanner_token:</h6>
                     <p>{show[0].smartbanner_token}</p>
                     <h6 className='mt-4 text-[--second]'>API Link for Text Template: </h6>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, hic ipsam. Officia maiores voluptate vitae sint repellat voluptatum, assumenda deserunt, amet et facere inventore minus mollitia. Perspiciatis dolorem qui mollitia.</p>
+                <p className='text-wrap'>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
+                <h6 className='mt-4 text-[--second]'>API Link for Text with Parameters:  </h6>
+                <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
+                <h6 className='mt-4 text-[--second]'>API Link for Text with Media: 📋
+                </h6>
+                <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&document_type=MEDIA_TYPE&uploadedFileUrl=URL_LINK</p>
+                <h6 className='mt-4 text-[--second]'>API Link for Text with Media & Parameters: 📋 </h6>
+
+                <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE&document_type=MEDIA_TYPE&uploadedFileUrl=URL_LINK</p>
 
                     {/* Add more fields as needed */}
                   </div>
