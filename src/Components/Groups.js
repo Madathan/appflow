@@ -7,6 +7,7 @@ import Groupcreate from './GroupCreateGroup';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField } from '@mui/material';
 import { Instagram } from 'react-content-loader';
 
+
 function Groups() {
   const [groups, setGroups] = useState([]);
   const [filteredGroups, setFilteredGroups] = useState([]);

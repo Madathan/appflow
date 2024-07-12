@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import Cookies from 'js-cookie';
+const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupView = ({ onClose, onClick }) => {
   const [phones, setPhones] = useState([]);
 
@@ -15,7 +16,7 @@ const GroupView = ({ onClose, onClick }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: "smartyuppies",
+          username:chat.username,
           group_name: onClick   // Assuming onClick.group_name is passed as a prop
         })
       });
@@ -52,7 +53,7 @@ const GroupView = ({ onClose, onClick }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: "smartyuppies",
+          username:chat.username,
           group_name:"",  // The new group name
           old_group_name: onClick,  // Assuming no old group name is provided
           selected_contacts: selectedPhones.map(phone => `${phone.phone_number}|${phone.contact_name}`) // Format: phone_number|contact_name
@@ -61,6 +62,7 @@ const GroupView = ({ onClose, onClick }) => {
       if (!response.ok) {
         throw new Error('Failed to update phone data');
       }
+      onClose()
       const result = await response.json();
       console.log('Update result:', result);
 

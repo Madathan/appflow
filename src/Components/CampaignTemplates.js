@@ -39,7 +39,9 @@ const CampaignTemplates = ({ onSelectTemplate }) => {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold text-center mb-8">Templates</h1>
+            <div >
+            <h1 className="text-2xl font-bold text-center mb-8 sticky top-0">Templates</h1>
+            </div>
             <div className="">
                 {templates
                     .filter(template => template.status === "APPROVED")

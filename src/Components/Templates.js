@@ -43,11 +43,11 @@ const Templates = () => {
   }, [userData]);
 
   const handleShow = () => {
-    setShow(!show);
+    setShow(true);
     setPenting(false)
   };
   const handlpendingeShow = () => {
-    setPenting(!penting); 
+    setPenting(true); 
     setShow(false);
 
 
@@ -73,7 +73,7 @@ const Templates = () => {
       </button>
       </div>
       {show && (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {templates
             .filter(template => template.status === "APPROVED")
             .map((template, index) => (
@@ -82,7 +82,7 @@ const Templates = () => {
         </div>
       )}
        {penting && (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-2">
           {templates
             .filter(template => template.status !== "APPROVED")
             .map((template, index) => (

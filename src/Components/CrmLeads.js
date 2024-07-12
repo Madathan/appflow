@@ -55,7 +55,7 @@ const LeadTable = () => {
             {showCrmTable ? (
                 <CrmTable status={edit} />
             ) : (
-                <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">
+                <div className="rounded-xl shadow-[20px] h-[610px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="lead table">
                             <TableHead>
@@ -72,7 +72,7 @@ const LeadTable = () => {
                                         <TableCell align="center" className="px-4 py-2">{lead.count}</TableCell>
                                         <TableCell align="center" className="px-4 py-2">
                                             <button
-                                                className="bg-green-500 text-white px-3 py-1 rounded-xl hover:bg-green-700 focus:outline-none"
+                                                className="bg-white border-solid border border-green-600 text-green-600 hover:text-white  px-6 py-2 rounded hover:bg-green-700 focus:outline-none"
                                                 onClick={()=>handleView(lead)}
                                             >
                                                 View

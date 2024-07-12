@@ -5,7 +5,8 @@
     import GroupAdd from './GroupAdd.js';
     import { ToastContainer, toast } from 'react-toastify';
     import 'react-toastify/dist/ReactToastify.css';
-
+    import Cookies from 'js-cookie';
+    const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
     const DropdownMenu = ({ isOpen, toggleDropdown, share ,datas,forceUpdate}) => {
     const [view, setView] = useState(false);
@@ -34,7 +35,7 @@
             },
             body: JSON.stringify({
             // Add any parameters required for the delete operation
-            username: "smartyuppies",
+            username:chat.username,
             group_name: share
             })
         });

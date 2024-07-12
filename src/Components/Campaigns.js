@@ -81,9 +81,9 @@ const CommerceSettings = () => {
     };
 
     return (
-        <div className="flex flex-col gap-10 md:flex-row lg:h-screen  md:overflow-scroll">
+        <div className="flex flex-col  md:flex-row lg:h-[700px]  md:overflow-scroll">
             {/* Left side - Form */}
-            <div className="w-full md:w-1/2 md:h-4/5  shadow-lg bg-white  rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 lg:overflow-y-hidden md:overflow-y-auto">
+            <div className="w-[100px] md:w-1/2 md:h-4/5  shadow-lg bg-white  rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 lg:overflow-y-hidden md:overflow-y-auto">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
                 <form onSubmit={handleSubmit} className="w-full max-w-sm">
                     <div className="mb-3 md:mb-4">

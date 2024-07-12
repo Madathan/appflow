@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { message } from 'antd';
+import Cookies from 'js-cookie';
+const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
   const [groupName, setGroupName] = useState('');
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -49,7 +51,7 @@ const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
       .map(item => `${item.phone_number}|${item.name || 'null'}`);
 
     const payload = {
-      username: "smartyuppies",
+      username:chat.username,
       group_name: groupName,
       old_group_name: "",
       selected_contacts: selectedContacts,

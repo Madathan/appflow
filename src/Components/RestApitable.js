@@ -1,36 +1,43 @@
-    import React from 'react';
+import React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-    const ScrollableTable = ({datas}) => {
-    return (
-        <div className="overflow-x-auto rounded-xl shadow-xl h-[500px] mb-4 mt-4 ">
-        <table className="table-auto min-w-full bg-white shadow-md border-collapse">
-            <thead>
-            <tr className="bg-gray-200">
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">ID
-                </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">NAME </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">SMARTBANNER TOKEN
-                </th>
-                <th className="px-6 py-3 text-left text-lg font-medium text-gray-600 uppercase tracking-wider">API LINK
-                </th>
-                {/* Add more headers as needed */}
-            </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-            {/* Example rows */}
-        {datas.map((chats)=>(
-            <tr key={chats.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{chats.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{chats.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{chats.smartbanner_token}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{chats.access_token}</td>
-            </tr>))}
-            
-            {/* Add more rows as needed */}
-            </tbody>
-        </table>
-        </div>
-    );
-    };
+const ScrollableTable = ({ datas }) => {
+  return (
+    <div className="rounded-lg shadow-xl overflow-x-scroll h-[610px]">
+    <div className="p-4 flex justify-between items-center">
+    </div>
+    <TableContainer component={Paper} >
+      <Table sx={{ minWidth: 650 }} aria-label="order table">
+        <TableHead>
+          <TableRow     className="bg-gray-100 sticky top-0">
+            <TableCell align="center" className="px-4 py-2">ID</TableCell>
+            <TableCell align="center" className="px-4 py-2">Name</TableCell>
+            <TableCell align="center" className="px-4 py-2">SmartBanner Token</TableCell>
+            <TableCell align="center" className="px-4 py-2" >API Link</TableCell>
+            {/* Add more headers as needed */}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {datas.map((chat) => (
+            <TableRow key={chat.id}  className="bg-white hover:bg-gray-50">
+              <TableCell align="center" className="px-4 py-2">{chat.id}</TableCell>
+              <TableCell align="center" className="px-4 py-2">{chat.name}</TableCell>
+              <TableCell align="center" className="px-4 py-2">{chat.smartbanner_token}</TableCell>
+              <TableCell align="center" className="px-4 py-2">{chat.access_token}</TableCell>
+              {/* Add more cells as needed */}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </div>
+  );
+};
 
-    export default ScrollableTable;
+export default ScrollableTable;

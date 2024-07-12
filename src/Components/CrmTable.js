@@ -67,16 +67,16 @@ const CrmTable = ({ status }) => {
     };
 
     return (
-        <div className="overflow-x-auto">
+        <div className="rounded-xl shadow-[20px] h-[610px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
             <table className="min-w-full bg-white shadow-md rounded my-6">
                 <thead>
-                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th className="py-3 px-6 text-left">Name</th>
-                        <th className="py-3 px-6 text-left">Phone Number</th>
-                        <th className="py-3 px-6 text-left">Status</th>
-                        <th className="py-3 px-6 text-left">Source</th>
-                        <th className="py-3 px-6 text-left">Assigned To</th>
-                        <th className="py-3 px-6 text-left">Action</th>
+                    <tr className="bg-gray-100 sticky top-0 ">
+                        <th className="py-3 px-6 ">Name</th>
+                        <th className="py-3 px-6 ">Phone Number</th>
+                        <th className="py-3 px-6 ">Status</th>
+                        <th className="py-3 px-6 ">Source</th>
+                        <th className="py-3 px-6 ">Assigned To</th>
+                        <th className="py-3 px-6 ">Action</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">

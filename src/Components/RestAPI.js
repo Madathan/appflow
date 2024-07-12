@@ -84,8 +84,9 @@ const RestAPI = ({ open }) => {
       >
         View All Rest Api
       </Button>
+      {opens ?
       <div className="mb-2 grid flex grid-cols-1 lg:grid-cols-1 sm:gap-y-8 lg:gap-8 mb-4">
-        <div className="border w-full   pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border-2 rounded-lg">
+        <div className="border w-full bg-white shadow-xl  pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border rounded-lg">
           <div className="grid grid-cols-2 lg:grid-cols-2 sm:grid-cols-1 gap-x-6">
             <div className="flex flex-col justify-between">
               <h1 className="text-center lg:py-2 pb-1 font-semibold text-black sm:text-[35px] text-[35px]">
@@ -151,7 +152,7 @@ const RestAPI = ({ open }) => {
             </div>
           </div>
         </div>
-        <div className="border  p-4 col-span-8 border-2 rounded-lg">
+        <div className="border  p-4 col-span-8  bg-white border shoadow-xl rounded-lg">
           <div>
             <h1 className="text-center lg:py-3 pb-1 font-semibold sm:text-[35px] text-[35px]">
               Capture Your <span className="text-[--second]">API</span>
@@ -189,7 +190,8 @@ const RestAPI = ({ open }) => {
           </div>
         </div>
       </div>
-      {opens && <RestTable datas={get} />}
+      
+        : <><RestTable datas={get} /></>}
     </>
   );
 };

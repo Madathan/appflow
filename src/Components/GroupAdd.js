@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
+import Cookies from 'js-cookie';
+const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupAdd = ({ onClose, onClick, share }) => {
   const [phones, setPhones] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [checkboxes, setCheckboxes] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-
+ 
   useEffect(() => {
     // Initialize checkboxes from localStorage or with default values
     const storedCheckboxes = JSON.parse(localStorage.getItem('checkboxes')) || {};
@@ -19,7 +20,7 @@ const GroupAdd = ({ onClose, onClick, share }) => {
 
   const handleSubmit = async (selectedContacts) => {
     const payload = {
-      username: "smartyuppies",
+      username:chat.username,
       group_name: groupName,
       old_group_name: share,
       selected_contacts: selectedContacts,
@@ -37,6 +38,7 @@ const GroupAdd = ({ onClose, onClick, share }) => {
       });
 
       if (response.ok) {
+        onClose();
         const responseData = await response.json();
         console.log('Group created:', responseData);
         setSuccessMessage('Group successfully created!');
@@ -44,6 +46,7 @@ const GroupAdd = ({ onClose, onClick, share }) => {
           setSuccessMessage('');
           onClose();
         }, 3000);
+        
       } else {
         console.error('Failed to create group', response.status, response.statusText);
         const errorData = await response.json();

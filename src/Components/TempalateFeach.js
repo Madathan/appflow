@@ -4,7 +4,7 @@ const TemplateFetch = ({ template }) => {
   const { name, components, language } = template;
 
   return (
-    <div className="max-w-lg mx-auto rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
+    <div className="max-w-lg mx-auto  h-full rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
       <div className="p-6">
         <h5 className="text-xl font-bold text-gray-900 uppercase text-center mb-4">
           {name} <span className="text-black p-3">({language})</span>

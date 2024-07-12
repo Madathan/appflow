@@ -77,7 +77,6 @@ const CustomizeTeams1 = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-           
             id: chat.id
           }),
         });

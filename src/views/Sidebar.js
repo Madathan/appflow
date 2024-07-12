@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
+const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const Sidebar = ({ open, setOpen, menus }) => {
   const user = {
     name: 'Bava Rohith MB'
@@ -43,12 +44,12 @@ const Sidebar = ({ open, setOpen, menus }) => {
       {/* Fixed bottom user account section */}
       <div className='flex items-center p-3 bg-[--primary] w-full transition-all duration-500 ease-in-out'>
         <div className='border rounded-full bg-white border-black border-2 h-12 text-black text-center text-xl -ml-2 w-12 flex items-center justify-center'>
-          {user.name.charAt(0)}
+          {chat.username?.charAt(0)}
         </div>
         {open && (
           <div className='ml-2'>
-            <h3 className='text-white'>{user.name}</h3>
-            <p className='text-gray-300 italic'>{`@${user.name.replace(/\s/g, '')}`}</p>
+            <h3 className='text-white'>{chat.username}</h3>
+            <p className='text-gray-300 italic'>{`@${chat.username.replace(/\s/g, '')}`}</p>
           </div>
         )}
       </div>
