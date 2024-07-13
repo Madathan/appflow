@@ -81,17 +81,22 @@ const CommerceSettings = () => {
     };
 
     return (
-        <div className="flex flex-col  md:flex-row lg:h-[700px]  md:overflow-scroll">
+        <div className="flex flex-col  md:flex-row gap-10 lg:h-screen  md:overflow-scroll">
             {/* Left side - Form */}
             <div className="w-[100px] md:w-1/2 md:h-4/5  shadow-lg bg-white  rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 lg:overflow-y-hidden md:overflow-y-auto">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
+                {error && (
+                        <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
+                            {error}
+                        </div>
+                    )}
                 <form onSubmit={handleSubmit} className="w-full max-w-sm">
                     <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2" htmlFor="campaignName">
-                            New Campaign Name
+                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignName">
+                            New Campaign Name:-
                         </label>
                         <input
-                            className="appearance-none text-sm border-none bg-gray-100 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none"
+                            className="appearance-none text-sm border-x-0  border-t-0 border- rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
                             id="campaignName"
                             name="campaignName"
                             type="text"
@@ -102,11 +107,11 @@ const CommerceSettings = () => {
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2" htmlFor="campaignOwner">
-                            Campaign Owner
+                        <label className="block text-gray-700 text-md  mb-1 md:mb-2" htmlFor="campaignOwner">
+                            Campaign Owner:-
                         </label>
                         <input
-                            className="shadow appearance-none text-sm border-none bg-gray-100 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none"
+                            className=" appearance-none text-sm border-x-0  border-t-0 border rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                             id="campaignOwner"
                             name="campaignOwner"
                             type="text"
@@ -117,11 +122,11 @@ const CommerceSettings = () => {
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2" htmlFor="phoneNumber">
-                            From Phone Number
+                        <label className="block text-gray-700 text-md  mb-1 md:mb-2" htmlFor="phoneNumber">
+                            From Phone Number:-
                         </label>
                         <input
-                            className="shadow appearance-none text-sm border-none bg-gray-100 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none"
+                            className=" appearance-none text-sm border-x-0  border-t-0 border rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white focus:ring-white" 
                             id="phoneNumber"
                             name="phoneNumber"
                             type="text"
@@ -132,7 +137,21 @@ const CommerceSettings = () => {
                         />
                     </div>
                     <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">Select Audience:</label>
+                        <label className="block text-gray-700 text-md mb-1 text-md md:mb-2">Groups:-</label>
+                        <select
+                            className=" appearance-none text-sm border-x-0  border-t-0 border- rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                            name="group"
+                            value={formData.group}
+                            onChange={handleGroupChange}
+                        >
+                            <option value="">Select Group</option>
+                            {groups.map((group, index) => (
+                                <option key={index} value={group.groupname}>{group.groupname}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mb-3 md:mb-4">
+                        <label className="block text-gray-700 text-md mb-1 md:mb-2">Select Audience:-</label>
                         <div className="flex flex-wrap">
                             <label className="inline-flex items-center mr-4">
                                 <input
@@ -144,30 +163,12 @@ const CommerceSettings = () => {
                                     onChange={handleChange}
                                     
                                 />
-                                <span className="ml-2">All Contacts</span>
+                                <span className="ml-2 text-sm">All Contacts</span>
                             </label>
                         </div>
                     </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">Groups:</label>
-                        <select
-                            className="shadow appearance-none text-sm border-none bg-gray-100 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none"
-                            name="group"
-                            value={formData.group}
-                            onChange={handleGroupChange}
-                        >
-                            <option value="">Select Group</option>
-                            {groups.map((group, index) => (
-                                <option key={index} value={group.groupname}>{group.groupname}</option>
-                            ))}
-                        </select>
-                    </div>
                     {/* Error Message */}
-                    {error && (
-                        <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
-                            {error}
-                        </div>
-                    )}
+                  
                     <div className="flex items-center justify-center">
                         <button
                             className="bg-green-700 hover:bg-green-800 text-white flex items-center justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"

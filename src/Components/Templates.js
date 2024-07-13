@@ -61,13 +61,13 @@ const Templates = () => {
       <div className='lg:flex justify-center ml-10 gap-4'>
       <button
         onClick={handleShow}
-        className="mb-2 px-6 py-2 text-sm shadew-xl font-medium  text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-400 hover:text-white"
+        className="mb-2 px-6 py-2 text-sm shadew-xl font-medium  text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700 hover:text-white"
       >
         Approved
       </button>
       <button
         onClick={handlpendingeShow}
-        className="mb-2 px-6 py-2 text-sm  shadew-xl font-medium text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-400 hover:text-white"
+        className="mb-2 px-6 py-2 text-sm  shadew-xl font-medium text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700 hover:text-white"
       >
         Penting
       </button>

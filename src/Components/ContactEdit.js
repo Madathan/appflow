@@ -157,14 +157,14 @@ console.log("contat",formData.mobileNo)
           <div className="flex justify-end space-x-4">
             <button
               type="button"
-              className="px-4 py-2 bg-gray-300 rounded-lg focus:outline-none"
+              className="px-6 py-2 bg-gray-300 rounded-lg focus:outline-none"
               onClick={onClose}
             >
               Close
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg focus:outline-none"
+              className="px-6 py-2 bg-green-700 text-white rounded-lg focus:outline-none"
             >
               Save
             </button>

@@ -162,7 +162,7 @@ function App() {
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
   <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
 
-  <Route exact path='/' element={<Login />} />
+  <Route exact path='/Login' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />
 </Routes>
           </div>

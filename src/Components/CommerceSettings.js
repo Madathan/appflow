@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 
-const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
- console.log("datas",chat)
+const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+console.log("datas", chat);
+
 const CommerceSettings = () => {
     const [formData, setFormData] = useState({
-        username:chat.username,
-        phone_number_id:chat.phone_number_id,
-        id:chat.id,
-        order_form_id:chat.order_form_id,
-        upi_type:chat. upi_type,
-        payment_config_id:chat. payment_config_id        ,
-        catalogue_spreadsheet_id:chat. catalogue_spreadsheet_id,
-        catalogue_spreadsheet_name:chat. catalogue_spreadsheet_name,
-        catalogue_spreadsheet_key:chat. catalogue_spreadsheet_key,
-
-       
+        username: chat.username,
+        phone_number_id: chat.phone_number_id,
+        id: chat.id,
+        order_form_id: chat.order_form_id,
+        upi_type: chat.upi_type,
+        payment_config_id: chat.payment_config_id,
+        catalogue_spreadsheet_id: chat.catalogue_spreadsheet_id,
+        catalogue_spreadsheet_name: chat.catalogue_spreadsheet_name,
+        catalogue_spreadsheet_key: chat.catalogue_spreadsheet_key,
     });
+
     const handleChange = (e) => {
         const { id, value } = e.target;
         setFormData({
@@ -36,25 +36,24 @@ const CommerceSettings = () => {
         });
 
         if (response.ok) {
-            console.log("userobject",formData)
-
-            console.log('Settings updated successfully!',response);
+            console.log("userobject", formData);
+            console.log('Settings updated successfully!', response);
         } else {
             console.error('Failed to update settings.');
         }
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full md:w-1/2 bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-6 text-center">Configure <span className='text-green-600'>Commerce</span> Settings</h2>
-                <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+        <div className="flex items-center justify-center h-fit ">
+            <div className="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-lg">
+                <h2 className="text-3xl font-bold mb-10 text-center">Configure <span className='text-green-600'>Commerce</span> Settings</h2>
+                <form className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="orderFormId">
+                        <label className="block text-gray-700 text-md ml-8  mb-2" htmlFor="order_form_id">
                             Order Form ID
                         </label>
                         <input
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className=" appearance-none border-x-0 text-sm border-t-0 rounded-sm ml-8 mt-4 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-white"
                             id="order_form_id"
                             type="text"
                             placeholder="Enter Order Form ID"
@@ -64,11 +63,11 @@ const CommerceSettings = () => {
                     </div>
                     
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="paymentConfigId">
+                        <label className="block text-gray-700 text-sm  ml-8 mb-2"  htmlFor="payment_config_id">
                             Payment Config ID
                         </label>
                         <input
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className=" appearance-none border-x-0 border-t-0 text-sm rounded-sm ml-8  mt-4 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-white"
                             id="payment_config_id"
                             type="text"
                             placeholder="Enter Payment Config ID"
@@ -76,26 +75,28 @@ const CommerceSettings = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="paymentType">
+                        <label className="block text-gray-700 text-md  mb-2 ml-8" htmlFor="upi_type">
                             Payment Type
                         </label>
                         <select
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className=" appearance-none border-x-0 border-t-0 text-sm rounded-sm  ml-8 mt-4 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-white"
                             id="upi_type"
                             value={formData.upi_type}
                             onChange={handleChange}
                         >
-                            <option value="credit_card">{chat.upi_type} </option>
-                            <option value="razerpay">razerpay</option>
+                            <option value="credit_card">{chat.upi_type}</option>
+                            <option value="razerpay">{chat.upi_type === "razorpay" ? "upi" : "razerpay"}</option>
                         </select>
                     </div>
+
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="spreadsheetId">
+                        <label className="block text-gray-700 text-md  mb-2 ml-8" htmlFor="catalogue_spreadsheet_id">
                             Spreadsheet ID
                         </label>
                         <input
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className=" appearance-none border-x-0 border-t-0 text-sm mt-4 ml-8 rounded-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-white"
                             id="catalogue_spreadsheet_id"
                             type="text"
                             placeholder="Enter Spreadsheet ID"
@@ -103,12 +104,13 @@ const CommerceSettings = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="spreadsheetName">
+                        <label className="block text-gray-700 text-md mb-2 ml-8" htmlFor="catalogue_spreadsheet_name">
                             Spreadsheet Name
                         </label>
                         <input
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className=" appearance-none border-x-0 border-t-0 text-sm ml-8  mt-4 rounded-sm-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-white"
                             id="catalogue_spreadsheet_name"
                             type="text"
                             placeholder="Enter Spreadsheet Name"
@@ -116,12 +118,13 @@ const CommerceSettings = () => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="spreadsheetKey">
+                        <label className="block text-gray-700 text-md ml-8 mb-2" htmlFor="catalogue_spreadsheet_key">
                             Spreadsheet Key
                         </label>
                         <input
-                            className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none 	 border-x-0 border-t-0 ml-8 rounded-sm  mt-4   text-sm w-full py-2 px-1 text-gray-700 leading-tight focus:ring-white focus:outline-none focus:shadow-outline"
                             id="catalogue_spreadsheet_key"
                             type="text"
                             placeholder="Enter Spreadsheet Key"
@@ -129,12 +132,13 @@ const CommerceSettings = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="flex items-center justify-center">
+
+                    <div className="col-span-1 md:col-span-2 flex items-center justify-center">
                         <button
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                            className="bg-green-700 hover:bg-green-800 text-white py-2 px-20 rounded-lg focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Update Settings
+                            Update <span className='ml-2'>Settings</span>
                         </button>
                     </div>
                 </form>

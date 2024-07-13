@@ -27,7 +27,7 @@ function MaterialUITables() {
     };
 
     fetchData();
-  }, []);
+  }, [rows]);
 
   const handleEditClick = (id) => {
     setEditingRowId(editingRowId === id ? null : id);

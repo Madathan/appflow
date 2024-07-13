@@ -207,7 +207,10 @@ const Contacts = () => {
           flexWrap: 'wrap',
         }}
       >
-        <Button onClick={handleExportData} startIcon={<FileDownloadIcon />}>
+        <Button onClick={handleExportData}  startIcon={<FileDownloadIcon  />}   sx={{
+            backgroundColor: '#00a727',color:'white',
+            '&:hover': { backgroundColor: '#00a728' },
+          }}>
           Export All Data
         </Button>
 
@@ -215,7 +218,7 @@ const Contacts = () => {
           variant="contained"
           sx={{
             backgroundColor: '#00a727',
-            '&:hover': { backgroundColor: '#E53935' },
+            '&:hover': { backgroundColor: '#00a728' },
           }}
           onClick={() => setOpenAdd(!openAdd)}
         >

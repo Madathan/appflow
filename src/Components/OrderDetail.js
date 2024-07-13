@@ -44,16 +44,16 @@ const OrderModal = ({ isOpen, onClose, order }) => {
                     </button>
                 </div>
                 <div className="p-4 ">
-                {/*<p className=' bg-white shadow-xl rounded-xl p-3 mb-3'><span>Name</span>:-{order.customer_name}</p>
-                <p className=' bg-white shadow-xl rounded-xl p-3  mb-3'><sapn>Phone</sapn>:-{order.customer_phone_number}</p>
-                <p className=' bg-white shadow-xl rounded-xl p-3  mb-3'><span>ORDERED PLACED</span>:-{order.date}</p>*/}
+              <p className=' bg-white shadow-sm rounded-sm p-3 mb-3 border border-solid border-gray-300'><span className='mr-2'>Name:-</span>{order?.customer_name}</p>
+                <p className=' bg-white shadow-sm rounded-sm p-3  mb-3 border border-solid border-gray-300'><sapn className='mr-2'>Phone:-</sapn>{order?.customer_phone_number}</p>
+                <p className=' bg-white shadow-sm rounded-sm p-3  mb-3 border border-solid border-gray-300'><span className='mr-2'>Order Placed:-</span>{order?.date}</p>
                 </div>
-                <div className="p-4 bg-gray-100 shadow-xl w-[300px] ml-8 rounded-lg">
+                <div className="p-4 bg-white shadow-xl w-[300px] ml-8 border border-solid border-gray-300 rounded-lg">
                     <h1 className='mb-4 text-center text-lg '>Order List</h1>
                     {orderDetails.map((item, index) => (
                         <div key={index} className="mb-4">
-                            <p className="text-gray-600 p-2 mb-1 pl-4 ">Product Id:-{item.product_retailer_id}</p>
-                            <p className="text-gray-600 p-2 mb-1 ">{item.quantity} * {item.item_price}={item.quantity *item.item_price}</p>
+                            <p className="text-gray-600 text-center p-2  mb-1 pl-4 ">Product Id:-{item.product_retailer_id}</p>
+                            <p className="text-gray-600 text-center p-2 mb-1 ">{item.quantity} * {item.item_price} = {item.quantity *item.item_price}</p>
                             {/* Add more order details here */}
                         </div>
                     ))}

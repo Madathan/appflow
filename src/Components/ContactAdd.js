@@ -213,14 +213,14 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
       <div className='fixed right-0 top-0 h-full bg-white w-full max-w-lg p-4 duration-700 z-20 overflow-y-auto'>
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-lg font-bold'>Campaign Report</h2>
-          <button onClick={onClose} className='text-red-600'>
+          <button onClick={onClose} className='text-red-500 rounded-full'>
             <MdOutlineCancel size={24} />
           </button>
         </div>
         <div className='flex justify-end mb-4'>
           <button
             onClick={handleDownloadExcel}
-            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            className='bg-green-700 hover:bg-green-800 text-white  py-2 px-4 rounded'
           >
             Download Excel
           </button>
@@ -230,7 +230,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
         <button
           type='button'
           onClick={handleShow}
-          className='bg-white text-black w-full mb-3 border-gray-200 border-solid border shadow-lg font-bold py-2 px-4 rounded'
+          className='bg-white text-black w-full mb-3 border-gray-200 border-solid border shadow-lg  py-2 px-4 rounded'
         >
           Import via Excel
         </button>
@@ -277,7 +277,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
               <button
                 type='button'
                 onClick={handleImport}
-                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                className='bg-green-700 hover:bg-green-800 text-white  py-2 px-8  rounded'
               >
                 Import
               </button>
@@ -429,7 +429,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           <div className='text-center'>
             <button
               type='submit'
-              className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+              className='bg-green-700 hover:bg-green-800 text-white  py-2 px-8 w-full rounded'
             >
               Add Contact
             </button>

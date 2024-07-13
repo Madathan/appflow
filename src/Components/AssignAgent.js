@@ -131,7 +131,7 @@ const AssignAgent = ({ open }) => {
       <Button
         type="button"
         variant="contained"
-        style={{ backgroundColor: '#fca311', color: '#FFFFFF', marginTop: '1.5rem' }}
+        style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginTop: '1.5rem',marginBottom:'1.5rem' }}
         onClick={handleShow}
       >
         Another Button
@@ -139,8 +139,8 @@ const AssignAgent = ({ open }) => {
       {show ? (
         <MaterialUITables />
       ) : (
-        <div className="p-6 rounded-lg bg-gray-100 border border-2 shadow-2">
-          <h1 className="py-3 pb-8 font-semibold lg:text-3xl sm:text-2xl sm:text-center">
+        <div className="p-6 rounded-lg bg-white mb-6 border border-2 shadow-2">
+          <h1 className="py-3 pb-8  lg:text-3xl sm:text-2xl sm:text-center">
             Keyword Based <span className="text-[--second]">Assignment</span> / Transfer To{' '}
             <span className="">CRM</span>
           </h1>
@@ -157,7 +157,7 @@ const AssignAgent = ({ open }) => {
                     name="keyword"
                     value={formData.keyword}
                     onChange={handleInputChange}
-                    className="border border-[--second] border-2 p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
+                    className="border border-gray-300 border p-2 text-gray-900 text-md rounded-lg focus:ring-gray-300 focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     required
                   />
@@ -165,14 +165,14 @@ const AssignAgent = ({ open }) => {
                 <Button
                   type="button"
                   variant="contained"
-                  style={{ backgroundColor: '#fca311', color: '#FFFFFF', marginBottom: '1.5rem' }}
+                  style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1.5rem' }}
                   onClick={handleFillKeyword}
                 >
-                  Fill Keyword with "all chat"
+                  All chat
                 </Button>
                 <div className="flex justify-between mb-8">
                   <div className="w-1/3">
-                    <label htmlFor="select_option_1" className="block mb-2 ml-4 mr-4 text-md font-[600] text-black dark-text-black">
+                    <label htmlFor="select_option_1" className="block mb-2 ml-4 mr-8 text-md   text-black dark-text-black">
                       Select Source
                     </label>
                     <select
@@ -180,7 +180,7 @@ const AssignAgent = ({ open }) => {
                       name="source_name"
                       value={formData.source_name}
                       onChange={(e) => handleSelectChange(e, 'source_id')}
-                      className="border border-[--second] border-2 p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                      className="border border-gray-300 border p-2 text-gray-900 mr-8 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                       required
                     >
                       <option value="">Select Option 1</option>
@@ -192,7 +192,7 @@ const AssignAgent = ({ open }) => {
                     </select>
                   </div>
                   <div className="w-1/3">
-                    <label htmlFor="select_option_2" className="block mb-2 text-md font-[600] text-black dark-text-black">
+                    <label htmlFor="select_option_2" className="block mb-2 mr-4 text-md  text-black dark-text-black">
                       Select Status
                     </label>
                     <select
@@ -200,7 +200,7 @@ const AssignAgent = ({ open }) => {
                       name="status_name"
                       value={formData.status_name}
                       onChange={(e) => handleSelectChange(e, 'status_id')}
-                      className="border border-[--second] border-2 p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                      className="border border-gray-300 border p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                       required
                     >
                       <option value="">Select Option 2</option>
@@ -214,7 +214,7 @@ const AssignAgent = ({ open }) => {
                   <div className="w-1/3"></div>
                 </div>
                 <div className="mb-8">
-                  <label htmlFor="whatsapp_id" className="block mb-2 text-sm text-gray-900 uppercase font-[600] dark-text-black">
+                  <label htmlFor="whatsapp_id" className="block mb-2 text-sm text-gray-900 uppercase  dark-text-black">
                     Select Agent
                   </label>
                   <select
@@ -222,12 +222,12 @@ const AssignAgent = ({ open }) => {
                     name="staff_name"
                     value={formData.staff_name}
                     onChange={(e) => handleSelectChange(e, 'staff_id')}
-                    className="border border-[--second] border-2 p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                    className="border-x border-gray-300 border shadow-xl p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                     required
                   >
                     <option value="">Select Agent</option>
                     {agents.map((agent) => (
-                      <option key={agent.staffid} value={agent.firstname} data-id={agent.staffid}>
+                      <option className={"shadow-xl border-solid border-gray-200 border-2 rounded-xl"} key={agent.staffid} value={agent.firstname} data-id={agent.staffid}>
                         {agent.firstname}
                       </option>
                     ))}

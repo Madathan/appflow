@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 const RestAPI = ({ open }) => {
   const [showApi, setShowApi] = useState(false);
-  const [opens, setOpens] = useState(false);
+  const [opens, setOpens] = useState(true);
   const [show, setShow] = useState([]);
   const[get,setGet]=useState([]);
   const [restApiName, setRestApiName] = useState('');
@@ -79,7 +79,7 @@ const RestAPI = ({ open }) => {
     <>
       <Button
         variant="contained"
-        style={{backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem' }}
+        style={{backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem',width:'200px' }}
         onClick={handleToggleApiDetails}
       >
         View All Rest Api
@@ -140,7 +140,7 @@ const RestAPI = ({ open }) => {
                 <Button
                   type="submit"
                   variant="contained"
-                  style={{ backgroundColor: '#00a727', color: '#FFFFFF' }}
+                  style={{ backgroundColor: '#00a727', color: '#FFFFFF',width:'400px' }}
                   onClick={handleShowApi}
                 >
                   Assign to Agent

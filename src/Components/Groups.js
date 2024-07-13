@@ -134,7 +134,6 @@ function Groups() {
 </Table>
 </TableContainer>
         </div> </>)}
-     
       {show && <Groupcreate onClick={handleShow} data={contact}  forceUpdate={forceUpdate}/>}
     </div>
   );
