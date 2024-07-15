@@ -140,7 +140,7 @@ const AssignAgent = ({ open }) => {
         <MaterialUITables />
       ) : (
         <div className="p-6 rounded-lg bg-white mb-6 border border-2 shadow-2">
-          <h1 className="py-3 pb-8  lg:text-3xl sm:text-2xl sm:text-center">
+          <h1 className="py-3 pb-8  lg:text-2xl sm:text-2xl sm:text-center">
             Keyword Based <span className="text-[--second]">Assignment</span> / Transfer To{' '}
             <span className="">CRM</span>
           </h1>

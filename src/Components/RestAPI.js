@@ -89,18 +89,18 @@ const RestAPI = ({ open }) => {
         <div className="border w-full bg-white shadow-xl  pt-5 items-center px-7 sm:col-span-6 lg:col-span-8 border rounded-lg">
           <div className="grid grid-cols-2 lg:grid-cols-2 sm:grid-cols-1 gap-x-6">
             <div className="flex flex-col justify-between">
-              <h1 className="text-center lg:py-2 pb-1 font-semibold text-black sm:text-[35px] text-[35px]">
+              <h1 className="text-center lg:py-2 pb-1 text-black sm:text-[35px] text-[5px]">
                 Build Your <span className="text-[--second]">REST API</span>
               </h1>
               <div className="p-4 mt-3">
-                <label htmlFor="REST_API" className="block mb-1 text-md font-semibold text-black dark:text-black">
-                  REST API NAME
+                <label htmlFor="REST_API" className="block mb-1 text-sm font-medium		 text-black dark:text-black">
+                  Rest Api Name:-
                 </label>
                 <input
                   type="text"
                   id="REST_API"
                   name="REST_API"
-                  className="border border-gray-300 border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                  className="border border-gray-300 border-2  text-black  text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                   placeholder=""
                   onChange={handleChangeRestApiName}
                   required
@@ -108,28 +108,28 @@ const RestAPI = ({ open }) => {
               </div>
               <div>
                 <div className="p-4">
-                  <label htmlFor="phone_number_id" className="block mb-1 text-md font-semibold text-black dark:text-black">
-                    Phone Number ID
+                  <label htmlFor="phone_number_id" className="block mb-1 text-sm font-medium	text-black dark:text-black">
+                    Phone Number ID:-
                   </label>
                   <input
                     type="text"
                     id="phone_number_id"
                     name="phone_number_id"
-                    className="border border-gray-300 border-2 p-2 text-black font-bold text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
+                    className="border border-gray-300 border-2 text-black text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
                     value={chat.phone_number_id}
                   />
                 </div>
                 <div className="p-4">
-                  <label htmlFor="access_token" className="block mb-1 text-md font-semibold text-black dark:text-black">
-                    ACCESS TOKEN
+                  <label htmlFor="access_token" className="block mb-1 text-md font-medium	 text-black dark:text-black">
+                    Access Token:-
                   </label>
                   <input
                     type="text"
                     id="access_token"
                     name="access_token"
-                    className="border border-gray-300 border-2 p-3 text-black font-bold text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
+                    className="border border-gray-300 border-2  text-black  text-sm rounded-lg focus:ring-[--second] focus:border-[--second] block w-full p-2.5"
                     placeholder=""
                     disabled
                     value={chat.access_token}
@@ -154,14 +154,14 @@ const RestAPI = ({ open }) => {
         </div>
         <div className="border  p-4 col-span-8  bg-white border shoadow-xl rounded-lg">
           <div>
-            <h1 className="text-center lg:py-3 pb-1 font-semibold sm:text-[35px] text-[35px]">
+            <h1 className="text-center lg:py-3 pb-1  sm:text-[25px] text-[35px]">
               Capture Your <span className="text-[--second]">API</span>
             </h1>
-            <p className="py-4 mb-4 lg:mx-10 rounded-lg border border shadow-lg border-gray-200 px-7 font-bold">
+            <p className="py-4 mb-4 lg:mx-10 rounded-lg border border shadow-lg border-gray-200 px-7 text-md">
               The REST API enables authentication for building your own API and sending official WhatsApp messages, including text, variables, media, and more.
             </p>
             {showApi && (
-              <div className="py-5 px-8 lg:mx-10 font-bold h-[330px] border border-2 rounded overflow-y-auto">
+              <div className="py-5 px-8 lg:mx-10  h-[330px] border border-2 rounded overflow-y-auto">
                 {show.length > 0 ? (
                   <div>
                     <h2 className="text-[--second]">Name:</h2>
@@ -170,13 +170,13 @@ const RestAPI = ({ open }) => {
                     <h6 className="mt-3 text-[--second]">smartbanner_token:</h6>
                     <p>{show[0].smartbanner_token}</p>
                     <h6 className='mt-4 text-[--second]'>API Link for Text Template: </h6>
-                <p className='text-wrap'>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
-                <h6 className='mt-4 text-[--second]'>API Link for Text with Parameters:  </h6>
+                <p className='text-wrap text-sm '>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
+                <h6 className='mt-4  text-sm text-[--second]'>API Link for Text with Parameters:  </h6>
                 <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
-                <h6 className='mt-4 text-[--second]'>API Link for Text with Media: 📋
+                <h6 className='mt-4 text-sm text-[--second]'>API Link for Text with Media: 📋
                 </h6>
                 <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&document_type=MEDIA_TYPE&uploadedFileUrl=URL_LINK</p>
-                <h6 className='mt-4 text-[--second]'>API Link for Text with Media & Parameters: 📋 </h6>
+                <h6 className='mt-4 text-sm text-[--second]'>API Link for Text with Media & Parameters: 📋 </h6>
 
                 <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE&document_type=MEDIA_TYPE&uploadedFileUrl=URL_LINK</p>
 

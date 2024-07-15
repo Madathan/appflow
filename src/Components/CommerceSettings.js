@@ -46,7 +46,7 @@ const CommerceSettings = () => {
     return (
         <div className="flex items-center justify-center h-fit ">
             <div className="w-full md:w-2/3 bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold mb-10 text-center">Configure <span className='text-green-600'>Commerce</span> Settings</h2>
+                <h2 className="text-3xl  mb-10 text-center">Configure <span className='text-green-600'>Commerce</span> Settings</h2>
                 <form className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-md ml-8  mb-2" htmlFor="order_form_id">

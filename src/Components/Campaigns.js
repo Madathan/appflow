@@ -84,7 +84,7 @@ const CommerceSettings = () => {
         <div className="flex flex-col  md:flex-row gap-10 lg:h-screen  md:overflow-scroll">
             {/* Left side - Form */}
             <div className="w-[100px] md:w-1/2 md:h-4/5  shadow-lg bg-white  rounded-xl border-solid border flex flex-col justify-center items-center p-4 md:p-8 lg:overflow-y-hidden md:overflow-y-auto">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
+                <h2 className="text-xl md:text-3xl  mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
                 {error && (
                         <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
                             {error}
@@ -171,7 +171,7 @@ const CommerceSettings = () => {
                   
                     <div className="flex items-center justify-center">
                         <button
-                            className="bg-green-700 hover:bg-green-800 text-white flex items-center justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
+                            className="bg-green-700 hover:bg-green-800 text-white flex items-center text-sm justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
                             type="submit"
                         >
                            Start Campaign

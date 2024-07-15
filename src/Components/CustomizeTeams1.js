@@ -94,18 +94,17 @@ const CustomizeTeams1 = () => {
 
     fetchRoles();
   }, [roles]);
-
   return (
     <div className="mx-4 sm:mx-6 lg:mx-8">
       <div className="flex justify-center text-center">
-        <h1 className="text-lg sm:text-xl lg:text-2xl mt-4">
+        <h1 className="text-lg sm:text-lg lg:text-2xl mt-4">
           Add Your <span className="text-green-600">Team Member</span> to Collaborate
         </h1>
       </div>
       <div className="flex justify-center mt-5">
         <button
           onClick={togglePopup}
-          className="bg-green-700 text-white rounded-xl px-4 py-2 hover:bg-green-800 transition-colors"
+          className="bg-green-700 text-white rounded-lg px-4 py-2 hover:bg-green-800 transition-colors"
         >
           Add a Team
         </button>

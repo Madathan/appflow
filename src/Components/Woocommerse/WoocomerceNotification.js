@@ -1,7 +1,14 @@
 // BackgroundWithButtons.jsx
-
 import {useState} from 'react';
-import Message from './WoocommerceMessage'
+import Message from './WoocommerceMessage';
+import OnHold from './OnHoldNotification';
+import CompleteNotification from './CompleteNotification';
+import CancelledNotification from './CacelledNotification';
+import RefundNotification from './RefundNotification';
+import FailtedNotification from './FailedNotification';
+import DraftNotification  from './DraftNotification';
+
+
 const BackgroundWithButtons = () => {
   const [show, setShow] = useState(false);
 
@@ -25,7 +32,19 @@ const BackgroundWithButtons = () => {
           
         </div>
         <div className='mt-5'>
-       {show &&(<Message/>)}
+       {show &&(<>
+        <div>
+          <Message/>
+          </div>
+          <div><OnHold/></div> 
+          <div><CompleteNotification/></div>
+          <div><CancelledNotification/></div>
+          <div><RefundNotification/></div>
+          <div><FailtedNotification/></div>
+          <div><DraftNotification/></div>
+
+
+          </>)}
        </div> 
       </div>
     </div>

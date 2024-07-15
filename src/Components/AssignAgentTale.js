@@ -126,7 +126,7 @@ function MaterialUITables() {
           </TableBody>
         </Table>
       </TableContainer>
-      {show && <AssignAgentEdit open={show} handleClose={handleEdit} datas={edit} />}
+      {show && <AssignAgentEdit open={show} handleClose={handleEdit} data={edit} />}
     </div>
   );
 }

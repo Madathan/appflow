@@ -6,35 +6,61 @@ const PopupForm = ({ edit, show }) => {
     name: '',
     password: '',
     image: null,
+    imageBase64: '', // New state to hold base64 string
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+
+    if (files) {
+      const file = files[0];
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          image: file,
+          imageBase64: reader.result.split(',')[1], // Extract base64 string
+        });
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
-  const handleSubmit = () => {
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', formData.name);
-    formDataToSend.append('password', formData.password);
-    formDataToSend.append('image', formData.image);
+  const handleSubmit = async () => {
+    const formDataToSend = {
+      username: formData.name,
+      password: formData.password,
+      image: formData.imageBase64,
+    };
 
-    fetch(`https://ci4backend.smartyuppies.com/Home/Teams/updateTeamMember/${edit}`, {
-      method: 'POST',
-      body: formDataToSend,
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        // Additional logic here if needed
-        // Close the popup after submission
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    console.log("FormData to send:", formDataToSend);
+
+    try {
+      const response = await fetch(`https://ci4backend.smartyuppies.com/Teams/updateTeamMember/${edit}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataToSend),
       });
+      if (!response.ok) {
+        throw new Error('Failed to remove card');
+      }
+      const data = await response.json(); // Expecting JSON response
+      console.log('Success:', data);
+      // Additional logic here if needed
+      // Close the popup after submission
+      show(); // Close the popup after successful submission
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
   };
 
   return (
@@ -70,7 +96,6 @@ const PopupForm = ({ edit, show }) => {
           />
         </label>
         <label className="block mb-2">
-        
           <div className="flex items-center">
             <input
               type="file"

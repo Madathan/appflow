@@ -32,7 +32,7 @@ const Sidebar = ({ open, setOpen, menus }) => {
                 {React.createElement(menu.icon, { size: '18' })}
               </div>
               <h2
-                className={`whitespace-pre uppercase text-white text-[13px]  font-sans transition-all duration-500 ease-in-out p-3 font-semibold ${!open ? ' opacity-0 overflow-hidden' : '-'}`}
+                className={`whitespace-pre uppercase text-white text-[12px]  font-sans transition-all duration-500 ease-in-out p-3  ${!open ? ' opacity-0 overflow-hidden' : '-'}`}
               >
                 {menu.name}
               </h2>
@@ -44,12 +44,12 @@ const Sidebar = ({ open, setOpen, menus }) => {
       {/* Fixed bottom user account section */}
       <div className='flex items-center p-3 bg-[--primary] w-full transition-all duration-500 ease-in-out'>
         <div className='border rounded-full bg-white border-black border-2 h-12 text-black text-center text-xl -ml-2 w-12 flex items-center justify-center'>
-          {chat.username?.charAt(0)}
+          {chat?.username?.charAt(0)}
         </div>
         {open && (
           <div className='ml-2'>
-            <h3 className='text-white'>{chat.username}</h3>
-            <p className='text-gray-300 italic'>{`@${chat.username.replace(/\s/g, '')}`}</p>
+            <h3 className='text-white'>{chat?.username}</h3>
+            <p className='text-gray-300 italic'>{`@${chat?.username.replace(/\s/g, '')}`}</p>
           </div>
         )}
       </div>
