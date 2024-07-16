@@ -106,8 +106,8 @@ const Contacts = () => {
             variant="contained"
             size="small"
             sx={{
-              backgroundColor: '#4CAF50',
-              '&:hover': { backgroundColor: '#45a049' },
+              backgroundColor: '#0067B3',color:"white",
+              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
             }}
             onClick={() => handleSubscribe(row.original)}
           >
@@ -117,8 +117,8 @@ const Contacts = () => {
             variant="contained"
             size="small"
             sx={{
-              backgroundColor: '#2196F3',
-              '&:hover': { backgroundColor: '#1E88E5' },
+              backgroundColor: 'white',borderStyle:"solid",borderWidth:"2px",borderColor:"green",color:"green",
+              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
             }}
             onClick={() => handleEdit(row.original)}
           >
@@ -128,8 +128,8 @@ const Contacts = () => {
             variant="contained"
             size="small"
             sx={{
-              backgroundColor: '#F44336',
-              '&:hover': { backgroundColor: '#E53935' },
+              backgroundColor: 'white',borderStyle:"solid",borderWidth:"2px",borderColor:"green",color:"green",
+              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
             }}
             onClick={() => handleDelete(row.original)}
           >

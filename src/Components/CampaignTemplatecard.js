@@ -19,7 +19,7 @@ const TemplateFetch = ({ template, onSelectTemplate }) => {
             />
             <div className="p-6 text-balance">
                 <h5 style={{ wordWrap: 'break-word' }} className="text-md  text-gray-900 uppercase text-center text-balance mb-4">  {name}<span className='text-black p-3 '>({language})</span></h5>
-                
+                <hr className='mb-4 h-2 text-black'/>
                 {components.map((component, index) => {
                     if (component.type === 'HEADER') {
                         if (component.format === 'IMAGE' && component.example && component.example.header_handle) {
@@ -30,7 +30,7 @@ const TemplateFetch = ({ template, onSelectTemplate }) => {
                                             key={imgIndex}
                                             src={image}
                                             alt="Template Header"
-                                            className="mx-auto rounded-lg mb-2 border-gray-200 border-solid border shadow-xl"
+                                            className="mx-auto rounded-lg mb-2 border-gray-200 border-solid border  object-cover shadow-xl"
                                             style={{ maxWidth: '100%', maxHeight: '200px' }}
                                         />
                                     ))}
@@ -68,7 +68,7 @@ const TemplateFetch = ({ template, onSelectTemplate }) => {
                                 {component.buttons.map((button, btnIndex) => (
                                     <button
                                         key={btnIndex}
-                                        className="w-full mb-2 px-6 py-2 text-sm font-medium bg-white border-gray-200 border shadow-lg rounded-lg focus:ring-4 focus:ring-blue-300 hover:bg-gray-100"
+                                        className="w-full mb-2 px-6 py-2 text-sm font-medium text-white  bg-green-700 border-gray-200 border shadow-lg rounded-lg focus:ring-4 focus:ring-blue-300 hover:bg-gray-100"
                                     >
                                         {button.text}
                                     </button>

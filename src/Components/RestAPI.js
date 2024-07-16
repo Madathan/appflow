@@ -100,7 +100,7 @@ const RestAPI = ({ open }) => {
                   type="text"
                   id="REST_API"
                   name="REST_API"
-                  className="border border-gray-300 border-2  text-black  text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                  className="border border-gray-300 border-2  py-3 text-black  text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                   placeholder=""
                   onChange={handleChangeRestApiName}
                   required

@@ -78,14 +78,18 @@ const StaffModal = ({ open, handleClose, data }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          source:source,
-          status:status,
-          staffid:staffName,
-       
+          source_name:source,
+          status_name:status,
+          staff_name:staffName,
+          status_id:status.id,
+          source_id:source.id,
+          staff_id:agents.staffid,
+          phone_number_id:chat.phone_number_id,
         })
       });
 
       if (!response.ok) {
+          
         throw new Error('Network response was not ok');
       }
 

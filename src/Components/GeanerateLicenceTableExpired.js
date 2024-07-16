@@ -98,15 +98,15 @@ const GenerateTable = () => {
                         </IconButton>
                       </Tooltip>
                       {actionOpen === order.id && (
-                        <div className="flex flex-col bg-white shadow-lg rounded-lg items-center mt-2">
+                        <div className="flex flex-col bg-white p-3 shadow-lg rounded-lg items-center mt-2">
                           <button
-                            className="border-green-600 border-2 border-solid text-green-600 px-2 py-1 rounded mb-1"
+                            className="border-green-600 border-2  border-solid text-green-600 px-4 py-1 rounded mb-1"
                             onClick={() => handleView(order)}
                           >
                             Edit
                           </button>
                           <button
-                            className="border-green-600 border-2 border-solid text-green-600 px-2 py-1 rounded"
+                            className="border-green-600 border-2 border-solid text-green-600 px-3 py-1 rounded"
                             onClick={() => handleActivate(order)}
                           >
                             {order.status === 'active' ? 'Expired' : 'Active'}

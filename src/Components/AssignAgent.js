@@ -170,7 +170,7 @@ const AssignAgent = ({ open }) => {
                 >
                   All chat
                 </Button>
-                <div className="flex justify-between mb-8">
+                <div className="flex justify-between  mb-8">
                   <div className="w-1/3">
                     <label htmlFor="select_option_1" className="block mb-2 ml-4 mr-8 text-md   text-black dark-text-black">
                       Select Source
@@ -180,10 +180,10 @@ const AssignAgent = ({ open }) => {
                       name="source_name"
                       value={formData.source_name}
                       onChange={(e) => handleSelectChange(e, 'source_id')}
-                      className="border border-gray-300 border p-2 text-gray-900 mr-8 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                      className="border border-gray-300 border p-2 text-gray-900 mr-8  text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                       required
                     >
-                      <option value="">Select Option 1</option>
+                      <option value="">Select Source</option>
                       {sourceData.map((source) => (
                         <option key={source.id} value={source.name} data-id={source.id}>
                           {source.name}
@@ -192,7 +192,7 @@ const AssignAgent = ({ open }) => {
                     </select>
                   </div>
                   <div className="w-1/3">
-                    <label htmlFor="select_option_2" className="block mb-2 mr-4 text-md  text-black dark-text-black">
+                    <label htmlFor="select_option_2" className="block mb-2 mr-4 ml-12 text-md  text-black dark-text-black">
                       Select Status
                     </label>
                     <select
@@ -200,10 +200,10 @@ const AssignAgent = ({ open }) => {
                       name="status_name"
                       value={formData.status_name}
                       onChange={(e) => handleSelectChange(e, 'status_id')}
-                      className="border border-gray-300 border p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                      className="border border-gray-300 border p-2 text-gray-900 text-md ml-12 rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                       required
                     >
-                      <option value="">Select Option 2</option>
+                      <option value="">Select Satus</option>
                       {statusData.map((status) => (
                         <option key={status.id} value={status.name} data-id={status.id}>
                           {status.name}
@@ -222,12 +222,12 @@ const AssignAgent = ({ open }) => {
                     name="staff_name"
                     value={formData.staff_name}
                     onChange={(e) => handleSelectChange(e, 'staff_id')}
-                    className="border-x border-gray-300 border shadow-xl p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                    className="border-x border-gray-300 border shadow p-2 text-gray-900 text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                     required
                   >
                     <option value="">Select Agent</option>
                     {agents.map((agent) => (
-                      <option className={"shadow-xl border-solid border-gray-200 border-2 rounded-xl"} key={agent.staffid} value={agent.firstname} data-id={agent.staffid}>
+                      <option className={" border-solid border-gray-200 border-2 rounded-xl"} key={agent.staffid} value={agent.firstname} data-id={agent.staffid}>
                         {agent.firstname}
                       </option>
                     ))}

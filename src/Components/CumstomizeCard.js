@@ -26,13 +26,13 @@ const Card = ({ id, title, description, imageUrl, remove }) => {
     >
       <div className="flex justify-end p-2">
         <button
-          className="bg-blue-500 text-white rounded-full p-1 mr-2 hover:bg-blue-600 transition"
+          className="bg-green-500 text-white rounded-full p-1 mr-2 hover:bg-blue-600 transition"
           onClick={() => handleEdit(id)}
         >
           <RiEdit2Line size={20} />
         </button>
         <button
-          className="bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition"
+          className="bg-green-500 text-white rounded-full p-1 hover:bg-red-600 transition"
           onClick={() => remove(id)}
         >
           <AiFillDelete size={20} />

@@ -68,7 +68,7 @@ const DashBoard = ({ open, data }) => {
             style={{ transitionDelay: `300ms` }}
             className={`${open && "rotate-90"}`}
           >
-            👋
+          
           </span>
         </h2>
         <p className="text-gray-500 text-xl">
@@ -93,9 +93,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.subscribedContactsCount}</div>
-                  <div className="mt-15 ml-14 lg:ml-1">
-                    <DashChart2 className="w-full" />
-                  </div>
+                
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -120,9 +118,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.sent}</div>
-                  <div className="mt-15 ml-14 lg:ml-2">
-                    <DashChart2 className="w-full" />
-                  </div>
+                 
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -146,9 +142,7 @@ const DashBoard = ({ open, data }) => {
                 </div>
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.delivered}</div>
-                  <div className="mt-15 ml-14 lg:ml-1">
-                    <DashChart2 className="w-[10px]" />
-                  </div>
+                 
                 </div>
 
                 <div className="flex items-center">
@@ -174,9 +168,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.read}</div>
-                  <div className="mt-15 ml-14 lg:ml-5">
-                    <DashChart4 className="w-full" />
-                  </div>
+                  
                 </div>
 
                 <div className="flex items-center">

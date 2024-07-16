@@ -9,12 +9,36 @@ const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) :
 
 const ConnectAccount = () => {
   const [show, setShow] = useState(false);
-  const [switch1, setSwitch1] = useState(true);
+  const [feach, setFeach] = useState({});
   const [apiData, setApiData] = useState([]);
 
   // Function to fetch data from API
   useEffect(() => {
     const fetchData = async () => {
+      try {
+        const response = await fetch(`https://ci4backend.smartyuppies.com/Home/fetchBusinessData/${userData.access_token}/${userData.phone_number_id}`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+         
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const datas = await response.json();
+        setFeach(datas); // Set fetched data to state
+        console.log("connectaccount",apiData)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call fetchData function on component mount
+  }, []); // Empty dependency array ensures effect runs only once on mount
+
+  useEffect(() => {
+    const fetchDatas = async () => {
       try {
         const response = await fetch('https://ci4backend.smartyuppies.com/ConnectAccount/AccountUser',{
           method: 'POST',
@@ -28,14 +52,14 @@ const ConnectAccount = () => {
         }
         const data = await response.json();
         setApiData(data); // Set fetched data to state
+        console.log("connectaccount",apiData)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchData(); // Call fetchData function on component mount
-  }, []); // Empty dependency array ensures effect runs only once on mount
-
+    fetchDatas(); // Call fetchData function on component mount
+  }, []);
   // Function to handle switching accounts
   const handleSwitch = (data) => {
     if (data) {
@@ -86,20 +110,22 @@ const ConnectAccount = () => {
       </div>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-10 justify-center p-10">
-      <div className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
+        {feach.data?.map((data,index)=>
+      <div key={index} className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
           <div className="flex justify-center p-6">
             <img className="object-cover h-48 w-96 rounded-full" src={order} alt="Order" />
           </div>
           <div className="p-6 text-center">
             <h5 className="mb-2 text-xl font-bold text-gray-900">Hello</h5>
             <p className="mb-4 text-gray-700">Description</p>
-            <p className="text-gray-700">Detailed description text goes here.</p>
+            <p className="text-gray-700">{data.description}</p>
           </div>
-        </div>
-        <div className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
+        </div>)}
+        {feach.data?.map((data,index)=>
+        <div key={index} className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
           <div className="p-6">
             <div className="flex items-center mb-4">
-              <p className="text-gray-700 mr-2">About:</p>
+              <p className="text-gray-700 mr-2">About:{data.address}</p>
               <ImLocation2 className="text-green-500" />
             </div>
             <div className="flex items-center mb-4">
@@ -108,9 +134,9 @@ const ConnectAccount = () => {
             </div>
             <p className="mb-4 text-gray-700">Websites:</p>
           </div>
-        </div>
-        {apiData.map((data) => (
-          <div key={data.templateId} style={{ wordWrap: 'break-word' }} className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
+        </div>)}
+        {apiData.map((data,index) => (
+          <div key={index} style={{ wordWrap: 'break-word' }} className="max-w-lg rounded-lg shadow-lg bg-white border border-gray-200 hover:scale-105 transition duration-300">
             <div className="p-6">
               <div className="flex justify-between items-center">
                 <h5 className="text-xl font-bold text-gray-900">{data.business_name}</h5>

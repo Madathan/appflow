@@ -263,9 +263,9 @@ console.log("userdata",chat)
   return (
     <div className="flex h-[680px] shadow-xl ">
       <div className="w-1/3 bg-white text-white shadow-2xl">
-        <div className='h-16 w-full border-r border-solid border-gray-400  bg-[#F0F2F5]'>
+        <div className='h-16 w-full border-r border-solid border-gray-400 '>
           <div className='p-3 flex'>
-            <p className='text-3xl text-gray-500 p-1'><FaUserCircle /></p>
+            <p className='text-3xl text-yellow-400 p-1'><FaUserCircle /></p>
             <p className='p-2 text-black '>{chat?.username.toUpperCase()}</p>
           </div>
         </div>
@@ -300,7 +300,7 @@ console.log("userdata",chat)
         </div>
       </div>
       <div className="w-4/5 bg-[url('https://i.pinimg.com/originals/07/b3/7d/07b37d9e8af59caf15b0f8e1b49da368.jpg')] flex flex-col">
-        <div className='h-16 w-full bg-[#F0F2F5] border border-solid border-gray-200   '>
+        <div className='h-16 w-full bg-white border border-solid border-gray-200   '>
           {firstItem && (
             <div className='ml-2 p-1'>
               {firstItem.customer_name && (

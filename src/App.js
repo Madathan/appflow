@@ -3,8 +3,16 @@ import { useState } from 'react';
 import Sidebar from './views/Sidebar';
 import Login from './LoginPage';
 import CrmTable from './Components/CrmTable';
-//menu icons
+import { SiPowervirtualagents } from "react-icons/si";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { MdOutlineContacts } from "react-icons/md";
+import { TiFlowSwitch } from "react-icons/ti";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaOpencart } from "react-icons/fa";
+import { HiOutlineCreditCard } from "react-icons/hi2";
 
+//menu icons
+import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute/Index';
 import { RxDashboard } from "react-icons/rx";
 import { TbShoppingCartHeart } from "react-icons/tb";
@@ -50,7 +58,7 @@ import { SiWoo } from "react-icons/si";
 function App() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const shouldShowBreadcrumbs = !location.pathname.includes("Team-Inbox") && !location.pathname.includes("Keyword-Automation") && !location.pathname.includes("login") ;
+  const shouldShowBreadcrumbs = !location.pathname.includes("Team-Inbox") && !location.pathname.includes("Keyword-Automation") && !location.pathname.includes("login") && !location.pathname.includes("Logout") ;
   const data = [
     { id: 1, campaignName: 'Campaign 1', date: '2024-04-12', ownerName: 'Owner 1', contacts: '2', send: 100, failed: 5 },
     { id: 2, campaignName: 'Campaign 2', date: '2024-04-13', ownerName: 'Owner 2', contacts: '3', send: 150, failed: 8 },
@@ -84,23 +92,23 @@ function App() {
     { id: 30, campaignName: 'Campaign 30', date: '2024-05-11', ownerName: 'Owner 30', contacts: '31', send: 1550, failed: 78 },
   ];
   const menus = [
-    { id: 1, title: "MENU", name: "Dashboard", link: '/', icon: RxDashboard, nav: "/Dashboard" },
+    { id: 1, title: "MENU", name: "Dashboard", link: '/', icon: LuLayoutDashboard, nav: "/Dashboard" },
     { id: 2, bre: "MENU", name: 'Reports', link: '/', icon: TbReportAnalytics, nav: '/Reports', Margin: true },
     { id: 3, title: "ONBOARD CLIENTS", name: "REST API", link: '/', icon: SiFastapi, nav: "/REST-API" },
-    { id: 4, bre: "ONBOARD CLIENTS", name: "Generate License", link: '/', icon: RiAiGenerate, nav: "/Generate-License", Margin: true },
-    { id: 5, title: "WABA ACCOUNTS", name: "Connect Account", link: '/', icon: MdConnectWithoutContact, nav: "/Connect-Account" , Margin: true },
-    { id: 6, title: "WHATS COMMERCE", name: "Orders", link: '/', icon: TbShoppingCartHeart, nav: "/Orders" , Margin: true },
-    { id: 7, title: "TEAM MANAGMENT", name: "Customize Teams", link: '/', icon: PiMicrosoftTeamsLogoBold, nav: "/Customize-Teams" },
-    { id: 8, bre: "TEAM MANAGMENT", name: "Team Inbox", link: '/', icon: RiChatPollLine, nav: "/Team-Inbox", Margin: true  },
-    { id: 9, title: "CONTACT MANAGEMENT", name: "Contacts", link: '/', icon: TiContacts, nav: "/Contacts" },
+    { id: 4, bre: "ONBOARD CLIENTS", name: " License", link: '/', icon: HiOutlineCreditCard, nav: "/Generate-License", Margin: true },
+    { id: 5, title: "WABA ACCOUNTS", name: " Account", link: '/', icon: MdConnectWithoutContact, nav: "/Connect-Account" , Margin: true },
+    { id: 6, title: "WHATS COMMERCE", name: "Orders", link: '/', icon: FaOpencart, nav: "/Orders" , Margin: true },
+    { id: 7, title: "TEAM MANAGMENT", name: " Teams", link: '/', icon: PiMicrosoftTeamsLogoBold, nav: "/Customize-Teams" },
+    { id: 8, bre: "TEAM MANAGMENT", name: "Team Inbox", link: '/', icon: SiPowervirtualagents, nav: "/Team-Inbox", Margin: true  },
+    { id: 9, title: "CONTACT MANAGEMENT", name: "Contacts", link: '/', icon: MdOutlineContacts, nav: "/Contacts" },
     { id: 10, bre: "CONTACT MANAGEMENT", name: "Groups", link: '/', icon: MdGroups3, nav: "/Groups", Margin: true  },
     { id: 11, title: "TEMPLATES AND CAMPAIGNS", name: "Templates", link: '/', icon: CgTemplate, nav: "/Templates" },
     { id: 12, bre: "TEMPLATES AND CAMPAIGNS", name: "Campaigns", link: '/', icon: MdOutlineCampaign, nav: "/Campaigns", Margin: true  },
-    { id: 13, title: "CHATFLOW AUTOMATION", name: "Keyword Automation", link: '/', icon: RiRobot2Line, nav: "/Keyword-Automation", Margin: true  },
-    { id: 14, title: "WECRM INTEGRATION", name: "CRM Leads", link: '/', icon: MdLeaderboard, nav: "/CRM-Leads" },
-    { id: 15, bre: "WECRM INTEGRATION", name: "Assign Agent", link: '/', icon: MdAssignmentInd, nav: "/Assign-Agent", Margin: true  },
-    { id: 16, bre: "WECRM INTEGRATION", name: "Commercesettings", link: '/', icon: BsCart4, nav: "/Commercesettings" , Margin: true  },
-    { id: 17, bre: "WECRM INTEGRATION", name: "WooCommerce", link: '/', icon: SiWoo, nav: "/WooCommerce" , Margin: true  },
+    { id: 13, title: "CHATFLOW AUTOMATION", name: "Flow", link: '/', icon: TiFlowSwitch, nav: "/Keyword-Automation", Margin: true  },
+    { id: 14, title: "WECRM INTEGRATION", name: " Leads", link: '/', icon: MdLeaderboard, nav: "/CRM-Leads" },
+    { id: 15, bre: "WECRM INTEGRATION", name: " Agent", link: '/', icon: MdAssignmentInd, nav: "/Assign-Agent", Margin: true  },
+    { id: 16, bre: "WECRM INTEGRATION", name: "Commerce", link: '/', icon: IoSettingsOutline, nav: "/Commercesettings" , Margin: true  },
+    { id: 17, bre: "WECRM INTEGRATION", name: "Woo", link: '/', icon: SiWoo, nav: "/WooCommerce" , Margin: true  },
 
       
   ];
@@ -161,6 +169,8 @@ function App() {
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
   <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
+  <Route path='/Logout' element={<ProtectedRoute><Logout/></ProtectedRoute> } />
+
 
   <Route exact path='/Login' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />

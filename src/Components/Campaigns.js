@@ -96,7 +96,7 @@ const CommerceSettings = () => {
                             New Campaign Name:-
                         </label>
                         <input
-                            className="appearance-none text-sm border-x-0  border-t-0 border- rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
+                            className="appearance-none text-sm rounded-lg   border-1  border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
                             id="campaignName"
                             name="campaignName"
                             type="text"
@@ -111,7 +111,7 @@ const CommerceSettings = () => {
                             Campaign Owner:-
                         </label>
                         <input
-                            className=" appearance-none text-sm border-x-0  border-t-0 border rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                            className=" appearance-none text-sm rounded-lg   border-1  border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                             id="campaignOwner"
                             name="campaignOwner"
                             type="text"
@@ -126,7 +126,7 @@ const CommerceSettings = () => {
                             From Phone Number:-
                         </label>
                         <input
-                            className=" appearance-none text-sm border-x-0  border-t-0 border rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white focus:ring-white" 
+                            className=" appearance-none text-sm rounded-lg   border-1  border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white focus:ring-white" 
                             id="phoneNumber"
                             name="phoneNumber"
                             type="text"
@@ -139,7 +139,7 @@ const CommerceSettings = () => {
                     <div className="mb-3 md:mb-4">
                         <label className="block text-gray-700 text-md mb-1 text-md md:mb-2">Groups:-</label>
                         <select
-                            className=" appearance-none text-sm border-x-0  border-t-0 border- rounded-sm w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                            className=" appearance-none text-sm rounded-lg   border-1  border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                             name="group"
                             value={formData.group}
                             onChange={handleGroupChange}
@@ -171,7 +171,7 @@ const CommerceSettings = () => {
                   
                     <div className="flex items-center justify-center">
                         <button
-                            className="bg-green-700 hover:bg-green-800 text-white flex items-center text-sm justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
+                            className="bg-green-700 hover:bg-green-900 text-white flex items-center text-sm justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
                             type="submit"
                         >
                            Start Campaign
