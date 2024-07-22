@@ -34,12 +34,12 @@ const ChatContect = ({ last_message, name, time,status }) => {
             {firstLetter}
           </p>
           <div className='pl-4'>
-            <p className='font-semibold  font-sans'>{name}</p>
-            <p className='text-sm text-gray-600 '>{truncateMessage(last_message)}</p>
+            <p className='  font-Poppins'>{name}</p>
+            <p className='text-sm text-gray-600 font-Poppins '>{truncateMessage(last_message)}</p>
           </div>
         </div>
         <div >
-        <p className='text-[10px] text-gray-400'>{time}</p>
+        <p className='text-[10px] font-Poppins text-gray-400'>{time}</p>
         <p className='texte-lg text-green-600'>{status==="read" ?<BsCheck2All />:<BsCheck2 />
         }</p>
         </div>

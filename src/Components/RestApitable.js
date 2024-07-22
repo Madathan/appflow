@@ -26,10 +26,10 @@ const ScrollableTable = ({ datas }) => {
         <TableBody>
           {datas.map((chat) => (
             <TableRow key={chat.id}  className="bg-white hover:bg-gray-50">
-              <TableCell align="center" className="px-4 py-2">{chat.id}</TableCell>
-              <TableCell align="center" className="px-4 py-2">{chat.name}</TableCell>
-              <TableCell align="center" className="px-4 py-2">{chat.smartbanner_token}</TableCell>
-              <TableCell align="center" className="px-4 py-2">{chat.access_token}</TableCell>
+              <TableCell align="center" className="px-4 font-Poppins py-2">{chat.id}</TableCell>
+              <TableCell align="center" className="px-4 font-Poppins py-2">{chat.name}</TableCell>
+              <TableCell align="center" className="px-4 font-Poppins py-2">{chat.smartbanner_token}</TableCell>
+              <TableCell align="center" className="px-4 font-Poppins py-2">{chat.access_token}</TableCell>
               {/* Add more cells as needed */}
             </TableRow>
           ))}

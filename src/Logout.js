@@ -47,7 +47,7 @@ const Logout = () => {
         <h1 className="text-2xl font-bold mb-4">User Details</h1>
         <form>
           <div className="mb-4">
-            <label htmlFor="input1" className="block text-gray-700">Input 1</label>
+            <label htmlFor="input1" className="block text-gray-700">Name:-</label>
             <input
               type="text"
               id="input1"
@@ -58,7 +58,7 @@ const Logout = () => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="input2" className="block text-gray-700">Input 2</label>
+            <label htmlFor="input2" className="block text-gray-700">email:-</label>
             <input
               type="text"
               id="input2"
@@ -69,7 +69,7 @@ const Logout = () => {
             />
           </div>
           <div className="mb-4 relative">
-            <label htmlFor="input3" className="block text-gray-700">Password</label>
+            <label htmlFor="input3" className="block text-gray-700">Password:-</label>
             <input
               type={showPassword ? 'text' : 'password'}
               id="input3"
@@ -86,7 +86,7 @@ const Logout = () => {
             </div>
           </div>
           <div className="mb-4">
-            <label htmlFor="input4" className="block text-gray-700">Input 4</label>
+            <label htmlFor="input4" className="block text-gray-700">phoneNo:-</label>
             <input
               type="text"
               id="input4"

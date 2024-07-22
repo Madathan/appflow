@@ -63,7 +63,7 @@ const DashBoard = ({ open, data }) => {
       <div>
         <h2 className="pb-3 text-3xl font-bold">
           Welcome back,{" "}
-          <span className="text-[--second]">BookwithOffers</span>{" "}
+          <span className="text-[--second]">SamrtYubbies DashBoard</span>{" "}
           <span
             style={{ transitionDelay: `300ms` }}
             className={`${open && "rotate-90"}`}
@@ -78,13 +78,13 @@ const DashBoard = ({ open, data }) => {
       </div>
 
       <div className="my-8 overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-Poppins">
           {newCardData && (
             <>
-              <div className="bg-white border-gray-200 rounded-xl border-solid border group shadow-lg p-6">
+              <div className="bg-white border-gray-200 rounded-xl font-Poppins border-solid border group shadow-lg p-6">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full p-3 inline-block group-hover:ring-[--second] ring-2 ring-[--primary]">
-                    <MdOutlineVerified className="text-2xl group-hover:text-[--second] text-[--primary]" />
+                    <MdOutlineVerified className="text-2xl font-Poppins group-hover:text-[--second] text-[--primary]" />
                   </div>
                   <span className="group-hover:text-[--second] text-[--primary] font-semibold">
                     SUBSCRIBED CLIENTS

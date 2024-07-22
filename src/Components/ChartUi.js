@@ -4,13 +4,12 @@ import { BsSendArrowDown } from "react-icons/bs";
 import ChartContact from './ChatContect'; // Corrected import path
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineAttachFile } from "react-icons/md";
-import { useLocation } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import AssignChat from './AssignTeamMemberChat';
-import Button from '@mui/material/Button';
 import ChatweCrm from './AssignWeCrm'
 import { Instagram } from 'react-content-loader';
+const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const App = () => {
   const [chatData, setChatData] = useState([]);
@@ -25,8 +24,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
 
-  const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-console.log("userdata",chat)
+
+  console.log("userdata",chat)
 
   const chatContainerRef = useRef(null);
  
@@ -69,6 +68,7 @@ console.log("userdata",chat)
         setContacts(responseData.customerData);
         setFilteredContacts(responseData.customerData); // Initialize filteredContacts
         setLoading(false)
+      
       } else {
         console.error('No customer data found in response');
       }
@@ -92,9 +92,9 @@ console.log("userdata",chat)
       }
 
       const responseData = await response.json();
-
-      if (responseData && Array.isArray(responseData.messages)) {
         
+      if (responseData && Array.isArray(responseData.messages)) {
+        scrollToBottom()  
         setChatData(responseData.messages);
       } else {
         console.error('No messages found for the contact');
@@ -356,7 +356,7 @@ console.log("userdata",chat)
                   className={`flex ${chatt.way === 'out' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`message ${chatt.way === 'out' ? 'bg-[#d9fdd3] self-end mt-3 mr-4 pr-10 p-1  font-sans' : 'bg-white text-black self-start mt-3 mr-4 pr-10 p-1  font-sans'} text-sm max-w-[250px] rounded-lg`}
+                    className={`message ${chatt.way === 'out' ? 'bg-[#d9fdd3] self-end mt-3 mr-4 pr-10 p-1  font-Poppins' : 'bg-white text-black self-start mt-3 mr-4 pr-10 p-1  font-sans'} text-sm max-w-[250px] rounded-lg`}
                   >
                     {chatt.message_type === "image"  ? (
                      
