@@ -13,7 +13,19 @@ import CustomEdge from './CustomEdge';
 import ConnectionLine from './ConnectLine';
 import { FaListUl } from "react-icons/fa";
 import ListDrag from './ListDrag';
-
+import Text from './FlowTex'
+import FlowImageCaption from './FlowImageCaption'
+import FlowImage from './FlowImage'
+import FlowKey from './FlowKey'
+import FlowVideo from './FlowVideo'
+import VideoButton from './Video&Button'
+import DocumentDetails from './FlowDocument';
+import Location from './FlowLocation'
+import { MdLocationPin } from "react-icons/md";
+import { MdOutlinePermMedia } from "react-icons/md";
+import { useNavigate, } from 'react-router-dom';
+import Cookies from 'js-cookie';
+const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const rfStyle = {
   backgroundColor: 'white',
@@ -21,44 +33,67 @@ const rfStyle = {
  color:"balck",
 };
 
-const initialNodes = []; // Initialize with an empty array
+ // Initialize with an empty array
 
-const nodeTypes = { nodeContainer: NodeContainer, addImage: AddImage, addPdf: AddPdf, listDrag: ListDrag};
+const nodeTypes = { nodeContainer: NodeContainer, addImage: AddImage, addPdf: AddPdf, listDrag: ListDrag, text:Text,imageCaption:FlowImageCaption,image:FlowImage,flowKey:FlowKey,flowvideo:FlowVideo,videobutton:VideoButton,documentdetails:DocumentDetails,location:Location};
 const edgeTypes = {
   customEdge: CustomEdge, // Match the type here with the one you're using in addEdge
 };
 
 function Flow() {
+  const navigate=useNavigate()
+  const initialNodes = [{id:"0",
+    type: 'flowKey',
+    position: { x: Math.random() * 250, y: Math.random() * 250 },
+    data: { onChange: (nodeId, inputType, value)=>{ setFlowKey((prevValues) => ({
+      ...prevValues,
+        [inputType]: value,
+  
+    }));} }}];
   const [nodes, setNodes] = useState(initialNodes); // Start with an empty nodes array
   const [edges, setEdges] = useState([]);
   const [inputValues, setInputValues] = useState({});
   const [inputpdf, setInputpdf] = useState({});
   const [inputButton, setInputButton] = useState({});
   const [list, setInputList] = useState({});
+  const [text, setText] = useState({});
+  const [imageCaption, setImageCaptio] = useState({});
+  const [image, setImage] = useState({});
+  const [flowName, setFlowName] = useState();
+  const [flowvideo, setFlowVideo] = useState({});
+  const [flowKey, setFlowKey] = useState({});
+  const [videoButton, setVideoButton] = useState({});
+  const [documents, setDocuments] = useState({});
+  const [location, setLocation] = useState({});
+
+
 
   const [draggingEnabled, setDraggingEnabled] = useState(true);
   const sidebarRef = useRef(null);
-
-
   const extractConnectionData = () => {
     return edges.map((edge) => ({
-      sourceNodeId: edge.source,
-      sourceHandleId: edge.sourceHandle,
-      targetNodeId: edge.target,
-      targetHandleId: edge.targetHandle,
+      source_node_id: edge.source,
+      button_id: edge.sourceHandle,
+      target_node_id: edge.target,
+      button_ids: edge.targetHandle,
     }));
   };
   
   const connectionData = extractConnectionData();
-
-  const combinedArray = [
-    { Type: 'Image_&_button', data: inputValues  },
-    { Type: 'Document_&_button', data: inputpdf },
-    { Type: 'Text_&_button', data: inputButton},
-    { Type: 'List_&_button', data: list  },
+  const {message}=flowKey
+  const combinedArray =  [
+    {username:userData.username,phone_number_id:userData.phone_number_id},
+    {Type:"flow_name",flow_start_keyword:message,flow_name:flowName},
+    { Type: 'Document', data: inputpdf },
+    { Type:"Text" ,data: inputButton},
+    { Type: 'List', data: list  },
+    { Type: 'Location', data: location  },
     { Type: 'Connection', data: connectionData  },
   ];
-  
+  const handleFlowName=(e)=>
+  {
+    setFlowName(e.target.value)
+  }
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes]
@@ -73,30 +108,24 @@ function Flow() {
     (connection) => setEdges((eds) => addEdge({ ...connection, type: 'customEdge', animated: true }, eds)),
     [setEdges]
   );
-
+  
+ 
   const handleSidebarItemClick = () => {
     const newNode = {
-      id: (nodes.length + 1).toString(),
+      id: (nodes.length).toString(),
       type: 'nodeContainer',
       position: { x: Math.random() * 250, y: Math.random() * 250 },
       data: { onChange: handletextButtons },
     };
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
+  
 
-  const handleAddCustomNode = () => {
-    const newNode = {
-      id: (nodes.length + 1).toString(),
-      type: 'addImage',
-      position: { x: Math.random() * 250, y: Math.random() * 250 },
-      data: { onChange: handleInputChange }, // Pass handleInputChange
-    };
-    setNodes((prevNodes) => [...prevNodes, newNode]);
-  };
+  
 
   const handleSidebarImgDocument = () => {
     const newNode = {
-      id: (nodes.length + 1).toString(),
+      id: (nodes.length).toString(),
       type: 'addPdf',
       position: { x: Math.random() * 250, y: Math.random() * 250 },
       data: { onChange: handleimageChange },
@@ -106,14 +135,22 @@ function Flow() {
 
   const handleSidebarList = () => {
     const newNode = {
-      id: (nodes.length + 1).toString(),
+      id: (nodes.length ).toString(),
       type: 'listDrag',
       position: { x: Math.random() * 250, y: Math.random() * 250 },
       data: { onChange: handleListDrag },
     };
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
-
+  const handleSideLocation = () => {
+    const newNode = {
+      id: (nodes.length).toString(),
+      type: 'location',
+      position: { x: Math.random() * 250, y: Math.random() * 250 },
+      data: { onChange: handleLocate },
+    };
+    setNodes((prevNodes) => [...prevNodes, newNode]);
+  };
   const toggleDraggingEnabled = () => {
     setDraggingEnabled(!draggingEnabled);
   };
@@ -127,8 +164,62 @@ function Flow() {
       },
     }));
   };
+  const handleFlowText = (nodeId, inputType, value) => {
+    setText((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
+  const handledocuments = (nodeId, inputType, value) => {
+    setDocuments((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
+  const handleImgs = (nodeId, inputType, value) => {
+    setImage((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
+  const handlevideos = (nodeId, inputType, value) => {
+    setFlowVideo((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
+  const handlevideobutton = (nodeId, inputType, value) => {
+    setVideoButton((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
+  const handleFlowimgCaptions= (nodeId, inputType, value) => {
+    setImageCaptio((prevValues) => ({
+      ...prevValues,
+      [nodeId]: {
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
 
-  const handleimageChange = (nodeId, inputType, value) => {
+  const handleimageChange = (nodeId,inputType, value) => {
     setInputpdf((prevValues) => ({
       ...prevValues,
       [nodeId]: {
@@ -137,33 +228,64 @@ function Flow() {
       },
     }));
   };
-
   const handleListDrag = (nodeId, inputType, value) => {
     setInputList((prevValues) => ({
       ...prevValues,
-      [nodeId]: {
+      [nodeId]:{
         ...prevValues[nodeId],
         [inputType]: value, 
       },
     }));
   };
-
   const handletextButtons = (nodeId, inputType, value) => {
     setInputButton((prevValues) => ({
       ...prevValues,
-      [nodeId]: {
+      [nodeId]:{
         ...prevValues[nodeId],
         [inputType]: value,
       },
     }));
   };
-
+  const handleLocate = (nodeId,inputType, value) => {
+    setLocation((prevValues) => ({
+      ...prevValues,
+      [nodeId]:{
+        ...prevValues[nodeId],
+        [inputType]: value,
+      },
+    }));
+  };
   
-  const handleSubmit = () => {
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
     console.log('Image_&_button:', JSON.stringify(combinedArray, null, 2));
+    if(flowName){
+    try {
+      const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({"data":combinedArray})
+      });
+       console.log("delivers",combinedArray)
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Success:', data);
+     
+      location.reload()
+     } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  else
+  {
     
-    
+  }
   };
    
   return (
@@ -196,41 +318,46 @@ function Flow() {
         </div>
         <div
           className={`flex-grow overflow-y-auto ${draggingEnabled ? 'opacity-100' : 'opacity-0'} transition-opacity`}
-        >
+        > 
+        <div >
+         
+         
           <div
-            className="bg-white rounded-lg shadow-xl p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
+            className="bg-white rounded-lg shadow-xl p-2 mt-3  cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarItemClick}
           >
             <GiClick className="text-center ml-5 text-green-700 mx-20" />
             <p className="text-center text-sm mt-1 text-gray-600">Text</p>
-            <p className="text-center ml-1 text-gray-600">Button</p>
+            
           </div>
+        
           <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
-            onClick={handleAddCustomNode}
-          >
-            <FaImage className="text-center ml-5 text-green-700" />
-            <p className="text-center text-sm mt-1 text-gray-600">Image</p>
-            <p className="text-center ml-1 text-gray-600">Button</p>
-          </div>
-          <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
+            className="bg-white rounded-lg shadow-lg p-2 mt-3  cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarImgDocument}
           >
-            <GrDocumentPdf className="text-center ml-5 text-green-700" />
-            <p className="text-center text-sm mt-1 text-gray-600">Document</p>
-            <p className="text-center ml-1 text-gray-600">Button</p>
+            <MdOutlinePermMedia className="text-center ml-5 text-green-700" />
+            <p className="text-center text-sm mt-1 font-poppins text-gray-600">Media</p>
+            
           </div>
           <div
-            className="bg-white rounded-lg shadow-lg p-2 mt-3 ml-2 cursor-pointer border-solid border-2 border-gray-200"
+            className="bg-white rounded-lg shadow-lg p-2 mt-3  cursor-pointer border-solid border-2 border-gray-200"
             onClick={handleSidebarList}
           >
             <FaListUl className="text-center ml-5 text-green-700" />
             <p className="text-center text-sm mt-1 text-gray-600">List</p>
-            <p className=" text-center ml-1 text-gray-600">Button</p>
+            
+           
+           
+          </div>
+          <div
+            className="bg-white rounded-lg shadow-lg p-2 mt-3  cursor-pointer border-solid border-2 border-gray-200"
+            onClick={handleSideLocation}
+          >
+            <MdLocationPin className="text-center ml-5 text-green-700" />
+            <p className="text-center text-sm mt-1 text-black">Location</p>
           </div>
           <div>
-           
+          </div>
         </div>
         </div>
       </div>
@@ -238,12 +365,12 @@ function Flow() {
       <div className="flex-grow  w-full " style={{height:"87%"}}>
    <div className='flex  w-full h-14 bg-white border-dashed border-b border-gray-400'>
    <div className='mb-2'>
-          <input type="text" className='  border-2 border-green-500 border-solid mt-2 rounded-lg' placeholder='name the Flow'/>
+          <input type="text" className='  border-2 border-black border-solid mt-2 rounded-lg' placeholder='name the Flow' required  onChange={handleFlowName}/>
       </div>
       <div className='ml-16'>
             <button
                 onClick={handleSubmit}
-                className=" mt-2   bg-green-800 text-white p-2 rounded-xl   text-sm"
+                className=" mt-2   bg-green-800 text-white p-2 rounded-lg font-poppins  text-sm"
               >
                 Save Changes
               </button>
@@ -251,13 +378,11 @@ function Flow() {
             <div className='ml-30'>
                 <button
              
-                  className="text-right mt-2  ml-20 bg-green-800 text-white p-2 rounded-xl   text-sm"
+                  className="text-right mt-2  ml-20 bg-green-800 text-white p-2 rounded-lg    text-sm"
                 >
                    Flow Detail
                 </button>
             </div>
-     
-     
   </div>
         <ReactFlow
           nodes={nodes}
@@ -268,7 +393,6 @@ function Flow() {
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           animated={true}
-         
           minZoom={0}
           fitView
           fitViewOptions={{
@@ -276,7 +400,6 @@ function Flow() {
             
           }}
           connectionLineComponent={ConnectionLine}
-       
         >
           <MiniMap />
           <Controls />

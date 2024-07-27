@@ -4,7 +4,7 @@ const TemplateFetch = ({ template }) => {
   const { name, components, language } = template;
 
   return (
-    <div className="max-w-lg mx-auto mb-12  h-full rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
+    <div className="max-w-lg mx-auto mb-12 font-poppins h-full rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
       <div className="p-6">
         <h5 className="text-xl  text-gray-900 uppercase text-center mb-4">
           {name} <span className="text-black p-3">({language})</span>
@@ -46,7 +46,7 @@ const TemplateFetch = ({ template }) => {
             }
           } else if (component.type === 'BODY' && component.text) {
             return (
-              <div key={index} className="text-gray-700 text-sm leading-relaxed">
+              <div key={index} className="text-gray-700 font-poppins  leading-relaxed">
                 {component.text.split('\n').map((line, lineIndex) => (
                   <p key={lineIndex}>{line}</p>
                 ))}
@@ -58,7 +58,7 @@ const TemplateFetch = ({ template }) => {
                 {component.buttons.map((button, btnIndex) => (
                   <button
                     key={btnIndex}
-                    className="w-full mb-2 px-6 py-2 text-sm font-medium bg-white border-gray-200 border shadow-lg rounded-lg focus:ring-4 focus:ring-blue-300 hover:bg-gray-100 sm:px-4 sm:py-1"
+                    className="w-full mb-2 px-6 py-4   text-white font-poppins bg-green-700 border-gray-200 border shadow-lg rounded-lg focus:ring-4 focus:ring-blue-300 hover:bg-gray-100 sm:px-4 sm:py-1"
                   >
                     {button.text}
                   </button>

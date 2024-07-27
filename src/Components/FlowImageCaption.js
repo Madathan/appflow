@@ -24,29 +24,9 @@ const hfStyle = {
   borderWidth: 5,
 };
 
-function TextUpdaterNode({ data, onRemove, id }) {
-  const onChange = (evt) => {
-    if (data.onChange) {
-      data.onChange(id, evt.target.value);
-    }
-  };
 
-  return (
-    <>
-      <button onClick={onRemove} className="text-gray-600 hover:text-red-800 text-4xl mt-5">
-        <MdCancel />
-      </button>
-      <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
-        <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
-          <Handle type="source" position={Position.Top} id={`AddImage_Handle-${id}`} style={rfStyle} />
-          <input id="text" name="text" onChange={onChange} className='rounded-2xl p-10 text-3xl h-[130px] w-full' placeholder='Enter the text' />
-        </div>
-      </div>
-    </>
-  );
-}
 
-function AddImage({ id, data }) {
+function Image({ id, data }) {
   const [inputBoxes, setInputBoxes] = useState([]);
   const [addButtonDisabled, setAddButtonDisabled] = useState(false);
   const { setNodes } = useReactFlow();
@@ -59,29 +39,6 @@ function AddImage({ id, data }) {
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
-  };
-
-  const addInputBox = () => {
-    const newId = inputBoxes.length+1;
-    setInputBoxes((prevInputBoxes) => [
-      ...prevInputBoxes,
-      { id: newId, component: <TextUpdaterNode key={newId} id={newId} onRemove={() => removeInputBox(newId)} data={{ onChange: handleTextChange }} /> }
-    ]);
-
-    if (inputBoxes.length === 2) {
-      setAddButtonDisabled(true);
-    }
-  };
-
-  const removeInputBox = (idToRemove) => {
-    setInputBoxes((prevInputBoxes) => prevInputBoxes.filter(({ id }) => id !== idToRemove));
-    setAddButtonDisabled(false);
-  };
-
-  const handleTextChange = (inputId, value) => {
-    if (data.onChange) {
-      data.onChange(id, "button_"+inputId, value);
-    }
   };
 
   const handleKeywordChange = (event) => {
@@ -164,9 +121,8 @@ function AddImage({ id, data }) {
           </div>
         ))}
       </div>
-      <button onClick={addInputBox} className='bg-green-500 text-4xl shadow-2xl p-7 rounded-[15px] px-5 mt-6 text-white w-full' disabled={addButtonDisabled}><span className='mr-2'>+</span>Add Button</button>
     </div>
   );
 }
 
-export default AddImage;
+export default Image;

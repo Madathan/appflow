@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Cookies from 'js-cookie';
+import { useNavigate, } from 'react-router-dom';
 
 const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const Logout = () => {
+  const navigate=useNavigate()
+
   const [inputs, setInputs] = useState({
     username:chat.username ,
     password: '',
@@ -26,9 +29,9 @@ const Logout = () => {
   const handleLogout = () => {
     // Remove the 'userData' cookie
     Cookies.remove('userData');
-
+    navigate('/Login')
     // Redirect to a login page or update the UI to reflect the logout
-    window.location.reload(); // For simplicity, reload the page
+       // For simplicity, reload the page
   };
 
   return (

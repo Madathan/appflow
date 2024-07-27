@@ -13,16 +13,18 @@ function TextUpdaterNode({ data, onRemove, id }) {
   const [caption, setCaption] = useState('');
 
   const handleTextChange = (evt) => {
-    setText(evt.target.value);
+    const newText = evt.target.value;
+    setText(newText);
     if (data.onChange) {
-      data.onChange(id, { text: evt.target.value, caption });
+      data.onChange(id, { [`list_title_${id}`]: newText, [`list_description_${id}`]: caption });
     }
   };
 
   const handleCaptionChange = (evt) => {
-    setCaption(evt.target.value);
+    const newCaption = evt.target.value;
+    setCaption(newCaption);
     if (data.onChange) {
-      data.onChange(id, { text, caption: evt.target.value });
+      data.onChange(id, { [`list_title_${id}`]: text, [`list_description_${id}`]: newCaption });
     }
   };
 
@@ -31,7 +33,7 @@ function TextUpdaterNode({ data, onRemove, id }) {
       <button onClick={onRemove} className="text-gray-600 hover:text-red-800 text-4xl mt-5"><MdCancel /></button>
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
-          <Handle type="source" position={Position.Top} id={`AddImage_Handle-${id}`} style={rfStyle} />
+          <Handle type="source" position={Position.Top} id={`List_id_${id}`} style={rfStyle} />
           <input 
             id="text" 
             name="text" 
@@ -94,21 +96,21 @@ function ListDrag({ id, data }) {
   const handleKeywordChange = (event) => {
     setTitle(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'AddImage_keyword', event.target.value);
+      data.onChange(id, 'header', event.target.value);
     }
   };
 
   const handleMessageChange = (event) => {
     setBody(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'AddImage_message', event.target.value);
+      data.onChange(id, 'body', event.target.value);
     }
   };
 
   const handleFooterChange = (event) => {
     setFooter(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'AddImage_footer', event.target.value);
+      data.onChange(id, 'footer', event.target.value);
     }
   };
 
@@ -117,7 +119,7 @@ function ListDrag({ id, data }) {
 
   return (
     <div className='bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
-      <Handle type="target" position={Position.Left} id="AddImage_Handle_key" className='ml[10px]' style={hfStyle} />
+      <Handle type="target" position={Position.Left} id="a" className='ml[10px]' style={hfStyle} />
 
       {show && (
         <button

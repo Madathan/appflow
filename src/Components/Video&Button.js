@@ -46,7 +46,7 @@ function TextUpdaterNode({ data, onRemove, id }) {
   );
 }
 
-function AddImage({ id, data }) {
+function VideoButton({ id, data }) {
   const [inputBoxes, setInputBoxes] = useState([]);
   const [addButtonDisabled, setAddButtonDisabled] = useState(false);
   const { setNodes } = useReactFlow();
@@ -80,7 +80,7 @@ function AddImage({ id, data }) {
 
   const handleTextChange = (inputId, value) => {
     if (data.onChange) {
-      data.onChange(id, "button_"+inputId, value);
+      data.onChange(id, "botton"+inputId, value);
     }
   };
 
@@ -169,4 +169,4 @@ function AddImage({ id, data }) {
   );
 }
 
-export default AddImage;
+export default VideoButton;

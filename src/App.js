@@ -54,6 +54,8 @@ import { useLocation } from 'react-router-dom';
 import Signup from './SignUp';
 import { BsCart4 } from "react-icons/bs";
 import { SiWoo } from "react-icons/si";
+import Validation from './Valitation';
+import FlowEdit from './Components/FlowEdit'
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -104,7 +106,7 @@ function App() {
     { id: 10, bre: "CONTACT MANAGEMENT", name: "Groups", link: '/', icon: MdGroups3, nav: "/Groups", Margin: true  },
     { id: 11, title: "TEMPLATES AND CAMPAIGNS", name: "Templates", link: '/', icon: CgTemplate, nav: "/Templates" },
     { id: 12, bre: "TEMPLATES AND CAMPAIGNS", name: "Campaigns", link: '/', icon: MdOutlineCampaign, nav: "/Campaigns", Margin: true  },
-    { id: 13, title: "CHATFLOW AUTOMATION", name: "Flow", link: '/', icon: TiFlowSwitch, nav: "/Keyword-Automation", Margin: true  },
+    { id: 13, title: "CHATFLOW AUTOMATION", name: "Flow", link: '/', icon: TiFlowSwitch, nav: "/FlowEdit", Margin: true  },
     { id: 14, title: "WECRM INTEGRATION", name: " Leads", link: '/', icon: MdLeaderboard, nav: "/CRM-Leads" },
     { id: 15, bre: "WECRM INTEGRATION", name: " Agent", link: '/', icon: MdAssignmentInd, nav: "/Assign-Agent", Margin: true  },
     { id: 16, bre: "WECRM INTEGRATION", name: "Commerce", link: '/', icon: IoSettingsOutline, nav: "/Commercesettings" , Margin: true  },
@@ -165,6 +167,8 @@ function App() {
   <Route path='/Assign-Agent' element={<ProtectedRoute><AssignAgent open={open} /></ProtectedRoute>} />
   <Route path='/Commercesettings' element={<ProtectedRoute><CommerceSettings  /></ProtectedRoute>} />
   <Route path='/WooCommerce' element={<ProtectedRoute><WooCommerce  /></ProtectedRoute>} />
+  <Route path='/FlowEdit' element={<ProtectedRoute><FlowEdit/></ProtectedRoute>} />
+
 
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
@@ -174,6 +178,8 @@ function App() {
 
   <Route exact path='/Login' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />
+  <Route path='/' element={<Validation/>} />
+
 </Routes>
           </div>
         </main>

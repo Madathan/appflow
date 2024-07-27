@@ -4,16 +4,16 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi'; // Icon for the hamburger menu
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const Sidebar = ({ menus }) => {
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   
   const handleLogin = () => {
     navigate('/Logout');
   };
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };

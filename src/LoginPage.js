@@ -4,11 +4,9 @@ import Cookies from 'js-cookie';
 
 const LoginPage = () => {
   const navigate=useNavigate()
-  const userData=Cookies.get("userData")
+  
   //console.log(userData)
-  if(userData!==undefined){
-    navigate("/dashboard",{replace:true})
-  }
+ 
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

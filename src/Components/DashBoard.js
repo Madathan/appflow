@@ -16,7 +16,6 @@ import { MdOutlineVerified } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
 const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-
 const DashBoard = ({ open, data }) => {
   const [newCardData, setNewCardData] = useState(null);
 
@@ -61,9 +60,9 @@ const DashBoard = ({ open, data }) => {
   return (
     <div className="h-full overflow-y-auto">
       <div>
-        <h2 className="pb-3 text-3xl font-bold">
+        <h2 className="pb-3 text-3xl font-Poppins">
           Welcome back,{" "}
-          <span className="text-[--second]">SamrtYubbies DashBoard</span>{" "}
+          <span className="font-Poppins text-[--second]">SamrtYubbies DashBoard</span>{" "}
           <span
             style={{ transitionDelay: `300ms` }}
             className={`${open && "rotate-90"}`}
@@ -71,29 +70,29 @@ const DashBoard = ({ open, data }) => {
           
           </span>
         </h2>
-        <p className="text-gray-500 text-xl">
+        <p className="text-gray-500 font-Poppins">
           Get a quick overview of your campaign's current status below, or
           click into one of the sections for a more detailed breakdown.
         </p>
       </div>
 
       <div className="my-8 overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-Poppins">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 font-Poppins">
           {newCardData && (
             <>
-              <div className="bg-white border-gray-200 rounded-xl font-Poppins border-solid border group shadow-lg p-6">
+              <div className="bg-white  rounded-xl font-Poppins  group shadow-lg p-6">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full p-3 inline-block group-hover:ring-[--second] ring-2 ring-[--primary]">
-                    <MdOutlineVerified className="text-2xl font-Poppins group-hover:text-[--second] text-[--primary]" />
+                    <MdOutlineVerified className="text-2xl  group-hover:text-[--second] text-[--primary]" />
                   </div>
-                  <span className="group-hover:text-[--second] text-[--primary] font-semibold">
+                  <span className="group-hover:text-[--second] text-[--primary] font-Poppins">
                     SUBSCRIBED CLIENTS
                   </span>
                 </div>
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.subscribedContactsCount}</div>
-                
+                  <DashChart4/>
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -101,24 +100,24 @@ const DashBoard = ({ open, data }) => {
                       <FaArrowTrendUp className="text-xl text-white" />
                     </div>
                   </div>
-                  <div className="p-3 text-2xl group-hover:text-[--primary] font-black text-[--second]">
+                  <div className="p-3 text-2xl group-hover:text-[--primary] font-Poppins text-[--second]">
                     <span className="">+</span> Increasing
                   </div>
                 </div>
               </div>
-              <div className="bg-white border-gray-200 rounded-xl border-solid border group shadow-lg p-6">
+              <div className="bg-white  rounded-xl   group shadow-lg p-6">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full p-3 inline-block group-hover:ring-[--second] ring-2 ring-[--primary]">
                     <FaWhatsapp className="text-2xl group-hover:text-[--second] text-[--primary]" />
                   </div>
-                  <span className="group-hover:text-[--second] text-[--primary] font-semibold">
+                  <span className="group-hover:text-[--second] text-[--primary] font-Poppins">
                     WHATSAPP SENT
                   </span>
                 </div>
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.sent}</div>
-                 
+                  <DashChart4/>
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -126,7 +125,7 @@ const DashBoard = ({ open, data }) => {
                       <FaArrowTrendUp className="text-xl text-white" />
                     </div>
                   </div>
-                  <div className="p-3 text-2xl group-hover:text-[--primary] font-black text-[--second]">
+                  <div className="p-3 text-2xl group-hover:text-[--primary] font-Poppins text-[--second]">
                     <span className="">+</span> Increasing
                   </div>
                 </div>
@@ -136,13 +135,13 @@ const DashBoard = ({ open, data }) => {
                   <div className="bg-white group-hover:ring-[--second] rounded-full p-3 inline-block ring-2 ring-[--primary]">
                     <GrSend className="text-2xl group-hover:text-[--second] text-[--primary]" />
                   </div>
-                  <span className="group-hover:text-[--second] text-[--primary] font-semibold">
+                  <span className="group-hover:text-[--second] text-[--primary] font-Poppins">
                     WHATSAPP DELIVERED
                   </span>
                 </div>
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.delivered}</div>
-                 
+                  <DashChart4/>
                 </div>
 
                 <div className="flex items-center">
@@ -151,7 +150,7 @@ const DashBoard = ({ open, data }) => {
                       <FaArrowTrendUp className="text-xl text-white" />
                     </div>
                   </div>
-                  <div className="p-3 text-2xl group-hover:text-[--primary] font-black text-[--second]">
+                  <div className="p-3 text-2xl group-hover:text-[--primary] font-Poppins text-[--second]">
                     <span className="">+</span> Increasing
                   </div>
                 </div>
@@ -161,14 +160,14 @@ const DashBoard = ({ open, data }) => {
                   <div className="bg-white rounded-full group-hover:ring-[--second] p-3 inline-block ring-2 ring-[--primary]">
                     <FaEnvelopeOpen className="text-2xl group-hover:text-[--second] text-[--primary]" />
                   </div>
-                  <span className="text-[--primary] group-hover:text-[--second] font-semibold">
+                  <span className="text-[--primary] group-hover:text-[--second] font-Poppins">
                     WHATSAPP READ
                   </span>
                 </div>
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.read}</div>
-                  
+                  <DashChart2/>
                 </div>
 
                 <div className="flex items-center">
@@ -177,7 +176,7 @@ const DashBoard = ({ open, data }) => {
                       <FaArrowTrendUp className="text-xl text-white" />
                     </div>
                   </div>
-                  <div className="p-3 text-2xl group-hover:text-[--primary] font-black text-[--second]">
+                  <div className="p-3 text-2xl group-hover:text-[--primary] font-Poppins text-[--second]">
                     <span className="">+</span> Increasing
                   </div>
                 </div>
@@ -187,7 +186,7 @@ const DashBoard = ({ open, data }) => {
         </div>
       </div>
 
-      <div>
+      {/*<div>
         <div className="gap-x-10 grid sm:grid-cols-1 lg:grid-cols-1" style={{ overflowX: 'hidden' }}>
           <Slider {...settings}>
             {data.slice().reverse().map((item, index) => (
@@ -227,7 +226,7 @@ const DashBoard = ({ open, data }) => {
             ))}
           </Slider>
         </div>
-      </div>
+      </div>*/}
     </div>
   );
 };

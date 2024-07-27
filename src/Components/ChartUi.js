@@ -9,7 +9,6 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import AssignChat from './AssignTeamMemberChat';
 import ChatweCrm from './AssignWeCrm'
 import { Instagram } from 'react-content-loader';
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const App = () => {
   const [chatData, setChatData] = useState([]);
@@ -23,6 +22,7 @@ const App = () => {
   const [assignwecrmopen,setAssignwecrmopen]=useState(false);
   const [loading, setLoading] = useState(true);
 
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 
   console.log("userdata",chat)

@@ -11,7 +11,7 @@ root.render(
     <Routes>
 
       <Route path='*' element={<App />} />
-      <Route path='/' element={<Login />} />
+      <Route path='/Login' element={<Login />} />z
 
     </Routes>
    </BrowserRouter>

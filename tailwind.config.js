@@ -14,9 +14,9 @@ module.exports = {
       backgroundImage: {
         'primary-gradient': 'linear-gradient(90deg, var(--primary-gradient-start) 0%, var(--primary-gradient-mid) 50%, var(--primary-gradient-end) 100%)',
       },
-      fontFamily:{
-        abc:['lato','source-sans', 'poppins']
-      }
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
     },
   },
   plugins: [ require('flowbite/plugin')],

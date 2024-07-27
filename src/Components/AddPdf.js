@@ -39,7 +39,7 @@ function TextUpdaterNode({ data, onRemove, id }) {
       </button>
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
-          <Handle type="source" position={Position.Left} id={`AddPdf_handle_Source-${id}`} style={rfStyle} />
+          <Handle type="source" position={Position.Left} id={`button_id_${id}`} style={rfStyle} />
           <input id="text" name="text" onChange={onChange} className='rounded-2xl p-10 text-2xl  w-full' placeholder='Enter the text' />
         </div>
       </div>
@@ -62,7 +62,7 @@ function AddPdf({ id, data }) {
   };
 
   const addInputBox = () => {
-    const newId = inputBoxes.length;
+    const newId = inputBoxes.length+1;
     setInputBoxes((prevInputBoxes) => [
       ...prevInputBoxes,
       { id: newId, component: <TextUpdaterNode key={newId} id={newId} onRemove={() => removeInputBox(newId)} data={{ onChange: handleTextChange }} /> }
@@ -80,21 +80,21 @@ function AddPdf({ id, data }) {
 
   const handleTextChange = (inputId, value) => {
     if (data.onChange) {
-      data.onChange(id, inputId, value);
+      data.onChange(id, "button_"+inputId, value);
     }
   };
 
   const handleKeywordChange = (event) => {
     setKeyword(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'keyword', event.target.value);
+      data.onChange(id, 'document_name', event.target.value);
     }
   };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'message', event.target.value);
+      data.onChange(id, 'document_caption', event.target.value);
     }
   };
 
@@ -106,7 +106,7 @@ function AddPdf({ id, data }) {
     reader.onloadend = () => {
       const base64String = reader.result;
       if (data.onChange) {
-        data.onChange(id, 'file', base64String);
+        data.onChange(id, 'uploaded_file_url', base64String);
       }
     };
     reader.readAsDataURL(file);
@@ -122,7 +122,7 @@ function AddPdf({ id, data }) {
 
   return (
     <div className='bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={Show} onMouseOut={Leave}>
-      <Handle type="target" position={Position.Left} id="AddPdf_Handle_Target" className='ml[10px]' style={hfStyle} />
+      <Handle type="target" position={Position.Left} id="media_node" className='ml[10px]' style={hfStyle} />
 
       {show && (
         <button
@@ -152,7 +152,6 @@ function AddPdf({ id, data }) {
           </button>
           <input
             type='file'
-            accept=".pdf" // Only accept PDF files
             className='rounded-lg'
             ref={fileInputRef}
             style={{ display: 'none' }}

@@ -263,7 +263,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
               />
             </div>
             <div className='flex items-center mb-4'>
-              <label htmlFor='country' className='mr-2'>newGroupName:</label>
+              <label htmlFor='country' className='mr-2'>NewGroupName:</label>
               <input
                 type='text'
                 id='country'
