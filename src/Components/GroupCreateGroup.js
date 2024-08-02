@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { message } from 'antd';
+import Swal from 'sweetalert2';
+
 import Cookies from 'js-cookie';
 const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
@@ -69,16 +70,24 @@ const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
       });
 
       if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Insert successful!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+       
         const responseData = await response.json();
         console.log('Group created:', responseData);
-        message.success('License generated successfully')
         // Handle success (e.g., close modal, show success message)
-        toast.success('Successfully Created', {
-          position: 'top-center',
-          autoClose: 2000,
-        });
-        onClick();
+        
+      
       } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Insert failed!',
+          text: 'Something went wrong!',
+        });
         console.error('Failed to create group', response.status, response.statusText);
         const errorData = await response.json();
         console.error('Error details:', errorData);
@@ -88,6 +97,7 @@ const GroupCreateGroup = ({ onClick, data,forceUpdate }) => {
       console.error('Error:', error);
       // Handle error (e.g., show error message)
     }
+    onClick();
     forceUpdate()
   };
 

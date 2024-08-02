@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
-const GenerateLicense = ({ details }) => {
+const GenerateLicense = ({ details,forceUpdate }) => {
   const [opens, setOpens] = useState(false);
   const [formData, setFormData] = useState({
     client_username: details?.username || '',
@@ -115,6 +115,7 @@ const GenerateLicense = ({ details }) => {
       message.error('Error generating license');
       console.error('Error:', error);
     }
+    forceUpdate()
   };
 
   return (

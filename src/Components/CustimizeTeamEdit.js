@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { message } from 'antd';
 
-const PopupForm = ({ edit, show }) => {
+const PopupForm = ({ edit, show,forceUpdate}) => {
   console.log("array", edit);
   const [formData, setFormData] = useState({
     name: '',
@@ -51,8 +52,12 @@ const PopupForm = ({ edit, show }) => {
         body: JSON.stringify(formDataToSend),
       });
       if (!response.ok) {
+        message.error('Failed to Update');
         throw new Error('Failed to remove card');
+      
+
       }
+      message.success('Update  successfully');
       const data = await response.json(); // Expecting JSON response
       console.log('Success:', data);
       // Additional logic here if needed
@@ -61,6 +66,7 @@ const PopupForm = ({ edit, show }) => {
     } catch (error) {
       console.error('Fetch error:', error);
     }
+    forceUpdate()
   };
 
   return (

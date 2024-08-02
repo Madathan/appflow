@@ -1,5 +1,4 @@
 import React, { useState, useEffect,useReducer } from 'react';
-import { motion } from 'framer-motion';
 import DropdownMenu from './GroupDropdownMenu';
 import Cookies from 'js-cookie';
 import Button from '@mui/material/Button';
@@ -57,7 +56,7 @@ function Groups() {
     setOpenDropdown((prevId) => (prevId === id ? null : id));
   };
 
-  const handleShow = () => {
+  const handleShows = () => {
     setShow(!show);
   };
 
@@ -98,7 +97,7 @@ function Groups() {
             type="submit"
             variant="contained"
             style={{ backgroundColor: '#00a727', color: '#FFFFFFF', marginBottom: '10px' }}
-            onClick={handleShow}
+            onClick={handleShows}
           >
             Create Group
           </Button>
@@ -133,7 +132,7 @@ function Groups() {
     </TableBody>
 </Table>
 </TableContainer>
-{show && <Groupcreate onClick={handleShow} data={contact}  forceUpdate={forceUpdate}/>}
+{show &&( <><Groupcreate onClick={handleShows} data={contact}  forceUpdate={forceUpdate}/></>)}
         </div> </>)}
      
     </div>

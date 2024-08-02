@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Handle, Position, useReactFlow } from 'reactflow';
-import { MdCancel } from "react-icons/md";
+import { IoLocationOutline } from "react-icons/io5";
 import 'reactflow/dist/style.css';
-import { IoImagesOutline } from "react-icons/io5";
 import { RiDeleteBin5Line } from "react-icons/ri";  
 
 const rfStyle = { backgroundColor: 'white', left: 430, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
@@ -53,7 +52,7 @@ function  Location({ id, data }) {
   const leave = () => setShow(false);
 
   return (
-    <div className='bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
+    <div className='bg-[#ffffff] rounded-[45px] p-10 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
       <Handle type="target" position={Position.Left} id="AddImage_Handle_key" className='ml[10px]' style={hfStyle} />
 
       {show && (
@@ -65,9 +64,9 @@ function  Location({ id, data }) {
         </button>
       )}
 
-      <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
-        <IoImagesOutline className='mt-5 text-4xl' />
-        <h3 className='text-center text-[40px] mt-2 ml-4'> List & Button</h3>
+      <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-2 mb-2 p-4 w-full'>
+        <IoLocationOutline className='mt-5 text-4xl' />
+        <h3 className='text-center text-[40px] mt-2 ml-4'> Location</h3>
       </div>
 
       <div className='bg-[#eae6df] border-[4px] border-solid border-red-600 rounded-[25px] p-3 mt-5'>

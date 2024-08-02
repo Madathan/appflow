@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TextField, IconButton, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AssignAgentEdit from './AssignAgentEdid';
+import {message } from 'antd';
 
 function MaterialUITables() {
   const [rows, setRows] = useState([]);
@@ -45,8 +45,10 @@ function MaterialUITables() {
         method: 'DELETE', // Ensure method is DELETE
       });
       if (!response.ok) {
+        message.error('Failed to Delete');
         throw new Error('Network response was not ok');
       }
+      message.success('Delete successfully');
       const data = await response.json();
       if (data.success) { // Assuming the response includes a success flag
         setRows(rows.filter((row) => row.id !== id)); // Update the state to remove the deleted row
@@ -67,7 +69,7 @@ function MaterialUITables() {
   );
 
   return (
-    <div className="rounded-lg shadow-xl overflow-x-scroll h-[610px]">
+    <div className="rounded-lg shadow-xl overflow-x-scroll h-[600px] mb-4 border border-2">
       <div className="p-4 flex justify-between items-center">
         <h1 className="text-xl font-bold">Order Table</h1>
         <TextField
@@ -93,12 +95,12 @@ function MaterialUITables() {
           <TableBody className="bg-white divide-y divide-gray-200">
             {filteredRows.map((row) => (
               <TableRow key={row.id}>
-                <TableCell className="px-6 py-4 whitespace-nowrap">{row.id}</TableCell>
-                <TableCell className="px-6 py-4 text-right whitespace-nowrap">{row.keyword}</TableCell>
-                <TableCell className="px-6 py-4 text-right whitespace-nowrap">{row.staff_name}</TableCell>
-                <TableCell className="px-6 py-4 text-right whitespace-nowrap">{row.source_name}</TableCell>
-                <TableCell className="px-6 py-4 text-right whitespace-nowrap">{row.status_name}</TableCell>
-                <TableCell className="px-6 py-4 text-right whitespace-nowrap">
+                <TableCell className="px-6 py-4  whitespace-nowrap">{row.id}</TableCell>
+                <TableCell className="px-6 py-4 font-poppins text-right whitespace-nowrap">{row.keyword}</TableCell>
+                <TableCell className="px-6 py-4 font-poppins text-right whitespace-nowrap">{row.staff_name}</TableCell>
+                <TableCell className="px-6 py-4  font-poppins text-right whitespace-nowrap">{row.source_name}</TableCell>
+                <TableCell className="px-6 py-4 font-poppins text-right whitespace-nowrap">{row.status_name}</TableCell>
+                <TableCell className="px-6 py-4 font-poppins text-right whitespace-nowrap">
                   <IconButton onClick={() => handleEditClick(row.id)}>
                     <EditIcon />
                   </IconButton>

@@ -10,21 +10,18 @@ import { TiFlowSwitch } from "react-icons/ti";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaOpencart } from "react-icons/fa";
 import { HiOutlineCreditCard } from "react-icons/hi2";
+import  UpdateCard  from  './Components/ReactFlow/FlowUpdate'
+import { CgProfile } from "react-icons/cg";
 
 //menu icons
 import Logout from './Logout';
 import ProtectedRoute from './ProtectedRoute/Index';
-import { RxDashboard } from "react-icons/rx";
-import { TbShoppingCartHeart } from "react-icons/tb";
 import { MdLeaderboard } from "react-icons/md";
 import { MdGroups3 } from "react-icons/md";
 import { CgTemplate } from "react-icons/cg";
 import { MdOutlineCampaign } from "react-icons/md";
-import { RiRobot2Line } from "react-icons/ri";
 import { MdAssignmentInd } from "react-icons/md";
 import { SiFastapi } from "react-icons/si";
-import { RiChatPollLine } from "react-icons/ri";
-import { TiContacts } from "react-icons/ti";
 import { TbReportAnalytics } from "react-icons/tb";
 // import Navbar from './views/Navbar';
  import BreadCrumbs from './views/BreadCrumbs';
@@ -34,29 +31,27 @@ import Orders from './Components/Orders';
 import Groups from './Components/Groups';
 import Contacts from './Components/Contacts';
 import CustomizeTeam from './Components/CustomizeTeam';
-import Campaigns from './Components/Campaigns';
-import AssignAgent from './Components/AssignAgent';
-import ChatInbox from './Components/ChatInbox';
+import Campaigns from './Components/Campaign/Campaigns';
+import AssignAgent from './Components/AssaignAgent/AssignAgent';
+import ChatInbox from './Components/Chatinbox/ChatInbox';
 import CrmLeads from './Components/CrmLeads';
-import Templates from './Components/Templates';
-import KeywordAutomation from './Components/KeywordAutomation';
+import Templates from './Components/Templates/Templates';
+import KeywordAutomation from './Components/ReactFlow/KeywordAutomation';
 import DashBoard from './Components/DashBoard'
 import Reports from './Components/Reports';
 import CommerceSettings from './Components/CommerceSettings';
 import WooCommerce from './Components/Woocommerse/WooCommerce';
-import CampaignSelect from './Components/CampaignSelect';
+import CampaignSelect from './Components/Campaign/CampaignSelect';
 import ConnectAccount from './Components/ConnectAccount';
 import GenerateLicense from './Components/GenerateLicense';
-import { RiAiGenerate } from "react-icons/ri";
 import { PiMicrosoftTeamsLogoBold } from "react-icons/pi";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import Signup from './SignUp';
-import { BsCart4 } from "react-icons/bs";
-import { SiWoo } from "react-icons/si";
 import Validation from './Valitation';
 import FlowEdit from './Components/FlowEdit'
-
+import LicenceThisMonth from './Components/GenerateThisMonthExpire'
+import Profile from './Components/Profile/Profile'
 function App() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -110,7 +105,8 @@ function App() {
     { id: 14, title: "WECRM INTEGRATION", name: " Leads", link: '/', icon: MdLeaderboard, nav: "/CRM-Leads" },
     { id: 15, bre: "WECRM INTEGRATION", name: " Agent", link: '/', icon: MdAssignmentInd, nav: "/Assign-Agent", Margin: true  },
     { id: 16, bre: "WECRM INTEGRATION", name: "Commerce", link: '/', icon: IoSettingsOutline, nav: "/Commercesettings" , Margin: true  },
-    { id: 17, bre: "WECRM INTEGRATION", name: "Woo", link: '/', icon: SiWoo, nav: "/WooCommerce" , Margin: true  },
+    { id: 17, bre: "WECRM INTEGRATION", name: "Profile", link: '/', icon: CgProfile, nav: "/Profile" , Margin: true  },
+   // { id: 17, bre: "WECRM INTEGRATION", name: "Woo", link: '/', icon: SiWoo, nav: "/WooCommerce" , Margin: true  },
 
       
   ];
@@ -166,14 +162,16 @@ function App() {
   <Route path='/Keyword-Automation' element={<ProtectedRoute><KeywordAutomation /></ProtectedRoute>} />
   <Route path='/Assign-Agent' element={<ProtectedRoute><AssignAgent open={open} /></ProtectedRoute>} />
   <Route path='/Commercesettings' element={<ProtectedRoute><CommerceSettings  /></ProtectedRoute>} />
-  <Route path='/WooCommerce' element={<ProtectedRoute><WooCommerce  /></ProtectedRoute>} />
+  {/*<Route path='/WooCommerce' element={<ProtectedRoute><WooCommerce  /></ProtectedRoute>} />*/}
   <Route path='/FlowEdit' element={<ProtectedRoute><FlowEdit/></ProtectedRoute>} />
 
-
+  <Route path='/Edit-Keyword-Automation' element={ <ProtectedRoute><UpdateCard /> </ProtectedRoute>} />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } />
   <Route path='/Team-Inbox' element={<ProtectedRoute><ChatInbox/></ProtectedRoute> } /> 
   <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
   <Route path='/Logout' element={<ProtectedRoute><Logout/></ProtectedRoute> } />
+  <Route path='/LicenceThisMonth' element={<ProtectedRoute><LicenceThisMonth/></ProtectedRoute> } />
+  <Route path='/Profile' element={<ProtectedRoute><Profile/></ProtectedRoute> } />
 
 
   <Route exact path='/Login' element={<Login />} />

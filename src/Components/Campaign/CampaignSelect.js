@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import background from '../assests/undraw_Add_tasks_re_s5yj.png'; // Import your background image
+import background from '../../assests/undraw_Add_tasks_re_s5yj.png'; // Import your background image
 import CampaignSend from './CampaignSend';
 
 const CampaignSelect = () => {
   const location = useLocation();
   const { selectedTemplate, formData, userData } = location.state || {};
   const { name, components, language } = selectedTemplate || {};
-  console.log("formData", formData);
+  console.log("formData",   );
   const [file, setFile] = useState(null);
   const [base64File, setBase64File] = useState("");
   const [inputValues, setInputValues] = useState({});

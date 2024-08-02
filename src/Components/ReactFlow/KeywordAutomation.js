@@ -1,30 +1,27 @@
 import { useCallback, useState, useRef } from 'react';
 import ReactFlow, { addEdge, applyEdgeChanges, applyNodeChanges, MiniMap, Controls, Background,BackgroundVariant } from 'reactflow';
-import AddImage from './AddImage';
 import 'reactflow/dist/style.css';
 import AddPdf from './AddPdf';
 import NodeContainer from './DragInputs';
 import { GiClick } from 'react-icons/gi';
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import { FaImage } from "react-icons/fa6";
-import { GrDocumentPdf } from "react-icons/gr";
 import CustomEdge from './CustomEdge';
-import ConnectionLine from './ConnectLine';
+import ConnectionLine from '../ConnectLine';
 import { FaListUl } from "react-icons/fa";
 import ListDrag from './ListDrag';
-import Text from './FlowTex'
-import FlowImageCaption from './FlowImageCaption'
-import FlowImage from './FlowImage'
 import FlowKey from './FlowKey'
-import FlowVideo from './FlowVideo'
-import VideoButton from './Video&Button'
-import DocumentDetails from './FlowDocument';
 import Location from './FlowLocation'
 import { MdLocationPin } from "react-icons/md";
 import { MdOutlinePermMedia } from "react-icons/md";
+import Swal from 'sweetalert2';
+
 import { useNavigate, } from 'react-router-dom';
+
 import Cookies from 'js-cookie';
+
+
+
 const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const rfStyle = {
@@ -35,7 +32,7 @@ const rfStyle = {
 
  // Initialize with an empty array
 
-const nodeTypes = { nodeContainer: NodeContainer, addImage: AddImage, addPdf: AddPdf, listDrag: ListDrag, text:Text,imageCaption:FlowImageCaption,image:FlowImage,flowKey:FlowKey,flowvideo:FlowVideo,videobutton:VideoButton,documentdetails:DocumentDetails,location:Location};
+const nodeTypes = { nodeContainer: NodeContainer,  addPdf: AddPdf, listDrag: ListDrag,flowKey:FlowKey,location:Location};
 const edgeTypes = {
   customEdge: CustomEdge, // Match the type here with the one you're using in addEdge
 };
@@ -52,18 +49,12 @@ function Flow() {
     }));} }}];
   const [nodes, setNodes] = useState(initialNodes); // Start with an empty nodes array
   const [edges, setEdges] = useState([]);
-  const [inputValues, setInputValues] = useState({});
   const [inputpdf, setInputpdf] = useState({});
   const [inputButton, setInputButton] = useState({});
   const [list, setInputList] = useState({});
-  const [text, setText] = useState({});
-  const [imageCaption, setImageCaptio] = useState({});
-  const [image, setImage] = useState({});
   const [flowName, setFlowName] = useState();
-  const [flowvideo, setFlowVideo] = useState({});
   const [flowKey, setFlowKey] = useState({});
-  const [videoButton, setVideoButton] = useState({});
-  const [documents, setDocuments] = useState({});
+  const [alert, setAlert] = useState();
   const [location, setLocation] = useState({});
 
 
@@ -155,70 +146,8 @@ function Flow() {
     setDraggingEnabled(!draggingEnabled);
   };
 
-  const handleInputChange = (nodeId, inputType, value) => {
-    setInputValues((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handleFlowText = (nodeId, inputType, value) => {
-    setText((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handledocuments = (nodeId, inputType, value) => {
-    setDocuments((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handleImgs = (nodeId, inputType, value) => {
-    setImage((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handlevideos = (nodeId, inputType, value) => {
-    setFlowVideo((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handlevideobutton = (nodeId, inputType, value) => {
-    setVideoButton((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-  const handleFlowimgCaptions= (nodeId, inputType, value) => {
-    setImageCaptio((prevValues) => ({
-      ...prevValues,
-      [nodeId]: {
-        ...prevValues[nodeId],
-        [inputType]: value,
-      },
-    }));
-  };
-
+ 
+ 
   const handleimageChange = (nodeId,inputType, value) => {
     setInputpdf((prevValues) => ({
       ...prevValues,
@@ -260,7 +189,7 @@ function Flow() {
     e.preventDefault();
    
     console.log('Image_&_button:', JSON.stringify(combinedArray, null, 2));
-    if(flowName){
+    if(flowName &&  list && location && inputpdf && flowKey){
     try {
       const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
         method: 'POST',
@@ -273,18 +202,37 @@ function Flow() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+     
+   
       const data = await response.json();
+      setAlert(data.message)
       console.log('Success:', data);
      
-      location.reload()
+     
+     
      } catch (error) {
       console.error('Error:', error);
     }
-  }
+    Swal.fire({
+      icon: alert ==="flow_start_keyword already exists" ? 'error' :'success',
+      title: alert,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+    if(alert !== "flow_start_keyword already exists")
+    {
+   
+    }
+  } 
   else
   {
-    
+    Swal.fire({
+      icon:  'error',
+      title:"enter a value in the input  fields",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+      console.log("enter a value ")
   }
   };
    

@@ -182,7 +182,7 @@ const CustomizeTeams1 = () => {
                     </label>
                   </div>
                 </div>
-                <div className="flex justify-end">
+                <div className="flex  justify-start md:justify-end">
                   <button
                     type="submit"
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors mr-2"

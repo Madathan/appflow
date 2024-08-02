@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CampaignContent from './CampaignContent';
+import CampaignContent from '../AssaignAgent/CampaignContent';
 import { IoPersonCircle } from "react-icons/io5";
 import { BsSendExclamation } from "react-icons/bs";
 

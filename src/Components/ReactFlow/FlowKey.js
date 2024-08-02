@@ -38,7 +38,7 @@ const FlowKey = ({ id, data }) => {
 
   
   return (
-    <div className='bg-[white] rounded-[45px]  p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-blue-800' >
+    <div className='bg-[white] rounded-[45px]  p-7 shadow-yellow-900 hover:border-solid hover:border-[4px] hover:border-blue-800' >
      
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
         <PiRadioButton className='mt-1 text-4xl' />

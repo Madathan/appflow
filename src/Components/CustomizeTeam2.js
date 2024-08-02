@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useReducer} from 'react';
 import profilImage from '../assests/19021603.jpg';
 import Card from './CumstomizeCard'; // Assuming this is the correct import statement
 import Cookies from 'js-cookie';
-
+import { message } from 'antd';
+import CustomizeTeam1 from './CustomizeTeams1'
 const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 console.log("datas", chat);
 
 function CustomizeTeams() {
   const [data, setData] = useState([]);
-
+  const [reducer, forceUpdate] = useReducer(x => x + 1,0);
   useEffect(() => {
     // Fetch initial data
     const fetchData = async () => {
@@ -25,10 +26,13 @@ function CustomizeTeams() {
         });
 
         if (!response.ok) {
+        
           throw new Error('Failed to fetch initial data');
         }
 
         // Log the raw response text
+       
+
         const responseText = await response.text();
         console.log("Raw response:", responseText);
 
@@ -43,7 +47,7 @@ function CustomizeTeams() {
     };
 
     fetchData(); // Call the function to fetch data when component mounts
-  }, []); // Empty dependency array ensures this runs only once when component mounts
+  }, [reducer]); // Empty dependency array ensures this runs only once when component mounts
 
   const handleRemoveCard = async (id) => {
     try {
@@ -59,18 +63,24 @@ function CustomizeTeams() {
       });
 
       if (!response.ok) {
+        message.error('Failed to delete');
         throw new Error('Failed to remove card');
       }
-
+      message.success('Delete successfully');
       console.log('Card removed successfully');
     } catch (error) {
       console.error('Error removing card:', error);
       // Optionally, you might want to revert the UI state if the request fails
       setData([...data]); // Restore previous state
     }
+    forceUpdate()
   };
 
   return (
+    <>
+    <div className='mb-10'>        
+    <CustomizeTeam1/> 
+    </div>
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10">
       {data.map(user => (
         <Card
@@ -79,9 +89,11 @@ function CustomizeTeams() {
           description={user.password}
           imageUrl={user.image || profilImage} // Use profilImage as fallback if user.image is null
           remove={handleRemoveCard}
+          forceUpdate={forceUpdate}
         />
       ))}
     </div>
+    </>
   );
 }
 

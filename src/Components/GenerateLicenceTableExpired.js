@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useReducer } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Tooltip, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import GenerateLicenActive from './GenerateLicenceEditExpired';
@@ -9,18 +9,18 @@ const GenerateTable = () => {
   const [edit, setEdit] = useState(false);
   const [orders, setOrders] = useState([]);
   const [details, setDetails] = useState({});
-
+  const [reducer, forceUpdate] = useReducer(x => x + 1,0)
 
   useEffect(() => {
     fetchOrders();
-  }, [orders]);
+  }, [reducer]);
 
   const fetchOrders = async () => {
     try {
       const response = await fetch('https://ci4backend.smartyuppies.com/Home/licenseActive/inactive'); // Replace with your API endpoint
       if (response.ok) {
-        const data = await response.json();
-        setOrders(data);
+        const datas = await response.json();
+        setOrders(datas.data  );
       } else {
         console.error('Failed to fetch orders', response.status, response.statusText);
       }
@@ -120,7 +120,7 @@ const GenerateTable = () => {
             </Table>
           </TableContainer>
         </div>
-      {show &&  <GenerateLicenActive details={details} />}
+      {show &&  <GenerateLicenActive details={details} forceUpdate={forceUpdate} />}
     </>
   );
 };

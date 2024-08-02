@@ -20,6 +20,20 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
     column4: '',
     column5: '',
     column6: '',
+    column7: '',
+    column8: '',
+    column9: '',
+    column10: '',
+    column11: '',
+    column12: '',
+    column13: '',
+    column14: '',
+    column15: '',
+    column16: '',
+    column17: '',
+    column18: '',
+    column19: '',
+    column20: '',
     imageType: '',
     imageFile: null,
   });
@@ -89,7 +103,21 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           column3: formData.column3,
           column4: formData.column4,
           column5: formData.column5,
-          column6: formData.column6
+          column6: formData.column6,
+          column7: formData.column7,
+          column8: formData.column8,
+          column9: formData.column9,
+          column10: formData.column10,
+          column11: formData.column11,
+          column12: formData.column12,
+          column13: formData.column13,
+          column14: formData.column14,
+          column15: formData.column15,
+          column16: formData.column16,
+          column17: formData.column17,
+          column18: formData.column18,
+          column19: formData.column19,
+          column20: formData.column20,
         }),
       });
 
@@ -110,6 +138,20 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           column4: '',
           column5: '',
           column6: '',
+          column7: '',
+          column8: '',
+          column9: '',
+          column10: '',
+          column11: '',
+          column12: '',
+          column13: '',
+          column14: '',
+          column15: '',
+          column16: '',
+          column17: '',
+          column18: '',
+          column19: '',
+          column20: '',
           imageType: '',
           imageFile: null,
         });
@@ -129,7 +171,8 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
   const handleDownloadExcel = () => {
     const headers = [
       'Name', 'MobileNumber', 'Country', 'EmailAddress', 
-      'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6'
+      'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6','Column7','Column8',,'Column9','Column10','Column11','Column12','Column13','Column14'
+      ,'Column15','Column16','Column17','Column18','Column19','Column20'
     ];
 
     const data = [
@@ -143,7 +186,20 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
         Column3: formData.column3,
         Column4: formData.column4,
         Column5: formData.column5,
-        Column6: formData.column6
+        Column6: formData.column6,
+        Column7: formData.column7,
+        Column9: formData.column8,
+        Column10: formData.column9,
+        Column11: formData.column10,
+        Column12: formData.column11,
+        Column13: formData.column12,
+        Column14: formData.column13,
+        Column15: formData.column15,
+        Column16: formData.column16,
+        Column17: formData.column17,
+        Column18: formData.column18,
+        Column19: formData.column19,
+        Column20: formData.column20
       }
     ];
 
@@ -426,6 +482,204 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
               placeholder='Enter column 6'
             />
           </div>
+          <div className='mb-4'>
+            <label htmlFor='column7' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 7
+            </label>
+            <input
+              type='text'
+              id='column7'
+              name='column7'
+              value={formData.column7}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 7'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column8' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 8
+            </label>
+            <input
+              type='text'
+              id='column8'
+              name='column8'
+              value={formData.column8}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 8'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column9' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 9
+            </label>
+            <input
+              type='text'
+              id='column9'
+              name='column9'
+              value={formData.column9}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 9'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column10' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 10
+            </label>
+            <input
+              type='text'
+              id='column10'
+              name='column10'
+              value={formData.column10}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 10'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column11' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 11
+            </label>
+            <input
+              type='text'
+              id='column11'
+              name='column11'
+              value={formData.column11}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 11'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column12' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 12
+            </label>
+            <input
+              type='text'
+              id='column12'
+              name='column12'
+              value={formData.column12}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 12'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column13' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 13
+            </label>
+            <input
+              type='text'
+              id='column13'
+              name='column13'
+              value={formData.column13}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 13'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column14' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 14
+            </label>
+            <input
+              type='text'
+              id='column14'
+              name='column14'
+              value={formData.column14}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 14'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column15' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 15
+            </label>
+            <input
+              type='text'
+              id='column15'
+              name='column15'
+              value={formData.column15}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 15'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column16' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 16
+            </label>
+            <input
+              type='text'
+              id='column16'
+              name='column16'
+              value={formData.column16}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 16'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column17' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 17
+            </label>
+            <input
+              type='text'
+              id='column17'
+              name='column17'
+              value={formData.column17}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 17'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column18' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 18
+            </label>
+            <input
+              type='text'
+              id='column18'
+              name='column18'
+              value={formData.column18}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 18'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column19' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 19
+            </label>
+            <input
+              type='text'
+              id='column19'
+              name='column19'
+              value={formData.column19}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 19'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column20' className='block text-sm font-medium text-gray-700 mb-2'>
+              Column 20
+            </label>
+            <input
+              type='text'
+              id='column20'
+              name='column20'
+              value={formData.column20}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 20'
+            />
+          </div>
+
+          
           <div className='text-center'>
             <button
               type='submit'

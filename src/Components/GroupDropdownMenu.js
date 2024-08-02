@@ -3,9 +3,11 @@
     import { motion } from 'framer-motion';
     import GroupView from './GroupView';
     import GroupAdd from './GroupAdd.js';
-    import { ToastContainer, toast } from 'react-toastify';
+    import Swal from 'sweetalert2';
     import 'react-toastify/dist/ReactToastify.css';
     import Cookies from 'js-cookie';
+    import { message } from 'antd';
+
     const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
     const DropdownMenu = ({ isOpen, toggleDropdown, share ,datas,forceUpdate}) => {
@@ -41,26 +43,29 @@
         });
 
         if (!response.ok) {
+            message.error('failed to delete');
             throw new Error('Failed to delete item');
         }
 
         // Optionally handle success response
+        message.success('Item deleted successfully');
         console.log('Item deleted successfully');
-        toast.success('Successfully Deleted', {
-            position: 'top-center',
-            autoClose: 2000,
-          });
+       
         // Close dropdown or perform any other action after deletion
         // Example: close dropdown after delete
         } catch (error) {
+        message.error('failed to delete');
         console.error('Error deleting item:', error);
+       
         }
         forceUpdate();
     };
   
     return (
+        <>
+          
         <div className="relative inline-block text-left">
-          <ToastContainer />
+        
         <button onClick={toggleDropdown} className='bg-white rounded-lg  border-solid border-gray-200 border shadow-lg p-2 text-white focus:outline-none'>
             <MdModeEdit className='text-black' size="18px" />
         </button>
@@ -81,6 +86,7 @@
         {view && (<GroupView onClose={handleView} onClick={share} />)}
         {add &&(<GroupAdd onClose={handleAdd} onClick={datas} share={share}/> )}
         </div>
+        </>
     );
     };
 

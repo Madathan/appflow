@@ -7,10 +7,7 @@ function CustomizeTeams()
   
     return(
         <div className='mb-20'>
-            <div className='mb-10'>        
-            <CustomizeTeam1/> 
-            </div>
-
+            
             <CustomizeTeam2/>
 
         </div>

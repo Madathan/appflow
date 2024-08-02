@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
 
 const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
@@ -89,10 +90,10 @@ const StaffModal = ({ open, handleClose, data }) => {
       });
 
       if (!response.ok) {
-          
-        throw new Error('Network response was not ok');
+      message.error('Failed to Update');
+      throw new Error('Network response was not ok');
       }
-
+      message.success('update successfully');
       const result = await response.json();
       console.log('Success:', result);
       handleClose(); // Close modal on successful save

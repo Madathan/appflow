@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Assign from '../assests/task.png';
+import Assign from '../../assests/task.png';
 import Button from '@mui/material/Button';
 import MaterialUITables from './AssignAgentTale';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const AssignAgent = ({ open }) => {
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     keyword: '',
@@ -65,8 +67,10 @@ const AssignAgent = ({ open }) => {
       });
 
       if (!response.ok) {
+        message.error('Failed to Insert');
         throw new Error('Network response was not ok');
       }
+      message.success('Insert Successfully');
       const data = await response.json();
       console.log('API Response:', data);
       // Handle displaying response data or other logic as needed
@@ -139,7 +143,7 @@ const AssignAgent = ({ open }) => {
       {show ? (
         <MaterialUITables />
       ) : (
-        <div className="p-6 rounded-lg bg-white mb-6 border border-2 shadow-2">
+        <div className="p-6 rounded-lg bg-white mb-2shadow-2">
           <h1 className="py-3 pb-8  lg:text-2xl sm:text-2xl sm:text-center">
             Keyword Based <span className="text-[--second]">Assignment</span> / Transfer To{' '}
             <span className="">CRM</span>
@@ -148,7 +152,7 @@ const AssignAgent = ({ open }) => {
             <div className="flex-grow sm:w-3/4 px-8 py-4">
               <form onSubmit={handleSubmit}>
                 <div className="mb-8">
-                  <label htmlFor="keywords" className="block mb-2 text-md font-[600] text-black dark-text-black">
+                  <label htmlFor="keywords" className="block mb-2 text-md font-poopins text-black dark-text-black">
                     Keywords
                   </label>
                   <input

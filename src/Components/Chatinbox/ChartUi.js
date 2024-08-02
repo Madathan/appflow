@@ -8,8 +8,9 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import AssignChat from './AssignTeamMemberChat';
 import ChatweCrm from './AssignWeCrm'
-import { Instagram } from 'react-content-loader';
-
+import { BulletList } from 'react-content-loader';
+import { RiFunctionAddLine } from "react-icons/ri";
+import SelectTemplates from './SelectTemplate'
 const App = () => {
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -21,6 +22,7 @@ const App = () => {
   const [assignopen,setAgentopen]=useState(false);
   const [assignwecrmopen,setAssignwecrmopen]=useState(false);
   const [loading, setLoading] = useState(true);
+  const [templates, setTemplates] = useState(false);
 
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
@@ -260,16 +262,23 @@ const App = () => {
     setAgentopen(false)
   }
   console.log("messahechat",chatData)
+
+  const handleNewCavo=()=>
+  {
+    setTemplates(!templates)
+  }
   return (
-    <div className="flex h-[680px] shadow-xl ">
-      <div className="w-1/3 bg-white text-white shadow-2xl">
-        <div className='h-16 w-full border-r border-solid border-gray-400 '>
+  <div className='grid grid-cols-1 md:grid-cols-2 '>
+    <div className="flex h-[600px] mt-[50px] w-[1100px]  shadow-xl  ">
+      {templates &&(<SelectTemplates onClose={handleNewCavo}/>)}
+      <div className="w-1/3 bg-white rounded-l-xl text-white shadow-2xl">
+        <div className='h-16 w-full  border-r border-solid border-gray-400 '>
           <div className='p-3 flex'>
             <p className='text-3xl text-yellow-400 p-1'><FaUserCircle /></p>
             <p className='p-2 text-black '>{chat?.username.toUpperCase()}</p>
           </div>
         </div>
-        <div className="flex flex-col h-[625px]  p-3">
+        <div className="flex flex-col h-[548px]  p-3">
           <div className='flex pb-2'>
             <p className='p-2  rounded-s-lg text-gray-600 bg-gray-100'><IoSearchSharp /></p>
             <input
@@ -279,12 +288,12 @@ const App = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <div className=" overflow-y-scroll    shadow-xl bg-white border-solid border-gray-200 border-y   bg-gray-100 text-black">
+          <div className=" overflow-y-scroll l   shadow-xl bg-white w-full border-solid border-gray-200 border-y   bg-gray-100 text-black">
             {filteredContacts.map((contact, index) => (
               <div key={contact.customer_id} onClick={() => handleContactClick(contact)}>
                 {loading ? (
                  <div className='text-center'>
-                 <Instagram     foregroundColor={'#999'} className='text-gray-500' />
+                 <BulletList     foregroundColor={'#999'} className='text-gray-500' />
                </div>):(
                 <ChartContact
                   name={contact.customer_name}
@@ -299,8 +308,8 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="w-4/5 bg-[url('https://i.pinimg.com/originals/07/b3/7d/07b37d9e8af59caf15b0f8e1b49da368.jpg')] flex flex-col">
-        <div className='h-16 w-full bg-white border border-solid border-gray-200   '>
+      <div className="w-4/5 rounded-xl bg-[url('https://i.pinimg.com/originals/07/b3/7d/07b37d9e8af59caf15b0f8e1b49da368.jpg')] flex flex-col">
+        <div className='h-16 w-full bg-white rounded-r-xl border border-solid border-gray-200   '>
           {firstItem && (
             <div className='ml-2 p-1'>
               {firstItem.customer_name && (
@@ -312,38 +321,13 @@ const App = () => {
             </div>
           )}
           
-     { /* <div className=' fixed top-10 right-20 '>
-          <Button
-                variant="contained" 
-                style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '20px' }}
-                onClick={handleToggleAgentWeCrm}>
-             Assign data
-          </Button>
-         <Button
-      
-         variant="contained"
-        style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '10px' }}
-        onClick={handleToggleAgent}   
-        >
-        Assign data
-        </Button>
-      
-   </div>*/}
+  
         </div>
        
-        {assignopen &&
-        (
-        <AssignChat/>
-     
-        )}
-         {assignwecrmopen &&
-        (
-        <ChatweCrm/>
-     
-        )}
+       
         <div className="flex-1 overflow-y-auto p-5" ref={chatContainerRef}>
         <button
-             className="p-3 text-green-800 rounded-xl  shadow-2xl border-solid  fixed right-8 top-80 text-2xl"
+             className="p-3 text-gary-800 rounded-xl   shadow-2xl border-solid  fixed left-[1175px] top-80 text-2xl"
              onClick={scrollToBottom}
            >
            <MdKeyboardDoubleArrowDown />
@@ -379,7 +363,7 @@ const App = () => {
           )}
           
         </div>
-        <div className="flex p-2 border-l border-gray-200 bg-[#F0F2F5]">
+        <div className="flex p-2 border-l rounded-r-xl border-gray-200 bg-white">
           {/* Input area */}
           <input
             type="file"
@@ -388,12 +372,19 @@ const App = () => {
             className="hidden"
             id="file-upload"
           />
+          
           <label htmlFor="file-upload" className="p-3 bg-green-500 text-white rounded-full shadow-2xl border-solid border-gray-400 cursor-pointer mr-2">
             <MdOutlineAttachFile />
           </label>
+          <button
+            className={`p-3 ${selectedFile ?  'bg-black' : 'bg-green-500'} text-white rounded-full shadow-2xl border-solid border-gray-400`}
+            onClick={handleNewCavo}
+          >
+            <RiFunctionAddLine />
+          </button>
           <textarea
             rows="1"
-            className="flex-1 mr-2 border-none ring-none rounded-md focus:outline-none resize-none"
+            className="flex-1  border-none focus:ring-white rounded-md focus:outline-none resize-none"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message here..."
@@ -408,6 +399,33 @@ const App = () => {
         </div>
       </div>
     </div>
+      <div className=' fixed top-10 right-20 '>
+          <button
+                variant="contained" 
+                style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '20px' }}
+                onClick={handleToggleAgentWeCrm}>
+             Assign data
+          </button>
+         <button
+      
+         variant="contained"
+        style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '10px' }}
+        onClick={handleToggleAgent}   
+        >
+        Assign data
+        </button>
+        {assignopen &&
+        (
+        <AssignChat/>
+     
+        )}
+         {assignwecrmopen &&
+        (
+        <ChatweCrm/>
+     
+        )}
+   </div>
+  </div>
   );
 };
 

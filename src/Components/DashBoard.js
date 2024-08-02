@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import DashChart2 from "./chatrts/DashChart2";
-import DashChart3 from "./chatrts/DashChart3";
-import DashChart4 from "./chatrts/DashChart4";
-import { SlEnvolope } from "react-icons/sl";
 import { FaEnvelopeOpen } from "react-icons/fa6";
 import { GrSend } from "react-icons/gr";
-import { IoIosCalendar } from "react-icons/io";
-import { SlLocationPin } from "react-icons/sl";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 import Cookies from 'js-cookie';
 import { MdOutlineVerified } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
-const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const DashBoard = ({ open, data }) => {
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [newCardData, setNewCardData] = useState(null);
 
   useEffect(() => {
@@ -62,7 +55,7 @@ const DashBoard = ({ open, data }) => {
       <div>
         <h2 className="pb-3 text-3xl font-Poppins">
           Welcome back,{" "}
-          <span className="font-Poppins text-[--second]">SamrtYubbies DashBoard</span>{" "}
+          <span className="font-Poppins text-[--second]">{userData.username.toUpperCase()}</span>{" "}
           <span
             style={{ transitionDelay: `300ms` }}
             className={`${open && "rotate-90"}`}
@@ -92,7 +85,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.subscribedContactsCount}</div>
-                  <DashChart4/>
+                
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -117,7 +110,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.sent}</div>
-                  <DashChart4/>
+                 
                 </div>
                 <div className="flex items-center">
                   <div className="my-4">
@@ -141,7 +134,7 @@ const DashBoard = ({ open, data }) => {
                 </div>
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.delivered}</div>
-                  <DashChart4/>
+                
                 </div>
 
                 <div className="flex items-center">
@@ -167,7 +160,7 @@ const DashBoard = ({ open, data }) => {
 
                 <div className="my-6 flex flex-row md:items-center">
                   <div className="text-5xl ml-6 font-bold mt-2 md:mt-0 md:mr-4">{newCardData.statusCounts.read}</div>
-                  <DashChart2/>
+                 
                 </div>
 
                 <div className="flex items-center">

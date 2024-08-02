@@ -1,6 +1,7 @@
 // src/components/CrmTable.js
 import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
+import { message } from 'antd';
 
 const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
@@ -56,12 +57,17 @@ const CrmTable = ({ status }) => {
 
             if (response.ok) {
                 // Optionally, handle the response if needed
+                message.success('Add Contact successfully');
+
                 const data = await response.json();
                 console.log('Contact added successfully:', data);
             } else {
+                message.error('Failed to Add');
+
                 console.error('Failed to add contact.');
             }
         } catch (error) {
+            message.error('Failed to Add');
             console.error('Error adding contact:', error);
         }
     };
