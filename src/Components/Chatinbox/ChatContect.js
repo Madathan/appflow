@@ -2,7 +2,7 @@ import React from 'react';
 import { BsCheck2 } from "react-icons/bs";
 import { BsCheck2All } from "react-icons/bs";
 
-const ChatContect = ({ last_message, name, time,status }) => {
+const ChatContect = ({ last_message, name, time,status , Phone_no}) => {
   // Ensure that name is defined and not empty before accessing its first character
   const firstLetter = name && name.charAt(0).toUpperCase();
 
@@ -22,19 +22,22 @@ const ChatContect = ({ last_message, name, time,status }) => {
     }
     return ''; // Return empty string if message is null
 };
+const names=name.split(" ")
+const first=names[0];
+const last=names[1];
   return (
     <div className='p-2   cursor'>
       <div className='flex items-center justify-between '>
         <div className='flex items-center'>
           {/* Displaying the first letter as the avatar with a random background color */}
           <p
-            className='bg-green-400 rounded-full h-10 w-10 flex items-center justify-center text-center text-lg'
+            className='bg-gradient-to-r from-blue-400 to-purple-500 rounded-full h-10 w-10 flex items-center justify-center text-center text-lg'
             style={{ color: 'white' }}
           >
             {firstLetter}
           </p>
           <div className='pl-4'>
-            <p className='  font-Poppins'>{name}</p>
+            <p className='  font-Poppins'>{first}{last && "...."}</p>
             <p className='text-sm text-gray-600 font-Poppins '>{truncateMessage(last_message)}</p>
           </div>
         </div>

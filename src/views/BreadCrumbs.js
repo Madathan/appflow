@@ -31,6 +31,7 @@ function Breadcrumb({ open, menus }) {
     <div className='m-2'>
     <div>
       <div className={`mx-4 flex justify-between  bg-white rounded-lg px-2 text-[--second] text-black duration-500 my-5 py-4 flex space-x-4  sm:gap-x-0 flex gap-x-2 items-center font-[600]`}>
+       
         <div className='capitalize  text-2xl'>
         {pathnames.map((name, index) => {
             const isLast = index === pathnames.length - 1;
@@ -49,6 +50,7 @@ function Breadcrumb({ open, menus }) {
             }
           })}
         </div>
+        <button className='bg-green-600 p-4'>hellow</button>
         <div className={`mx-4 ${isMobile && open ? 'hidden' : ''} text-[15px]  sm:gap-x-0 flex gap-x-2 items-center font-[600]`}>
           {pathnames.map((name, index) => {
             const isLast = index === pathnames.length - 1;

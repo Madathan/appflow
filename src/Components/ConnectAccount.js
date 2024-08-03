@@ -13,6 +13,7 @@ const ConnectAccount = () => {
   const [fetchData, setFetchData] = useState({});
   const [apiData, setApiData] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [count, setCount] = useState("");
   const [selectedAccount, setSelectedAccount] = useState(null); // For updating
 
   // Fetch data from API
@@ -36,7 +37,7 @@ const ConnectAccount = () => {
     };
 
     fetchData(); // Call fetchData function on component mount
-  }, [userData]);
+  }, [count]);
 
   useEffect(() => {
     const fetchDatas = async () => {
@@ -76,6 +77,7 @@ const ConnectAccount = () => {
 
   // Handle switching accounts
   const handleSwitch = (data) => {
+    setCount((c)=>c+1)
     if (data) {
       userData.access_token = data.access_token;
       userData.app_id = data.app_id;

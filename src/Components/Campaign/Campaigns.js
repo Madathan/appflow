@@ -45,7 +45,7 @@ const CommerceSettings = () => {
         lead: '',
         googleSheetId: '',
         spreadsheetName: '',
-        googleSheetApiKey: ''
+        googleSheetApiKey: 'AIzaSyChYwEybck6gnonEh-lMYEIhVJDRNj7lxA',
     });
     const navigate = useNavigate();
     const [selectedTemplate, setSelectedTemplate] = useState([]); // State to hold selected template
@@ -74,35 +74,14 @@ const CommerceSettings = () => {
         console.log('Selected Template:', selectedTemplate ?? null);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+    const handleSubmit = () => {
+       
         if (selectedTemplate.length === 0) {
             setError('Please select a template before proceeding.');
         } else {
-            try {
-                const response = await fetch('YOUR_API_ENDPOINT', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userData,
-                        formData,
-                        selectedTemplate,
-                    }),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to submit data');
-                }
-
-                const data = await response.json();
-                console.log('Response data:', data);
+           
                 navigate('/campaignSelect', { state: { userData, formData, selectedTemplate } });
-            } catch (error) {
-                console.error('Error submitting data:', error);
-                setError('Error submitting data. Please try again.');
-            }
+           
         }
     };
 

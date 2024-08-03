@@ -44,6 +44,22 @@ const TemplateFetch = ({ template }) => {
                 </div>
               );
             }
+            else if (component.format === 'DOCUMENT' && component.example && component.example.header_handle) {
+              const videoUrls = component.example.header_handle;
+              return (
+                <div key={index} className="mb-4">
+                  {videoUrls.map((videoUrl, vidIndex) => (
+                    <iframe
+                    id="inlineFrameExample"
+                    title="Inline Frame Example"
+                    width="300"
+                    height="300"
+                    src={videoUrl}>
+                  </iframe>
+                  ))}
+                </div>
+              );
+            }
           } else if (component.type === 'BODY' && component.text) {
             return (
               <div key={index} className="text-gray-700 font-poppins leading-relaxed">

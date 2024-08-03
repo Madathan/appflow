@@ -241,7 +241,6 @@ const App = () => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
   }
-  console.log("messahechat",chatData)
   const firstItem = chatData[0];
 
   const scrollToBottom = () => {
@@ -261,7 +260,7 @@ const App = () => {
     setAssignwecrmopen(!assignwecrmopen)
     setAgentopen(false)
   }
-  console.log("messahechat",chatData)
+
 
   const handleNewCavo=()=>
   {
@@ -269,12 +268,12 @@ const App = () => {
   }
   return (
   <div className='grid grid-cols-1 md:grid-cols-2 '>
-    <div className="flex h-[600px] mt-[50px] w-[1100px]  shadow-xl  ">
+    <div className="flex h-[600px] mt-[50px] w-[1000px]  shadow-xl  ">
       {templates &&(<SelectTemplates onClose={handleNewCavo}/>)}
-      <div className="w-1/3 bg-white rounded-l-xl text-white shadow-2xl">
+      <div className="w-1/3 bg-white rounded-xl text-white shadow-2xl">
         <div className='h-16 w-full  border-r border-solid border-gray-400 '>
           <div className='p-3 flex'>
-            <p className='text-3xl text-yellow-400 p-1'><FaUserCircle /></p>
+            <p className='text-3xl bg-gradient-to-r  rounded-full from-[#01949A] to-[#004369] p-1'><FaUserCircle /></p>
             <p className='p-2 text-black '>{chat?.username.toUpperCase()}</p>
           </div>
         </div>
@@ -300,6 +299,7 @@ const App = () => {
                   last_message={contact.last_message.message}
                   time={contact.last_message.received_at_ist}
                   status={contact.last_message.status}
+                  Phone_no={contact.customer_phone_number}
                 />
               )}
                 {index !== filteredContacts.length - 1 && <hr className="my-2 border-gray-300 hover:bg-[#F0F2F5]" />}
@@ -327,7 +327,7 @@ const App = () => {
        
         <div className="flex-1 overflow-y-auto p-5" ref={chatContainerRef}>
         <button
-             className="p-3 text-gary-800 rounded-xl   shadow-2xl border-solid  fixed left-[1175px] top-80 text-2xl"
+             className="p-3 text-gary-800 rounded-xl   shadow-2xl border-solid  fixed left-[1060px] top-80 text-2xl"
              onClick={scrollToBottom}
            >
            <MdKeyboardDoubleArrowDown />
@@ -399,32 +399,62 @@ const App = () => {
         </div>
       </div>
     </div>
-      <div className=' fixed top-10 right-20 '>
-          <button
-                variant="contained" 
-                style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '20px' }}
-                onClick={handleToggleAgentWeCrm}>
-             Assign data
-          </button>
-         <button
-      
-         variant="contained"
-        style={{ backgroundColor: 'green', color: '#FFFFFF',  marginBottom: '10px',marginRight: '10px' }}
-        onClick={handleToggleAgent}   
-        >
-        Assign data
-        </button>
-        {assignopen &&
-        (
-        <AssignChat/>
-     
-        )}
-         {assignwecrmopen &&
-        (
-        <ChatweCrm/>
-     
-        )}
-   </div>
+    {firstItem &&
+    <div className="w-[400px] h-[600px] mt-[50px] shadow-xl relative left-[310px] bg-white ">
+    <div className='h-16 w-full  bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg p-x-6 border border-solid border-gray-200   '>
+          {firstItem && (
+            <div className='ml-2 p-1'>
+              {firstItem.customer_name && (
+                <h1 className=' text-white  font-poppins'>Name:-<span className='ml-2 font-poppins font-normal text-sm '>{firstItem.customer_name}</span></h1>
+              )}
+              {firstItem.customer_phone_number && (
+                <p className=' text-white  font-poppins'>Phone No:-<span className='ml-2 font-poppins font-normal text-sm '>{firstItem.customer_phone_number}</span></p>
+              )}
+             
+            </div>
+          )}
+        </div>
+      <div className='flex flex-col p-4'>
+       <button
+         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-lg w-full justify-center"
+         onClick={handleToggleAgent}
+       >
+         <MdKeyboardDoubleArrowDown size={24} />
+         <span className="ml-2">Assign Team Member</span>
+       </button>
+       <button
+         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
+         onClick={handleToggleAgentWeCrm}
+       >
+         <MdKeyboardDoubleArrowDown size={24} />
+         <span className="ml-2">Assign WeCrm</span>
+       </button>
+       <button
+         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
+         onClick={""}
+       >
+         <MdKeyboardDoubleArrowDown size={24} />
+         <span className="ml-2">Subscribe</span>
+       </button>
+       {assignopen && (
+         <div className="mt-2">
+           <AssignChat onClose={handleToggleAgent} name={firstItem?.customer_phone_number} />
+         </div>
+       )}
+       {assignwecrmopen && (
+         <div className="mt-2">
+           <ChatweCrm onClose={handleToggleAgentWeCrm} />
+         </div>
+       )}
+     </div>
+     <div className="p-6 bg-gray-100">
+      <h2 className="text-xl font-poppins p-2 w-[40px] mb-2">Notes:</h2>
+      <textarea
+        className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+        placeholder="Write your notes here..."
+      ></textarea>
+    </div>
+     </div> }
   </div>
   );
 };

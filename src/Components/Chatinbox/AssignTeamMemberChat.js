@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ChatAssignMember = () => {
+const ChatAssignMember = ({name}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -26,7 +26,7 @@ const ChatAssignMember = () => {
                 name="selectOption"
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
-                <option value="option1">Option 1</option>
+                <option value="option1">{name}</option>
                 <option value="option2">Option 2</option>
                 <option value="option3">Option 3</option>
                 <option value="option4">Option 4</option>

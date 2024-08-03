@@ -55,7 +55,7 @@ import Profile from './Components/Profile/Profile'
 function App() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const shouldShowBreadcrumbs = !location.pathname.includes("Team-Inbox") && !location.pathname.includes("Keyword-Automation") && !location.pathname.includes("login") && !location.pathname.includes("Logout") ;
+  const shouldShowBreadcrumbs = !location.pathname.includes("Keyword-Automation") && !location.pathname.includes("login") && !location.pathname.includes("Logout") ;
   const data = [
     { id: 1, campaignName: 'Campaign 1', date: '2024-04-12', ownerName: 'Owner 1', contacts: '2', send: 100, failed: 5 },
     { id: 2, campaignName: 'Campaign 2', date: '2024-04-13', ownerName: 'Owner 2', contacts: '3', send: 150, failed: 8 },
