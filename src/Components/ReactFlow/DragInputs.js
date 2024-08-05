@@ -166,7 +166,7 @@ const NodeContainer = ({ id, data }) => {
   const handleChanges = (event) => {
     setMessage(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'message', event.target.value);
+      data.onChange(id, 'message', message);
     }
   };
 
@@ -191,12 +191,16 @@ const NodeContainer = ({ id, data }) => {
 
   const shows = () => { setShow(true); }
   const leave = () => { setShow(false); }
-
+ const handledeleteNode=()=>
+ {
+  setMessage(null)
+  setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
+ }
   return (
     <div className='relative bg-[white] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600' onMouseOver={shows} onMouseOut={leave}>
       {show && (
         <button
-          onClick={() => setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))}
+          onClick={handledeleteNode}
           className="absolute right-10 top-11 text-black text-lg rounded-lg lg p-14 bg-white shadow-2xl hover:text-red-800">
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-800' style={{ fontSize: 40 }} />
         </button>

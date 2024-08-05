@@ -52,6 +52,11 @@ import Validation from './Valitation';
 import FlowEdit from './Components/FlowEdit'
 import LicenceThisMonth from './Components/GenerateThisMonthExpire'
 import Profile from './Components/Profile/Profile'
+import  FetureCallBack  from './InboxCem/FetureCallBack';
+import History from './InboxCem/History'
+import TodaysCallback from './InboxCem/TodaysCallback';
+import OverDue from './InboxCem/OverDue';
+
 function App() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -171,7 +176,13 @@ function App() {
   <Route path='/campaignSelect' element={<ProtectedRoute><CampaignSelect/></ProtectedRoute> } />
   <Route path='/Logout' element={<ProtectedRoute><Logout/></ProtectedRoute> } />
   <Route path='/LicenceThisMonth' element={<ProtectedRoute><LicenceThisMonth/></ProtectedRoute> } />
+
   <Route path='/Profile' element={<ProtectedRoute><Profile/></ProtectedRoute> } />
+  <Route path='/OverDue' element={<ProtectedRoute><OverDue/></ProtectedRoute> } />
+  <Route path='/TodaysCallback' element={<ProtectedRoute><TodaysCallback/></ProtectedRoute> } />
+  <Route path='/FetureCallBack' element={<ProtectedRoute><FetureCallBack/></ProtectedRoute> } />
+  <Route path='/History' element={<ProtectedRoute><History/></ProtectedRoute> } />
+
 
 
   <Route exact path='/Login' element={<Login />} />

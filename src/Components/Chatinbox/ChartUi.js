@@ -11,6 +11,7 @@ import ChatweCrm from './AssignWeCrm'
 import { BulletList } from 'react-content-loader';
 import { RiFunctionAddLine } from "react-icons/ri";
 import SelectTemplates from './SelectTemplate'
+import { useData } from '../Contextapies'
 const App = () => {
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -23,14 +24,12 @@ const App = () => {
   const [assignwecrmopen,setAssignwecrmopen]=useState(false);
   const [loading, setLoading] = useState(true);
   const [templates, setTemplates] = useState(false);
-
+  const [dateTime, setDateTime] = useState('');
+  const [notes,setNotes]=useState("");
+  const [subscribe,setSubscribe] = useState("");
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-
-
-  console.log("userdata",chat)
-
   const chatContainerRef = useRef(null);
- 
+  
   useEffect(() => {
     fetchContacts();
     
@@ -78,6 +77,8 @@ const App = () => {
       console.error('Error fetching contacts:', error);
     }
   };
+  
+
 
   const handleContactClick = async (contact) => {
     setSelectedContact(contact); // Store the selected contact
@@ -242,6 +243,9 @@ const App = () => {
     return `${hours}:${minutes}`;
   }
   const firstItem = chatData[0];
+  const Subscribedtata = selectedContact.customer_id
+  ;
+ 
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -266,6 +270,41 @@ const App = () => {
   {
     setTemplates(!templates)
   }
+ 
+  const handlecrmSubbmit = async () => {
+    // Data to be sent in the POST request
+    const data = {
+      user_id:chat.id,
+      phone_number_id:chat.phone_number_id,
+      phone_number: firstItem.customer_phone_number,
+      name:firstItem.customer_name,
+      remainder	:dateTime,
+      notes:notes,
+
+    };
+    console.log("crmdata",data)
+    try {
+      const response = await fetch('https://ci4backend.smartyuppies.com/ChatInbox/insertDetails', {
+        method: 'POST', // Specify the request method
+        headers: {
+          'Content-Type': 'application/json', // Specify content type as JSON
+        },
+        body: JSON.stringify(data), // Convert data to JSON
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const result = await response.json(); // Parse the JSON response
+      console.log('Success:', result); // Handle the success result
+      localStorage.setItem('id', JSON.stringify(result));
+
+    } catch (error) {
+      console.error('Error:', error); // Handle errors
+    }
+  };
+  
   return (
   <div className='grid grid-cols-1 md:grid-cols-2 '>
     <div className="flex h-[600px] mt-[50px] w-[1000px]  shadow-xl  ">
@@ -281,7 +320,7 @@ const App = () => {
           <div className='flex pb-2'>
             <p className='p-2  rounded-s-lg text-gray-600 bg-gray-100'><IoSearchSharp /></p>
             <input
-              className='p-1 px-20  rounded-e-lg text-sm text-black bg-gray-100 outline-none  ring-none'
+              className='p-1 px-10  rounded-e-lg text-sm text-black bg-gray-100 outline-none  ring-none'
               placeholder='Search the Contact'
               value={searchTerm}
               onChange={handleSearchChange}
@@ -400,10 +439,10 @@ const App = () => {
       </div>
     </div>
     {firstItem &&
-    <div className="w-[400px] h-[600px] mt-[50px] shadow-xl relative left-[310px] bg-white ">
+    <div className="w-[400px] h-[600px] mt-[50px] relative shadow-xl relative left-[310px] overflow-x-scroll bg-white ">
     <div className='h-16 w-full  bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg p-x-6 border border-solid border-gray-200   '>
           {firstItem && (
-            <div className='ml-2 p-1'>
+            <div className='ml-2 p-1 sticky top-0'>
               {firstItem.customer_name && (
                 <h1 className=' text-white  font-poppins'>Name:-<span className='ml-2 font-poppins font-normal text-sm '>{firstItem.customer_name}</span></h1>
               )}
@@ -434,7 +473,7 @@ const App = () => {
          onClick={""}
        >
          <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">Subscribe</span>
+         <span className="ml-2">{"subscribed" === 'subscribed' ? 'Unsubscribe' : 'Subscribe'}</span>
        </button>
        {assignopen && (
          <div className="mt-2">
@@ -447,12 +486,38 @@ const App = () => {
          </div>
        )}
      </div>
-     <div className="p-6 bg-gray-100">
-      <h2 className="text-xl font-poppins p-2 w-[40px] mb-2">Notes:</h2>
+     
+      
+      <div className="p-6 bg-gray-100">
+        <h2>Notes:</h2>
       <textarea
         className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
         placeholder="Write your notes here..."
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
       ></textarea>
+    </div>
+    <div className="flex flex-col items-center  absolute top-[300px]  justify-center min-h-screen w-full ">
+      <div className="p-6 bg-white rounded-lg w-full shadow-lg">
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">Select Date and Time</h2>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-medium text-gray-600">Date and Time</label>
+          <input
+            type="datetime-local"
+            value={dateTime}
+            onChange={(e) => setDateTime(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="mt-4">
+          <button
+            onClick={handlecrmSubbmit}
+            className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
      </div> }
   </div>

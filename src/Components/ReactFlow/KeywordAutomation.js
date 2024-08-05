@@ -58,7 +58,6 @@ function Flow() {
   const [location, setLocation] = useState({});
 
 
-
   const [draggingEnabled, setDraggingEnabled] = useState(true);
   const sidebarRef = useRef(null);
   const extractConnectionData = () => {
@@ -189,7 +188,7 @@ function Flow() {
     e.preventDefault();
    
     console.log('Image_&_button:', JSON.stringify(combinedArray, null, 2));
-    if(flowName &&  list && location && inputpdf && flowKey){
+    if(flowKey){
     try {
       const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
         method: 'POST',
@@ -214,14 +213,14 @@ function Flow() {
       console.error('Error:', error);
     }
     Swal.fire({
-      icon: alert ==="flow_start_keyword already exists" ? 'error' :'success',
+      icon: alert === "Data processed successfully"  ? 'success' :'error',
       title: alert,
       showConfirmButton: false,
       timer: 2000,
     });
-    if(alert !== "flow_start_keyword already exists")
+    if(alert === "Data processed successfully")
     {
-   
+      navigate('/FlowEdit')
     }
   } 
   else

@@ -1,13 +1,14 @@
 import React, { createContext, useState } from 'react';
 
-export const AppContext = createContext();
+export const DataContext = createContext();
 
-export const AppProvider = ({ children }) => {
-  const [selectedOption, setSelectedOption] = useState([]);
+export const DataProvider = ({ children }) => {
+  const [data, setData] = useState(null);
 
   return (
-    <AppContext.Provider value={{ selectedOption, setSelectedOption }}>
+    <DataContext.Provider value={{ data, setData }}>
       {children}
-    </AppContext.Provider>
+    </DataContext.Provider>
   );
 };
+
