@@ -54,8 +54,10 @@ function Flow() {
   const [list, setInputList] = useState({});
   const [flowName, setFlowName] = useState();
   const [flowKey, setFlowKey] = useState({});
-  const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState("");
   const [location, setLocation] = useState({});
+  const [resMessage, setResMessage] = useState("");
+
 
 
   const [draggingEnabled, setDraggingEnabled] = useState(true);
@@ -186,54 +188,63 @@ function Flow() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+  
     console.log('Image_&_button:', JSON.stringify(combinedArray, null, 2));
-    if(flowKey){
-    try {
-      const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({"data":combinedArray})
-      });
-       console.log("delivers",combinedArray)
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+  
+    if (flowKey) {
+      try {
+        const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ "data": combinedArray })
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        const data = await response.json();
+        setAlert(data.status);
+        setResMessage(data.message);
+        console.log('Success:', data);
+  
+        // Show the appropriate Swal alert based on the response
+        Swal.fire({
+          icon: data.status === "success" ? 'success' : 'error',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+  
+        if (data.status === "success") {
+          navigate('/FlowEdit');
+        }
+  
+      } catch (error) {
+        console.error('Error:', error);
+  
+        // Show an error alert in case of an exception
+        Swal.fire({
+          icon: 'error',
+          title: 'An error occurred',
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
-     
-   
-      const data = await response.json();
-      setAlert(data.message)
-      console.log('Success:', data);
-     
-     
-     
-     } catch (error) {
-      console.error('Error:', error);
+    } else {
+      // Show an alert if no flowKey is present
+      Swal.fire({
+        icon: 'error',
+        title: "Enter a value in the input fields",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      console.log("Enter a value");
     }
-    Swal.fire({
-      icon: alert === "Data processed successfully"  ? 'success' :'error',
-      title: alert,
-      showConfirmButton: false,
-      timer: 2000,
-    });
-    if(alert === "Data processed successfully")
-    {
-      navigate('/FlowEdit')
-    }
-  } 
-  else
-  {
-    Swal.fire({
-      icon:  'error',
-      title:"enter a value in the input  fields",
-      showConfirmButton: false,
-      timer: 2000,
-    });
-      console.log("enter a value ")
-  }
   };
+  
    
   return (
     

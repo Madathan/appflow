@@ -86,8 +86,8 @@ const CrmTable = ({ status }) => {
                     </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
-                    {phoneData.map((phone) => (
-                        <tr key={phone.id} className="border-b border-gray-200 hover:bg-gray-100">
+                    {phoneData.map((phone,index) => (
+                        <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
                             <td className="py-3 px-6 text-left">{phone.name}</td>
                             <td className="py-3 px-6 text-left">{phone.phonenumber}</td>
                             <td className="py-3 px-6 text-left">{phone.status}</td>

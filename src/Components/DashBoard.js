@@ -70,10 +70,10 @@ const DashBoard = ({ open, data }) => {
       </div>
 
       <div className="my-8 overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 font-Poppins">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12 font-Poppins">
           {newCardData && (
             <>
-              <div className="bg-white  rounded-xl font-Poppins  group shadow-lg p-6">
+              <div className="bg-white  rounded-xl font-Poppins  group shadow-lg p-4">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full p-3 inline-block group-hover:ring-[--second] ring-2 ring-[--primary]">
                     <MdOutlineVerified className="text-2xl  group-hover:text-[--second] text-[--primary]" />
@@ -98,7 +98,7 @@ const DashBoard = ({ open, data }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white  rounded-xl   group shadow-lg p-6">
+              <div className="bg-white  rounded-xl   group shadow-lg p-4">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full p-3 inline-block group-hover:ring-[--second] ring-2 ring-[--primary]">
                     <FaWhatsapp className="text-2xl group-hover:text-[--second] text-[--primary]" />
@@ -123,7 +123,7 @@ const DashBoard = ({ open, data }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white group shadow-lg rounded-xl p-6">
+              <div className="bg-white group shadow-lg rounded-xl p-4">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white group-hover:ring-[--second] rounded-full p-3 inline-block ring-2 ring-[--primary]">
                     <GrSend className="text-2xl group-hover:text-[--second] text-[--primary]" />
@@ -148,7 +148,7 @@ const DashBoard = ({ open, data }) => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white group shadow-lg rounded-xl p-6">
+              <div className="bg-white group shadow-lg rounded-xl p-4 ">
                 <div className="flex items-center gap-x-2">
                   <div className="bg-white rounded-full group-hover:ring-[--second] p-3 inline-block ring-2 ring-[--primary]">
                     <FaEnvelopeOpen className="text-2xl group-hover:text-[--second] text-[--primary]" />

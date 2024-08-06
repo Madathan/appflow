@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ChatAssignMember = ({name}) => {
+const ChatAssignMember = ({name,onClose}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -42,7 +42,7 @@ const ChatAssignMember = ({name}) => {
               <button
                 type="button"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50 mr-2"
-                onClick={closeModal}
+                onClick={onClose}
               >
                 Cancel
               </button>

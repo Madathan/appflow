@@ -11,7 +11,9 @@ import ChatweCrm from './AssignWeCrm'
 import { BulletList } from 'react-content-loader';
 import { RiFunctionAddLine } from "react-icons/ri";
 import SelectTemplates from './SelectTemplate'
-import { useData } from '../Contextapies'
+import { message } from 'antd';
+import AddNewContact from './Add_newContact'
+
 const App = () => {
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -24,6 +26,7 @@ const App = () => {
   const [assignwecrmopen,setAssignwecrmopen]=useState(false);
   const [loading, setLoading] = useState(true);
   const [templates, setTemplates] = useState(false);
+  const [addContacts,setAddContacts]=useState(false);
   const [dateTime, setDateTime] = useState('');
   const [notes,setNotes]=useState("");
   const [subscribe,setSubscribe] = useState("");
@@ -242,8 +245,12 @@ const App = () => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
   }
+  
   const firstItem = chatData[0];
-  const Subscribedtata = selectedContact.customer_id
+
+  const Chatusername = selectedContact?.customer_name;
+  const MobileNumber = selectedContact?.customer_phone_number;
+ 
   ;
  
 
@@ -256,7 +263,7 @@ const App = () => {
  const handleToggleAgent=()=>
   {
     setAgentopen(!assignopen)
-    setAssignwecrmopen(false)
+   
   }
   
  const handleToggleAgentWeCrm=()=>
@@ -265,7 +272,7 @@ const App = () => {
     setAgentopen(false)
   }
 
-
+  
   const handleNewCavo=()=>
   {
     setTemplates(!templates)
@@ -304,7 +311,44 @@ const App = () => {
       console.error('Error:', error); // Handle errors
     }
   };
-  
+  const handleAdd = async (phone) => {
+    try {
+        const response = await fetch('https://ci4backend.smartyuppies.com/Contact/addContacts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone_number: chat.phone_number,
+                phone_number_id: chat.phone_number_id,
+                username: chat.username,
+                MobileNumber:MobileNumber,
+                Country:null,
+                EmailAddress:null,
+                Name:Chatusername,
+            }),
+        });
+
+        if (response.ok) {
+            // Optionally, handle the response if needed
+            message.success('Add Contact successfully');
+
+            const data = await response.json();
+            console.log('Contact added successfully:', data);
+        } else {
+            message.error('Failed to Add');
+
+            console.error('Failed to add contact.');
+        }
+    } catch (error) {
+        message.error('Failed to Add');
+        console.error('Error adding contact:', error);
+    }
+};
+const handleAddContact=()=>
+{
+  setAddContacts(!addContacts)
+}
   return (
   <div className='grid grid-cols-1 md:grid-cols-2 '>
     <div className="flex h-[600px] mt-[50px] w-[1000px]  shadow-xl  ">
@@ -347,6 +391,7 @@ const App = () => {
           </div>
         </div>
       </div>
+      <div className='text-red-700'></div>
       <div className="w-4/5 rounded-xl bg-[url('https://i.pinimg.com/originals/07/b3/7d/07b37d9e8af59caf15b0f8e1b49da368.jpg')] flex flex-col">
         <div className='h-16 w-full bg-white rounded-r-xl border border-solid border-gray-200   '>
           {firstItem && (
@@ -357,13 +402,13 @@ const App = () => {
               {firstItem.customer_phone_number && (
                 <p className=' text-gray-500 text-sm font-sans'>{firstItem.customer_phone_number}</p>
               )}
+              
             </div>
           )}
           
-  
+      
         </div>
-       
-       
+         
         <div className="flex-1 overflow-y-auto p-5" ref={chatContainerRef}>
         <button
              className="p-3 text-gary-800 rounded-xl   shadow-2xl border-solid  fixed left-[1060px] top-80 text-2xl"
@@ -463,10 +508,17 @@ const App = () => {
        </button>
        <button
          className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
-         onClick={handleToggleAgentWeCrm}
+         onClick={handleAddContact}
        >
          <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">Assign WeCrm</span>
+         <span className="ml-2">Add New Contact</span>
+       </button>
+       <button
+         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
+         onClick={handleAdd}
+       >
+         <MdKeyboardDoubleArrowDown size={24} />
+         <span className="ml-2">Add to Contact</span>
        </button>
        <button
          className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
@@ -486,9 +538,10 @@ const App = () => {
          </div>
        )}
      </div>
-     
-      
-      <div className="p-6 bg-gray-100">
+    { addContacts &&(<div>
+      <AddNewContact onClose={handleAddContact}/>
+    </div>)}
+     <div className="p-6 bg-gray-100">
         <h2>Notes:</h2>
       <textarea
         className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
@@ -497,9 +550,22 @@ const App = () => {
         onChange={(e) => setNotes(e.target.value)}
       ></textarea>
     </div>
-    <div className="flex flex-col items-center  absolute top-[300px]  justify-center min-h-screen w-full ">
+      
+      <div className="p-6 bg-gray-100">
+        <h2>Reminder:</h2>
+      <textarea
+        className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+        placeholder="Write your notes here..."
+        value={notes}
+        onChange={(e) => setNotes(e.target.value)}
+      ></textarea>
+      <div className="mt-4">
+         
+        </div>
+    </div>
+    <div className="flex flex-col items-center  absolute top-[600px]  justify-center min-h-screen w-full ">
       <div className="p-6 bg-white rounded-lg w-full shadow-lg">
-        <h2 className="mb-4 text-xl font-semibold text-gray-700">Select Date and Time</h2>
+        <h2 className="mb-4 text-xl font-semibold text-gray-700">Select Reminder</h2>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-600">Date and Time</label>
           <input

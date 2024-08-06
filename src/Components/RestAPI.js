@@ -11,7 +11,6 @@ const RestAPI = ({ open }) => {
   const [show, setShow] = useState([]);
   const [get, setGet] = useState([]);
   const [restApiName, setRestApiName] = useState('');
-  
 
   const handleToggleApiDetails = async () => {
     setOpens(!opens);
@@ -21,9 +20,7 @@ const RestAPI = ({ open }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: chat.username
-        }),
+        body: JSON.stringify({ username: chat.username }),
       });
 
       if (!response.ok) {
@@ -32,7 +29,7 @@ const RestAPI = ({ open }) => {
 
       const data = await response.json();
       setGet(data);
-      console.log('Data fetched from API:', data);
+     
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -81,7 +78,7 @@ const RestAPI = ({ open }) => {
       </Button>
       {opens ? (
         <div className="mb-2 grid font-Poppins flex flex-col lg:flex-row gap-8">
-          <div className="border w-full bg-white shadow-xl pt-5 items-center px-7 rounded-lg">
+          <div className="border w-full bg-white shadow-xl pt-5 items-center px-7 rounded-lg overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6">
               <div className="flex flex-col justify-between">
                 <h1 className="text-center lg:py-2 pb-1 font-Poppins text-black sm:text-[20px] text-[16px]">
@@ -147,7 +144,7 @@ const RestAPI = ({ open }) => {
               </div>
             </div>
           </div>
-          <div className="border p-4 bg-white shadow-xl rounded-lg">
+          <div className="border p-4 bg-white shadow-xl rounded-lg overflow-hidden">
             <div>
               <h1 className="text-center lg:py-3 pb-1 sm:text-[25px] text-[20px]">
                 Capture Your <span className="text-[--second]">API</span>

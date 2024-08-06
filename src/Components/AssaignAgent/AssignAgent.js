@@ -138,7 +138,7 @@ const AssignAgent = ({ open }) => {
         style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginTop: '1.5rem',marginBottom:'1.5rem' }}
         onClick={handleShow}
       >
-        Another Button
+        View All Assigned Agent
       </Button>
       {show ? (
         <MaterialUITables />

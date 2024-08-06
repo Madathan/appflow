@@ -25,7 +25,7 @@ const hfStyle = {
   borderWidth: 5,
 };
 
-function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect,onPrifix }) {
+function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifix }) {
   const [type, setType] = useState('');
   const [prefix, setPrefix] = useState('');
   const [textValue, setTextValue] = useState('');
@@ -37,7 +37,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect,onPrifix
       data.onChange(id, newValue );
     }
   };
-  
+
   const handlePrefixChange = (e) => {
     const newPrefix = e.target.value;
     setPrefix(newPrefix);
@@ -45,10 +45,11 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect,onPrifix
       onPrifix(id, textValue, newPrefix);
     }
   };
+
   const handleTypeChange = (e) => {
     const newType = e.target.value;
     setType(newType);
-    onTypeChange(id,newType,prefix);
+    onTypeChange(id, newType, prefix);
 
     switch (newType) {
       case 'url':
@@ -68,8 +69,6 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect,onPrifix
         break;
     }
   };
-
- 
 
   return (
     <>
@@ -132,6 +131,11 @@ function AddPdf({ id, data }) {
   };
 
   const addInputBox = () => {
+    if (selectAdded) {
+      alert('Please select an option from the dropdown before adding more buttons.');
+      return;
+    }
+
     const newId = inputBoxes.length + 1;
     setInputBoxes((prevInputBoxes) => [
       ...prevInputBoxes,
@@ -144,16 +148,12 @@ function AddPdf({ id, data }) {
             onRemove={() => removeInputBox(newId)}
             data={{ onChange: handleTextChange }}
             onTypeChange={handleTypeChange}
-            showSelect={!selectAdded}
+            showSelect={inputBoxes.length === 0}
             onPrifix={handleprifix}
           />
         )
       }
     ]);
-
-    if (!selectAdded) {
-      setSelectAdded(true);
-    }
 
     if (inputBoxes.length >= 2) {
       setAddButtonDisabled(true);
@@ -162,28 +162,28 @@ function AddPdf({ id, data }) {
 
   const removeInputBox = (idToRemove) => {
     setInputBoxes((prevInputBoxes) => prevInputBoxes.filter(({ id }) => id !== idToRemove));
-
     setAddButtonDisabled(false);
   };
 
-  const handleTextChange = (inputId, value ) => {
+  const handleTextChange = (inputId, value) => {
     if (data.onChange) {
       data.onChange(id, `button_${inputId}`, value);
     }
   };
 
-  const handleTypeChange = (id, type,datas) => {
+  const handleTypeChange = (id, type, datas) => {
     if (data.onChange) {
-      data.onChange(id, 'button_type', type );
+      data.onChange(id, 'button_type', type);
     }
-   
+    setSelectAdded(type !== '');
   };
-  const handleprifix=(id,types,prefix)=>
-  {
-  if (data.onChange) {
-    data.onChange(id,'button_value',prefix );
-  }
-}
+
+  const handleprifix = (id, types, prefix) => {
+    if (data.onChange) {
+      data.onChange(id, 'button_value', prefix);
+    }
+  };
+
   const handleKeywordChange = (event) => {
     setKeyword(event.target.value);
     if (data.onChange) {
@@ -230,7 +230,7 @@ function AddPdf({ id, data }) {
 
       {show && (
         <button
-          onClick={() => setNodes(prevNodes => prevNodes.filter((node) => node.id !== id)) }
+          onClick={() => setNodes(prevNodes => prevNodes.filter((node) => node.id !== id))}
           className="absolute right-10 top-11 text-black-600 hover:text-red-800 mt-5 mr-5"
         >
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
@@ -238,14 +238,14 @@ function AddPdf({ id, data }) {
       )}
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
         <ImFilePdf className='mt-5 text-4xl' />
-        <h3 className='text-center text-[40px] mt-2 ml-4'>Document & Button</h3>
+        <h3 className='text-center text-[40px] mt-2 ml-4'>Media</h3>
       </div>
 
       <div className='bg-[#eae6df] border-[3px] border-solid border-red-600 rounded-[25px] p-3 mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl w-full'>
           <input
             type='text'
-            placeholder='Enter a keyword'
+            placeholder='Enter a name'
             className='rounded-2xl p-10 text-3xl h-[150px] w-full'
             style={{ border: "none" }}
             value={keyword}
@@ -253,19 +253,17 @@ function AddPdf({ id, data }) {
           />
         </div>
 
-        <div className='block bg-[#eae6df] p-2 rounded-xl w-full'>
-          <textarea
-            id="w3review"
-            name="w3review"
-            rows="4"
-            cols="36"
-            placeholder='Enter the caption'
-            className='rounded-2xl border-green-600 border-3 text-3xl'
+        <div className='block bg-[#eae6df] p-2 rounded-xl mt-4 w-full'>
+          <input
+            type='text'
+            placeholder='Enter a message'
+            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
             style={{ border: "none" }}
             value={message}
             onChange={handleMessageChange}
           />
         </div>
+
         <div className='bg-white p-5 mt-5  rounded-3xl'>
         <div className='p-5 ] rounded-2xl h-[350px] text-center'>
           <input
@@ -294,17 +292,20 @@ function AddPdf({ id, data }) {
           )}
         </div>
       </div>
-      </div>
-      <div className='mt-5'>{inputBoxes.map((inputBox) => inputBox.component)}</div>
 
-      {!addButtonDisabled && (
-        <button
+        
+
+        {inputBoxes.map(({ id, component }) => (
+          <div key={id}>{component}</div>
+        ))}
+      </div>
+      <button
           onClick={addInputBox}
-          className='bg-white text-black shadow-2xl mt-4 text-4xl p-7 rounded-lg px-5 mt-6 w-full'
+          className='block mt-4 bg-blue-500 text-white px-6 py-3 rounded-xl'
+          disabled={addButtonDisabled}
         >
-          Add Button
+          Add Input Box
         </button>
-      )}
     </div>
   );
 }

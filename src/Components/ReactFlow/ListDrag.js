@@ -19,7 +19,6 @@ function TextUpdaterNode({ data, onRemove, id }) {
       data.onChange(id, { [`list_title_${id}`]: newText, [`list_description_${id}`]: caption });
     }
   };
-
   const handleCaptionChange = (evt) => {
     const newCaption = evt.target.value;
     setCaption(newCaption);
@@ -132,14 +131,14 @@ function ListDrag({ id, data }) {
 
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
         <IoImagesOutline className='mt-5 text-4xl' />
-        <h3 className='text-center text-[40px] mt-2 ml-4'> List & Button</h3>
+        <h3 className='text-center text-[40px] mt-2 ml-4'> List</h3>
       </div>
 
       <div className='bg-[#eae6df] border-[4px] border-solid border-red-600 rounded-[25px] p-3 mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
           <input 
             type='text' 
-            placeholder='Enter a Keyword' 
+            placeholder='Enter a name' 
             className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
             style={{ border: "none" }} 
             value={title} 

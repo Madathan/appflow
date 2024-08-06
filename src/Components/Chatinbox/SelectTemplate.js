@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
+import CampaignTemplates from './ChatTempaltemap';
 
 const Popup = ({ onClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
+  const [error, setError] = useState(''); // State to hold error message
+  const [selectedTemplate, setSelectedTemplate] = useState(null); // State to hold selected template
+
+  const onSelectTemplate = (template) => {
+    setSelectedTemplate(template);
+    setError(''); // Clear any previous error message
+    console.log('Selected Template:', template);
+  };
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -13,31 +22,15 @@ const Popup = ({ onClose }) => {
     onClose(); // Close the popup after submission
   };
 
- 
-
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-96 max-h-full overflow-y-scroll">
         <h2 className="text-xl font-semibold mb-4">Popup Heading</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="options" className="block mb-2 text-sm font-medium text-gray-700">
-              Select an option:
-            </label>
-            <select
-              id="options"
-              className="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-              value={selectedOption}
-              onChange={handleSelectChange}
-              required
-            >
-              <option value="">Select an option</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
-            </select>
+          <div className="w-full shadow-lg bg-white border-gray-200 rounded-xl border-solid border overflow-y-scroll p-4 md:p-8 max-h-64">
+            <CampaignTemplates onSelectTemplate={onSelectTemplate} />
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-4">
             <button
               type="button"
               className="bg-gray-500 text-white py-2 px-4 rounded-lg mr-2"
@@ -58,5 +51,4 @@ const Popup = ({ onClose }) => {
   );
 };
 
-
-export default Popup ;
+export default Popup;

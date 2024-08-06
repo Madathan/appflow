@@ -19,7 +19,7 @@ const CampaignSelect = () => {
 
   const fileInputRef = useRef(null);
   const dateInputRef = useRef(null);
-  console.log("user", userData);
+  console.log("user", selectedTemplate);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -237,8 +237,16 @@ const CampaignSelect = () => {
                               >
                                 <option value="">Select</option>
                                 {/* Add your options here */}
-                                <option value="Option1">Option1</option>
-                                <option value="Option2">Option2</option>
+                                <option value="name">name</option>
+                                <option value="phone_number">phone_number</option>
+                                <option value="name">name</option>
+                                <option value="email">email</option>
+                                <option value="country">country</option>
+                                <option value="column1">column1</option>
+                                <option value="column2">column2</option> * 20
+
+
+                                
                               </select>
                             </div>
                           ) : (

@@ -172,7 +172,7 @@ const ConnectAccount = () => {
                   </button>
                   <RiDeleteBin6Line
                     className="ml-4 text-red-500 cursor-pointer"
-                    onClick={() => handleDelete(data.templateId)}
+                    onClick={() => handleDelete(data.id)}
                   />
                 </div>
               </div>
