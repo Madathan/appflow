@@ -4,10 +4,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import 'reactflow/dist/style.css';
 import { RiDeleteBin5Line } from "react-icons/ri";  
 
-const rfStyle = { backgroundColor: 'white', left: 430, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
-const hfStyle = { backgroundColor: 'white', top: 20, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
-
-
+const hfStyle = { backgrxoundColor: 'white', top: 20, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
 
 function  Location({ id, data }) {
   const [inputBoxes, setInputBoxes] = useState([]);
@@ -56,12 +53,15 @@ function  Location({ id, data }) {
       <Handle type="target" position={Position.Left} id="AddImage_Handle_key" className='ml[10px]' style={hfStyle} />
 
       {show && (
+        <div className='hover:translate-y-6 hover:transition duration-700 ease-in-out'>
+
         <button
           onClick={() => setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))}
-          className="absolute right-10 top-11 text-black-600 hover:text-red-800 mt-5 mr-5"
-        >
+          className="absolute right-10 top-11 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+        
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>
+        </div>
       )}
 
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-2 mb-2 p-4 w-full'>

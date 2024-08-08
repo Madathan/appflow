@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
-
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, } from '@mui/material';
 const ThisMonthExpires = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch data from API
@@ -17,17 +14,12 @@ const ThisMonthExpires = () => {
         const result = await response.json();
         setData(result);
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
+        
+      } 
     };
 
     fetchData();
   }, []);
-
-  
-  
 
   return (
     <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">

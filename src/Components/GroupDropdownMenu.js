@@ -3,14 +3,16 @@
     import { motion } from 'framer-motion';
     import GroupView from './GroupView';
     import GroupAdd from './GroupAdd.js';
-    import Swal from 'sweetalert2';
     import 'react-toastify/dist/ReactToastify.css';
     import Cookies from 'js-cookie';
     import { message } from 'antd';
 
-    const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
     const DropdownMenu = ({ isOpen, toggleDropdown, share ,datas,forceUpdate}) => {
+        
+        const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
+
     const [view, setView] = useState(false);
     const [add,setAdd]=useState(false);
     // Animation variants for the dropdown

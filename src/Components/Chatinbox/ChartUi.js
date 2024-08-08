@@ -10,9 +10,9 @@ import AssignChat from './AssignTeamMemberChat';
 import ChatweCrm from './AssignWeCrm'
 import { BulletList } from 'react-content-loader';
 import { RiFunctionAddLine } from "react-icons/ri";
-import SelectTemplates from './SelectTemplate'
 import { message } from 'antd';
 import AddNewContact from './Add_newContact'
+import { useLocation } from 'react-router-dom';
 
 const App = () => {
   const [chatData, setChatData] = useState([]);
@@ -28,14 +28,29 @@ const App = () => {
   const [templates, setTemplates] = useState(false);
   const [addContacts,setAddContacts]=useState(false);
   const [dateTime, setDateTime] = useState('');
+  const [remimder, setRemimder] = useState('');
   const [notes,setNotes]=useState("");
-  const [subscribe,setSubscribe] = useState("");
+  const location = useLocation();
+  const [phoneNumbers, setPhoneNumbers] = useState(null);
+  // Get the location object
+  
+
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const chatContainerRef = useRef(null);
-  
   useEffect(() => {
-    fetchContacts();
-    
+    // Retrieve phoneNumbers from URL or some other source
+    const queryParams = new URLSearchParams(window.location.search);
+    const phoneNumber = queryParams.get('phone_number');
+    setPhoneNumbers(phoneNumber);
+  }, []);
+
+  useEffect(() => {
+    if (phoneNumbers) {
+      handleContactClick(phoneNumbers);
+    }
+  }, [phoneNumbers]);
+  useEffect(() => {
+    fetchContacts();  
   }, []);
 
   useEffect(() => {
@@ -81,36 +96,46 @@ const App = () => {
     }
   };
   
-
-
   const handleContactClick = async (contact) => {
     setSelectedContact(contact); // Store the selected contact
+  
+    // Ensure `contact` and `phoneNumbers` are defined and valid
+    const phoneNumber = contact.customer_phone_number ?? phoneNumbers;
+    
+    if (!phoneNumber) {
+      console.error('No phone number available for fetching messages.');
+      return;
+    }
+  
     try {
-      const response = await fetch(`https://appnew.smartyuppies.com/appchatmessages/${chat.phone_number_id}/${contact.customer_phone_number}`, {
+      const response = await fetch(`https://appnew.smartyuppies.com/appchatmessages/${chat.phone_number_id}/${phoneNumber}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       });
-
+  
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+  
       const responseData = await response.json();
-        
+      
+      // Check if messages are returned and is an array
       if (responseData && Array.isArray(responseData.messages)) {
-        scrollToBottom()  
+        // Scroll to bottom after setting chat data
+        scrollToBottom();
         setChatData(responseData.messages);
       } else {
         console.error('No messages found for the contact');
-        // Clear chat data if no messages found
+        // Optionally, clear chat data if no messages are found
+        setChatData([]);
       }
     } catch (error) {
       console.error('Error fetching messages:', error.message);
     }
   };
-
+  
   const handleSend = async () => {
     if (selectedContact) {
       if (newMessage.trim() !== '') {
@@ -287,6 +312,7 @@ const App = () => {
       name:firstItem.customer_name,
       remainder	:dateTime,
       notes:notes,
+      reference:remimder,
 
     };
     console.log("crmdata",data)
@@ -300,15 +326,17 @@ const App = () => {
       });
   
       if (!response.ok) {
+        message.error('Failed to Add');
         throw new Error('Network response was not ok');
       }
-  
+      message.success('Add Contact successfully');
       const result = await response.json(); // Parse the JSON response
       console.log('Success:', result); // Handle the success result
       localStorage.setItem('id', JSON.stringify(result));
 
     } catch (error) {
       console.error('Error:', error); // Handle errors
+      message.error('Failed to Add');
     }
   };
   const handleAdd = async (phone) => {
@@ -331,7 +359,7 @@ const App = () => {
 
         if (response.ok) {
             // Optionally, handle the response if needed
-            message.success('Add Contact successfully');
+            message.success('Add  successfully');
 
             const data = await response.json();
             console.log('Contact added successfully:', data);
@@ -350,9 +378,9 @@ const handleAddContact=()=>
   setAddContacts(!addContacts)
 }
   return (
-  <div className='grid grid-cols-1 md:grid-cols-2 '>
-    <div className="flex h-[600px] mt-[50px] w-[1000px]  shadow-xl  ">
-      {templates &&(<SelectTemplates onClose={handleNewCavo}/>)}
+  <div className='grid grid-cols-1 md:grid-cols-2 md:relative md:bottom-[50px] '>
+    <div className="flex h-[600px] mt-[30px] w-[1000px]  shadow-xl  ">
+     
       <div className="w-1/3 bg-white rounded-xl text-white shadow-2xl">
         <div className='h-16 w-full  border-r border-solid border-gray-400 '>
           <div className='p-3 flex'>
@@ -460,12 +488,6 @@ const handleAddContact=()=>
           <label htmlFor="file-upload" className="p-3 bg-green-500 text-white rounded-full shadow-2xl border-solid border-gray-400 cursor-pointer mr-2">
             <MdOutlineAttachFile />
           </label>
-          <button
-            className={`p-3 ${selectedFile ?  'bg-black' : 'bg-green-500'} text-white rounded-full shadow-2xl border-solid border-gray-400`}
-            onClick={handleNewCavo}
-          >
-            <RiFunctionAddLine />
-          </button>
           <textarea
             rows="1"
             className="flex-1  border-none focus:ring-white rounded-md focus:outline-none resize-none"
@@ -484,7 +506,7 @@ const handleAddContact=()=>
       </div>
     </div>
     {firstItem &&
-    <div className="w-[400px] h-[600px] mt-[50px] relative shadow-xl relative left-[310px] overflow-x-scroll bg-white ">
+    <div className="w-[400px] h-[600px] mt-[30px] relative shadow-xl relative left-[310px] overflow-x-scroll bg-white ">
     <div className='h-16 w-full  bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg p-x-6 border border-solid border-gray-200   '>
           {firstItem && (
             <div className='ml-2 p-1 sticky top-0'>
@@ -520,13 +542,7 @@ const handleAddContact=()=>
          <MdKeyboardDoubleArrowDown size={24} />
          <span className="ml-2">Add to Contact</span>
        </button>
-       <button
-         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
-         onClick={""}
-       >
-         <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">{"subscribed" === 'subscribed' ? 'Unsubscribe' : 'Subscribe'}</span>
-       </button>
+       
        {assignopen && (
          <div className="mt-2">
            <AssignChat onClose={handleToggleAgent} name={firstItem?.customer_phone_number} />
@@ -556,8 +572,8 @@ const handleAddContact=()=>
       <textarea
         className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
         placeholder="Write your notes here..."
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
+        value={remimder}
+        onChange={(e) => setRemimder(e.target.value)}
       ></textarea>
       <div className="mt-4">
          

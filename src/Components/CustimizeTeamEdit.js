@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { message } from 'antd';
 
-const PopupForm = ({ edit, show,forceUpdate}) => {
+const PopupForm = ({ edit, show,forceUpdate,title,description}) => {
   console.log("array", edit);
   const [formData, setFormData] = useState({
-    name: '',
-    password: '',
+    name:title,
+    password:description ,
     image: null,
     imageBase64: '', // New state to hold base64 string
   });

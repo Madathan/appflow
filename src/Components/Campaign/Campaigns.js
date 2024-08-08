@@ -39,7 +39,7 @@ const CommerceSettings = () => {
     const [formData, setFormData] = useState({
         campaignName: '',
         campaignOwner: '',
-        phoneNumber: '',
+        phoneNumber: userData.phone_number,
         audience: '',
         group: '',
         lead: '',
@@ -75,151 +75,149 @@ const CommerceSettings = () => {
     };
 
     const handleSubmit = () => {
-       
         if (selectedTemplate.length === 0) {
             setError('Please select a template before proceeding.');
         } else {
-           
-                navigate('/campaignSelect', { state: { userData, formData, selectedTemplate } });
-           
+            navigate('/campaignSelect', { state: { userData, formData, selectedTemplate } });
         }
     };
 
     return (
         <>
-        <div className="flex flex-col w-full md:flex-row gap-6 md:gap-10 md:h-[900px] md:overflow-scroll">
+        <div className="flex flex-col w-full md:flex-row gap-6 md:gap-10 md:h-[620px] md:overflow-scroll">
             {/* Left side - Form */}
-            <div className="w-full md:w-1/2 shadow-lg bg-white rounded-xl border-solid border p-4 md:p-8">
+            <div className="w-full md:w-1/2 shadow-lg bg-white h-[600px] rounded-xl border-solid border p-4 md:p-8">
                 <h2 className="text-xl md:text-3xl mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
                 {error && (
                     <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
                         {error}
                     </div>
                 )}
-                <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto">
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignName">
-                            New Campaign Name:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
-                            id="campaignName"
-                            name="campaignName"
-                            type="text"
-                            value={formData.campaignName}
-                            onChange={handleChange}
-                            placeholder="Enter Campaign Name"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignOwner">
-                            Campaign Owner:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
-                            id="campaignOwner"
-                            name="campaignOwner"
-                            type="text"
-                            value={formData.campaignOwner}
-                            onChange={handleChange}
-                            placeholder="Enter Campaign Owner"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="phoneNumber">
-                            From Phone Number:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white" 
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            type="text"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            placeholder="Enter Phone Number"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2">Select Audience:-</label>
-                        <div className="flex flex-wrap">
-                            <label className="inline-flex items-center mr-4">
-                                <input
-                                    type="radio"
-                                    className="form-radio text-green-500"
-                                    name="audience"
-                                    value="AllContacts"
-                                    checked={formData.audience === 'AllContacts'}
-                                    onChange={handleChange}
-                                />
-                                <span className="ml-2 text-sm">All Contacts</span>
+                <form onSubmit={handleSubmit} className="w-full max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignName">
+                                Campaign Name:-
                             </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
+                                id="campaignName"
+                                name="campaignName"
+                                type="text"
+                                value={formData.campaignName}
+                                onChange={handleChange}
+                                placeholder="Enter Campaign Name"
+                                required
+                            />
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignOwner">
+                                Campaign Owner:-
+                            </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                id="campaignOwner"
+                                name="campaignOwner"
+                                type="text"
+                                value={formData.campaignOwner}
+                                onChange={handleChange}
+                                placeholder="Enter Campaign Owner"
+                                required
+                            />
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="phoneNumber">
+                                From Phone Number:-
+                            </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white" 
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                type="text"
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                placeholder="Enter Phone Number"
+                                required
+                            />
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2">Select Audience:-</label>
+                            <div className="flex flex-wrap">
+                                <label className="inline-flex items-center mr-4">
+                                    <input
+                                        type="radio"
+                                        className="form-radio text-green-500"
+                                        name="audience"
+                                        value="AllContacts"
+                                        checked={formData.audience === 'AllContacts'}
+                                        onChange={handleChange}
+                                    />
+                                    <span className="ml-2 text-sm">All Contacts</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2">Groups:-</label>
+                            <select
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                name="group"
+                                value={formData.group}
+                                onChange={handleGroupChange}
+                            >
+                                <option value="">Select Group</option>
+                                {groups.map((group, index) => (
+                                    <option key={index} value={group.groupname}>{group.groupname}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetId">
+                                Google Sheet ID:-
+                            </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                id="googleSheetId"
+                                name="googleSheetId"
+                                type="text"
+                                value={formData.googleSheetId}
+                                onChange={handleChange}
+                                placeholder="Enter Google Sheet ID"
+                                
+                            />
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="spreadsheetName">
+                                Spreadsheet Name:-
+                            </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                id="spreadsheetName"
+                                name="spreadsheetName"
+                                type="text"
+                                value={formData.spreadsheetName}
+                                onChange={handleChange}
+                                placeholder="Enter Spreadsheet Name"
+                               
+                            />
+                        </div>
+                        <div className="mb-3 md:mb-4">
+                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetApiKey">
+                                Google Sheet API Key:-
+                            </label>
+                            <input
+                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                id="googleSheetApiKey"
+                                name="googleSheetApiKey"
+                                type="text"
+                                value={formData.googleSheetApiKey}
+                                onChange={handleChange}
+                                placeholder="Enter Google Sheet API Key"
+                               
+                            />
                         </div>
                     </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2">Groups:-</label>
-                        <select
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
-                            name="group"
-                            value={formData.group}
-                            onChange={handleGroupChange}
-                        >
-                            <option value="">Select Group</option>
-                            {groups.map((group, index) => (
-                                <option key={index} value={group.groupname}>{group.groupname}</option>
-                            ))}
-                        </select>
-                    </div>
-                    
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetId">
-                            Google Sheet ID:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
-                            id="googleSheetId"
-                            name="googleSheetId"
-                            type="text"
-                            value={formData.googleSheetId}
-                            onChange={handleChange}
-                            placeholder="Enter Google Sheet ID"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="spreadsheetName">
-                            Spreadsheet Name:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
-                            id="spreadsheetName"
-                            name="spreadsheetName"
-                            type="text"
-                            value={formData.spreadsheetName}
-                            onChange={handleChange}
-                            placeholder="Enter Spreadsheet Name"
-                            required
-                        />
-                    </div>
-                    <div className="mb-3 md:mb-4">
-                        <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetApiKey">
-                            Google Sheet API Key:-
-                        </label>
-                        <input
-                            className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
-                            id="googleSheetApiKey"
-                            name="googleSheetApiKey"
-                            type="text"
-                            value={formData.googleSheetApiKey}
-                            onChange={handleChange}
-                            placeholder="Enter Google Sheet API Key"
-                            required
-                        />
-                    </div>
                     {/* Error Message */}
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center mt-6">
                         <button
                             className="bg-green-700 hover:bg-green-900 text-white flex mb-4 items-center text-sm justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
                             type="submit"
@@ -231,7 +229,7 @@ const CommerceSettings = () => {
                 </form>
             </div>
             {/* Right side - Campaign Templates */}
-            <div className="w-full md:w-1/2 shadow-lg bg-white border-gray-200 rounded-xl border-solid border overflow-y-auto p-4 md:p-8">
+            <div className="w-full md:w-1/2 shadow-lg h-[600px] bg-white border-gray-200 rounded-xl border-solid border overflow-y-auto p-4 md:p-8">
                 <CampaignTemplates onSelectTemplate={onSelectTemplate} />
             </div>
         </div>

@@ -3,12 +3,11 @@ import CampaignTemplates from './ChatTempaltemap';
 
 const Popup = ({ onClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
-  const [error, setError] = useState(''); // State to hold error message
   const [selectedTemplate, setSelectedTemplate] = useState(null); // State to hold selected template
 
   const onSelectTemplate = (template) => {
     setSelectedTemplate(template);
-    setError(''); // Clear any previous error message
+   
     console.log('Selected Template:', template);
   };
 

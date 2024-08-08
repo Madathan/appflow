@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ContactAdd = ({ onClose ,forceUpdate}) => {
+const ContactAdd = ({ onClose }) => {
   const [groups, setGroups] = useState([]);
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,6 +14,9 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
     country: '',
     email: '',
     mobile: '',
+    leadsource:'',
+    companyname:'',
+    companyaddress:'',
     column1: '',
     column2: '',
     column3: '',
@@ -98,6 +101,9 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           country: formData.country,
           phone_number: formData.mobile,
           email: formData.email,
+          lead_source:formData.leadsource,
+          company_name:formData.companyname,
+          company_adress:formData.companyaddress,
           column1: formData.column1,
           column2: formData.column2,
           column3: formData.column3,
@@ -131,6 +137,9 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           name: '',
           country: '',
           email: '',
+          company_adress:'',
+          company_name:'',
+          lead_source:'',
           mobile: '',
           column1: '',
           column2: '',
@@ -161,7 +170,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
     } catch (error) {
       console.error('Error:', error);
     }
-    forceUpdate()
+    onClose() 
   };
 
   const handleShow = () => {
@@ -170,7 +179,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
 
   const handleDownloadExcel = () => {
     const headers = [
-      'Name', 'MobileNumber', 'Country', 'EmailAddress', 
+      'Name', 'MobileNumber', 'Country', 'EmailAddress',
       'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6','Column7','Column8',,'Column9','Column10','Column11','Column12','Column13','Column14'
       ,'Column15','Column16','Column17','Column18','Column19','Column20'
     ];
@@ -181,6 +190,9 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
         MobileNumber: formData.mobile,
         Country: formData.country,
         EmailAddress: formData.email,
+        lead_source:formData.leadsource,
+        company_name:formData.companyname,
+        company_adress:formData.companyaddress,
         Column1: formData.column1,
         Column2: formData.column2,
         Column3: formData.column3,
@@ -237,13 +249,12 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           });
         
           if (response.ok) {
-            
-            const responseData = await response.json();
-            console.log('Import successful',responseData);
             toast.success('Successfully Added', {
               position: 'top-center',
               autoClose: 5000,
             });
+            const responseData = await response.json();
+            console.log('Import successful',responseData);
           } else {
             console.error('Import failed');
           }
@@ -256,7 +267,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
     } catch (error) {
       console.error('Error:', error);
     }
-    forceUpdate()
+
   };
 
   return (
@@ -398,6 +409,49 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
               placeholder='Enter mobile number'
             />
           </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              LeadSource 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='leadsource'
+              value={formData.leadsource}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter leadSouece'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              CompanyName 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='companyname'
+              value={formData.companyname}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 2'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              CompanyAddress 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='companyaddress'
+              value={formData.companyaddress}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 2'
+            />
+          </div>
+          
           <div className='mb-4'>
             <label htmlFor='column1' className='block text-sm font-medium text-gray-700 mb-2'>
               Column 1

@@ -10,7 +10,7 @@ import { Instagram } from 'react-content-loader';
 
 const columnHelper = createMRTColumnHelper();
 const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-console.log("dates",chat)
+
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   const [openAdd, setOpenAdd] = useState(false);
@@ -35,7 +35,7 @@ const Contacts = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      console.log("dates",chat)
+      
       // Update the contacts state after successful status change
       setContacts((prevContacts) => 
         prevContacts.map((contact) => 
@@ -91,6 +91,18 @@ const Contacts = () => {
     }),
     columnHelper.accessor('country', {
       header: 'Country',
+      size: 150,
+    }),
+    columnHelper.accessor('lead_source', {
+      header: 'LeadSource',
+      size: 150,
+    }),
+    columnHelper.accessor('company_name', {
+      header: 'CompanyName',
+      size: 150,
+    }),
+    columnHelper.accessor('company_adress', {
+      header: 'CompanyAdress',
       size: 150,
     }),
     columnHelper.accessor('status', {
@@ -170,7 +182,7 @@ const Contacts = () => {
         const data = await response.json();
         setContacts(data.contacts || []);
         setLoading(false)
-        console.log("contact",data.contacts );
+      
       } catch (error) {
         console.error('Error fetching contacts:', error);
       }
@@ -222,7 +234,7 @@ const Contacts = () => {
           }}
           onClick={() => setOpenAdd(!openAdd)}
         >
-          Assign Data
+         Add Contact
         </Button>
       </Box>
     ),

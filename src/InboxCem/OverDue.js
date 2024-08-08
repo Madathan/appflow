@@ -87,7 +87,7 @@ const OverDue = () => {
                 </Typography>
                 <Box display="flex" flexDirection="column" mb={2}>
                   <Typography variant="body2" color="textSecondary">
-                    <strong>Notes:</strong> {item.notes}
+                    <strong>Reference:</strong> {item.reference}
                   </Typography>
                   <Box display="flex" justifyContent="space-between" mt={2}>
                     <Button
@@ -95,14 +95,14 @@ const OverDue = () => {
                       variant="contained"
                       color="primary"
                     >
-                      Action
+                      Notes
                     </Button>
                     <Button
                       onClick={() => handleHistory(item.id)}
                       variant="outlined"
                       color="secondary"
                     >
-                      Add History
+                     Add TO Completed
                     </Button>
                   </Box>
                 </Box>

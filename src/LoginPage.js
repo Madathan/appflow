@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import { message } from 'antd';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+ 
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   const handleLogin = async () => {
@@ -29,11 +30,12 @@ const LoginPage = () => {
         Cookies.set('userData', JSON.stringify(data), { expires: 7, path: "/" });
         navigate('/Team-Inbox');
       } else {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Invalid username or password');
+        message.error( 'Invalid username or password');
+      
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
+      message.error( 'Invalid username or password');
+      
     }
   };
 
@@ -88,16 +90,14 @@ const LoginPage = () => {
         >
           Login
         </button>
-        {errorMessage && (
-          <p className="text-red-500 mt-4 text-center">{errorMessage}</p>
-        )}
+        
         <p className="mt-4 text-center text-gray-700">
           Don't have an account?{' '}
           <button
             className="text-blue-500 hover:underline"
             onClick={handleSignUp}
           >
-            Sign up
+            Signup
           </button>
         </p>
       </div>

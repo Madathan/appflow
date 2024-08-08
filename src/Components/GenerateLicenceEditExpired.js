@@ -11,15 +11,15 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const GenerateLicense = ({ details,forceUpdate }) => {
-  const [opens, setOpens] = useState(false);
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+  console.log("details",details)
   const [formData, setFormData] = useState({
     client_username: details?.username || '',
     password: details?.password || '',
     phone_number: details?.phone_number || '',
-    validity_period: null,
+    validity_period: details?.date ||'',
     phone_number_id: details?.phone_number_id || '',
     whatsapp_id: details?.app_id || '',
     access_token: details?.access_token || '',
@@ -36,7 +36,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
         client_username: details.username || '',
         password: details.password || '',
         phone_number: details.phone_number || '',
-        validity_period: null,
+        validity_period: details.date || '',
         phone_number_id: details.phone_number_id || '',
         whatsapp_id: details.app_id || '',
         access_token: details.access_token || '',
@@ -53,10 +53,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
     setFormData({ ...formData, validity_period: dateString });
   };
 
-  const handleToggleApiDetails = () => {
-    setOpens(!opens);
-  };
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

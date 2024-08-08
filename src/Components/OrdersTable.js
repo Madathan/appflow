@@ -31,7 +31,6 @@ const OrderTable = () => {
                     throw new Error('Network response was not ok');
                 }
                 const jsonData = await response.json();
-                console.log("Response Data:", jsonData);
                 setLoading(false);
                 setData(jsonData.orders);
                 setFilteredData(jsonData.orders); // Initialize filteredData with the full data set

@@ -3,9 +3,10 @@ import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import { message } from 'antd';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const CrmTable = ({ status }) => {
+    const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
     const [phoneData, setPhoneData] = useState([]);
 
     useEffect(() => {

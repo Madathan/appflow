@@ -2,12 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import background from '../../assests/undraw_Add_tasks_re_s5yj.png'; // Import your background image
 import CampaignSend from './CampaignSend';
+import { message } from 'antd';
 
 const CampaignSelect = () => {
   const location = useLocation();
   const { selectedTemplate, formData, userData } = location.state || {};
   const { name, components, language } = selectedTemplate || {};
-  console.log("formData",   );
+  console.log("formData", formData  );
   const [file, setFile] = useState(null);
   const [base64File, setBase64File] = useState("");
   const [inputValues, setInputValues] = useState({});
@@ -15,7 +16,6 @@ const CampaignSelect = () => {
   const [button, setButton] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [showButton, setShowButton] = useState(false);
-
 
   const fileInputRef = useRef(null);
   const dateInputRef = useRef(null);
@@ -65,11 +65,14 @@ const CampaignSelect = () => {
       mobile_numbers: formData.group ? formData.group :formData.audience ,
       template_name: name,
       language_code: language,
-      iscatalogue: button == true ? "true" : "false",
+      iscatalogue: button === true ? "true" : "false",
       date_time: selectedDate, // Use the selected date here
       variable1: inputValues,
-      columnVariable1: selectValues,
-      uploadedFileUrl: base64File ?? " "
+      googleSheetapikey:formData.googleSheetApiKey,
+      spreadsheetname:formData.spreadsheetName,
+      googleSheetid:formData.googleSheetId,
+      columnvariable1: selectValues.columnVariable1,
+      uploadedfileurl: base64File ?? " "
     };
     console.log('Data to be sent:', input);
     try {
@@ -84,9 +87,8 @@ const CampaignSelect = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-
+      message.success('Add sucess fully');
       const result = await response.json();
-
       console.log('Success:', result);
       // Handle success (e.g., show a success message, navigate to another page, etc.)
     } catch (error) {
@@ -243,10 +245,23 @@ const CampaignSelect = () => {
                                 <option value="email">email</option>
                                 <option value="country">country</option>
                                 <option value="column1">column1</option>
-                                <option value="column2">column2</option> * 20
-
-
-                                
+                                <option value="column2">column2</option>
+                                <option value="column3">column3</option>
+                                <option value="column4">column4</option>
+                                <option value="column5">column5</option>
+                                <option value="column6">column6</option>
+                                <option value="column7">column7</option>
+                                <option value="column8">column8</option>
+                                <option value="column10">column10</option>
+                                <option value="column11">column11</option>
+                                <option value="column13">column13</option>
+                                <option value="column14">column14</option>
+                                <option value="column15">column15</option>
+                                <option value="column16">column16</option>
+                                <option value="column17">column17</option>
+                                <option value="column18">column18</option>
+                                <option value="column19">column19</option>
+                                <option value="column20">column20</option>
                               </select>
                             </div>
                           ) : (

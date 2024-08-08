@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupView = ({ onClose, onClick }) => {
+  const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [phones, setPhones] = useState([]);
 
   useEffect(() => {

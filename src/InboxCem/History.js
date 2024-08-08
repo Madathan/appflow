@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box } from '@mui/material';
+import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Notes from './OverDueNotes';
 
 const History = () => {
@@ -34,7 +35,22 @@ const History = () => {
     console.log('Action button clicked for item:', notes);
   };
 
-  
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`https://ci4backend.smartyuppies.com/ChatInbox/historyRecords/closed/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setData(data.filter(item => item.id !== id));
+        console.log(`Item with id ${id} deleted`);
+      } else {
+        console.error('Error deleting item:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -62,7 +78,7 @@ const History = () => {
                 </Typography>
                 <Box display="flex" flexDirection="column" mb={2}>
                   <Typography variant="body2" color="textSecondary">
-                    <strong>Notes:</strong> {item.notes}
+                    <strong>Reference:</strong> {item.reference}
                   </Typography>
                   <Box display="flex" justifyContent="space-between" mt={2}>
                     <Button
@@ -72,7 +88,9 @@ const History = () => {
                     >
                       Action
                     </Button>
-                    
+                    <IconButton onClick={() => handleDelete(item.id)} color="secondary">
+                      <DeleteIcon />
+                    </IconButton>
                   </Box>
                 </Box>
               </CardContent>

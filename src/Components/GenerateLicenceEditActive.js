@@ -10,16 +10,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import dayjs from 'dayjs'; // Import dayjs for date formatting
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+const GenerateLicense = ({ details, forceUpdate }) => {
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
-const GenerateLicense = ({ details,forceUpdate }) => {
-  const [opens, setOpens] = useState(false);
   const [formData, setFormData] = useState({
     client_username: details?.username || '',
     password: details?.password || '',
     phone_number: details?.phone_number || '',
-    validity_period: null,
+    validity_period: details?.date ? dayjs(details.date) : null, // Use dayjs for initial date
     phone_number_id: details?.phone_number_id || '',
     whatsapp_id: details?.app_id || '',
     access_token: details?.access_token || '',
@@ -36,7 +36,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
         client_username: details.username || '',
         password: details.password || '',
         phone_number: details.phone_number || '',
-        validity_period: null,
+        validity_period: details.date ? dayjs(details.date) : null, // Use dayjs for initial date
         phone_number_id: details.phone_number_id || '',
         whatsapp_id: details.app_id || '',
         access_token: details.access_token || '',
@@ -50,11 +50,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
   }, [details]);
 
   const onChange = (date, dateString) => {
-    setFormData({ ...formData, validity_period: dateString });
-  };
-
-  const handleToggleApiDetails = () => {
-    setOpens(!opens);
+    setFormData({ ...formData, validity_period: date });
   };
 
   const handleChange = (e) => {
@@ -82,8 +78,8 @@ const GenerateLicense = ({ details,forceUpdate }) => {
           access_token: formData.access_token,
           phone_number: formData.phone_number,
           role: chat.role,
-          validity: formData.validity_period,
-          expiry_date: formData.validity_period,
+          validity: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
+          expiry_date: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
           crm_db_username: formData.crm_db_username || null,
           crm_db_password: formData.crm_db_password || null,
           crm_db_name: formData.crm_db_name || null,
@@ -115,7 +111,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
       message.error('Error generating license');
       console.error('Error:', error);
     }
-    forceUpdate()
+    forceUpdate();
   };
 
   return (
@@ -136,7 +132,6 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.client_username}
             onChange={handleChange}
-            
           />
           <TextField
             margin="dense"
@@ -147,7 +142,6 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.password}
             onChange={handleChange}
-            
           />
           <TextField
             margin="dense"
@@ -158,10 +152,14 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.phone_number}
             onChange={handleChange}
-            
           />
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <DatePicker style={{ padding: '10px', border: '2px solid var(--second)', width: '100%' }} onChange={onChange} />
+          <Space direction="vertical" style={{ width: '100%', marginTop: 16 }}>
+            <DatePicker 
+              style={{ width: '100%' }} 
+              onChange={onChange} 
+              format="YYYY-MM-DD"
+              value={formData.validity_period}
+            />
           </Space>
           <TextField
             margin="dense"
@@ -172,7 +170,6 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.phone_number_id}
             onChange={handleChange}
-            
           />
           <TextField
             margin="dense"
@@ -202,6 +199,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             onChange={handleChange}
             fullWidth
             displayEmpty
+            style={{ marginTop: 16 }}
           >
             <MenuItem value="">
               <em>Select</em>

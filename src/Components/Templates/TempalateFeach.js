@@ -6,7 +6,7 @@ const TemplateFetch = ({ template }) => {
   return (
     <div className="max-w-full mx-auto mb-12 font-poppins h-full rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
       <div className="p-6">
-        <h5 className="text-xl text-gray-900 uppercase text-center mb-4">
+        <h5 style={{ wordWrap: 'break-word' }} className="text-xl text-gray-900 uppercase text-center mb-4">
           {name} <span className="text-black p-3">({language})</span>
         </h5>
 
@@ -62,7 +62,7 @@ const TemplateFetch = ({ template }) => {
             }
           } else if (component.type === 'BODY' && component.text) {
             return (
-              <div key={index} className="text-gray-700 font-poppins leading-relaxed">
+              <div key={index} style={{ wordWrap: 'break-word' }} className="text-gray-700 font-poppins leading-relaxed">
                 {component.text.split('\n').map((line, lineIndex) => (
                   <p key={lineIndex}>{line}</p>
                 ))}

@@ -15,6 +15,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CardGrid = () => {
   const [cards, setCards] = useState([]);
@@ -36,6 +38,8 @@ const CardGrid = () => {
     }
   }, [responseData]);
 
+  console.log(responseData);
+
   useEffect(() => {
     if (responseData) {
       setLists(responseData.List || []);
@@ -53,7 +57,13 @@ const CardGrid = () => {
     const updatedCard = { ...tempValues };
     const formData2 = new FormData();
 
-    // Append card data to FormData, skipping empty or null values
+    // Update local state
+    setCards(cards.map((card) => (card.id === id ? updatedCard : card)));
+
+    // Optionally reset edit mode
+    setEditMode(null);
+
+    // Append card data to FormData
     Object.entries(updatedCard).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== "") {
         formData2.append(key, value);
@@ -80,16 +90,22 @@ const CardGrid = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`Network response was not ok: ${errorText}`);
       }
 
       const result = await response.json();
       console.log("Server response:", result);
 
-      // Handle the server response here if needed
-      // Example: setResponseData(result);
+      // Show success toast notification
+      toast.success("Flow successfully updated!", {
+        autoClose: 2000, // Duration in milliseconds
+      });
     } catch (error) {
       console.error("Error sending request:", error);
+
+      // Show error toast notification
+      toast.error(`Error updating card: ${error.message}`);
     }
   };
 
@@ -106,13 +122,9 @@ const CardGrid = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file && file.type === "application/pdf") {
-      setSelectedFile(file);
-    } else {
-      alert("Please upload a valid PDF document.");
-      // Clear the file input
-      event.target.value = "";
-    }
+    setSelectedFile(file);
+    // Clear the file input if you need to reset it
+    event.target.value = "";
   };
 
   const handleCancelClick = () => {
@@ -158,11 +170,15 @@ const CardGrid = () => {
       const result = await response.text(); // Use .text() to handle plain text response
       console.log("Server response:", result);
 
+      toast.success("Flow successfully updated!", {
+        autoClose: 2000, // Duration in milliseconds
+      });
+
       // Optionally, handle the response result here
       // For example, show a success message to the user
     } catch (error) {
       console.error("Error sending POST request:", error);
-
+      toast.error(`Error updating card: ${error.message}`);
       // Optionally, handle the error here
       // For example, show an error message to the user
     }
@@ -310,6 +326,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {card.button_1 && (
@@ -344,7 +361,26 @@ const CardGrid = () => {
                           margin="normal"
                         />
                       )}
-
+                      {card.button_value && (
+                        <TextField
+                          label="button Value"
+                          name="button_value"
+                          value={tempValues.button_value}
+                          onChange={handleInputChange}
+                          fullWidth
+                          margin="normal"
+                        />
+                      )}
+                      {<card className="button_type"></card> && (
+                        <TextField
+                          label="button Type"
+                          name="button_type"
+                          value={tempValues.button_type}
+                          onChange={handleInputChange}
+                          fullWidth
+                          margin="normal"
+                        />
+                      )}
                       {card.button_id_1 && (
                         <TextField
                           label="Button id 1"
@@ -353,6 +389,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -364,6 +401,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -375,6 +413,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -419,6 +458,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -430,6 +470,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -441,6 +482,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -452,6 +494,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -518,6 +561,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -529,6 +573,7 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
 
@@ -562,25 +607,24 @@ const CardGrid = () => {
                           onChange={handleInputChange}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
-                      {/* <TextField
-                        label="uploaded Image"
-                        name="uploaded_file_url"
-                        value={tempValues.uploaded_file_url}
-                        onChange={handleInputChange}
-                        fullWidth
-                        margin="normal"
-                      /> */}
 
-                      <Button
-                        variant="contained"
-                        component="label"
-                        startIcon={<UploadFileIcon />}
-                      >
-                        Upload File
-                        <input type="file" hidden onChange={handleFileChange} />
-                      </Button>
+                      {card.document_type === "Document" && (
+                        <Button
+                          variant="contained"
+                          component="label"
+                          startIcon={<UploadFileIcon />}
+                        >
+                          Upload File
+                          <input
+                            type="file"
+                            hidden
+                            onChange={handleFileChange}
+                          />
+                        </Button>
+                      )}
                       {selectedFile && (
                         <Typography variant="body2" sx={{ mt: 2 }}>
                           Selected File: {selectedFile.name}
@@ -650,7 +694,36 @@ const CardGrid = () => {
                         </Typography>
                       )}
 
-                      {card.button_id_1 && (
+                      {card.button_type && (
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: "text.black",
+                            mt: 1,
+                            fontSize: "1rem",
+                            lineHeight: "1.6",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Button Type: {card.button_type}
+                        </Typography>
+                      )}
+                       {card.button_value && (
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: "text.black",
+                            mt: 1,
+                            fontSize: "1rem",
+                            lineHeight: "1.6",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Button Value: {card.button_value}
+                        </Typography>
+                      )}
+
+                      {/* {card.button_id_1 && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -663,9 +736,9 @@ const CardGrid = () => {
                         >
                           Button Id 1: {card.button_id_1}
                         </Typography>
-                      )}
+                      )} */}
 
-                      {card.button_id_2 && (
+                      {/* {card.button_id_2 && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -678,9 +751,9 @@ const CardGrid = () => {
                         >
                           Button Id 2: {card.button_id_2}
                         </Typography>
-                      )}
+                      )} */}
 
-                      {card.button_id_3 && (
+                      {/* {card.button_id_3 && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -693,7 +766,7 @@ const CardGrid = () => {
                         >
                           Button Id 3: {card.button_id_3}
                         </Typography>
-                      )}
+                      )} */}
 
                       {card.document_name && (
                         <Typography
@@ -755,7 +828,7 @@ const CardGrid = () => {
                         </Typography>
                       )}
 
-                      {card.node_value && (
+                      {/* {card.node_value && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -768,9 +841,9 @@ const CardGrid = () => {
                         >
                           Node Value: {card.node_value}
                         </Typography>
-                      )}
+                      )} */}
 
-                      {card.phone_number_id && (
+                      {/* {card.phone_number_id && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -783,9 +856,9 @@ const CardGrid = () => {
                         >
                           Phone Number ID: {card.phone_number_id}
                         </Typography>
-                      )}
+                      )} */}
 
-                      {card.username && (
+                      {/* {card.username && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -798,7 +871,7 @@ const CardGrid = () => {
                         >
                           Username: {card.username}
                         </Typography>
-                      )}
+                      )} */}
 
                       {card.type && (
                         <Typography
@@ -905,7 +978,7 @@ const CardGrid = () => {
                         </Typography>
                       )}
 
-                      {card.header_parameter && (
+                      {/* {card.header_parameter && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -918,9 +991,9 @@ const CardGrid = () => {
                         >
                           Header Parameter: {card.header_parameter}
                         </Typography>
-                      )}
+                      )} */}
 
-                      {card.chatflow_id && (
+                      {/* {card.chatflow_id && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -933,7 +1006,7 @@ const CardGrid = () => {
                         >
                           Chatflow Id: {card.chatflow_id}
                         </Typography>
-                      )}
+                      )} */}
 
                       {card.is_start && (
                         <Typography
@@ -950,7 +1023,7 @@ const CardGrid = () => {
                         </Typography>
                       )}
 
-                      {card.id && (
+                      {/* {card.id && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -963,7 +1036,7 @@ const CardGrid = () => {
                         >
                           ID: {card.id}
                         </Typography>
-                      )}
+                      )} */}
 
                       {card.uploaded_file_url && (
                         <div
@@ -978,14 +1051,15 @@ const CardGrid = () => {
                             src={`${card.uploaded_file_url}`} // Construct the full URL
                             alt="Uploaded file" // Descriptive alt text
                             style={{
-                              maxWidth: "100%",
-                              height: "auto",
+                              maxWidth: "350px",
+                              height: "350px",
                               borderRadius: "8px",
                               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                             }} // Optional styling
                           />
                         </div>
                       )}
+                      <ToastContainer />
                     </>
                   )}
                 </CardContent>
@@ -1328,6 +1402,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_2 && (
@@ -1338,6 +1413,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_3 && (
@@ -1348,6 +1424,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_4 && (
@@ -1358,6 +1435,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_5 && (
@@ -1368,6 +1446,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_6 && (
@@ -1378,6 +1457,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_7 && (
@@ -1388,6 +1468,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_8 && (
@@ -1398,6 +1479,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_9 && (
@@ -1408,6 +1490,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.button_id_10 && (
@@ -1418,6 +1501,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.id && (
@@ -1428,6 +1512,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.chatflow_id && (
@@ -1438,6 +1523,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.node_value && (
@@ -1448,6 +1534,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.username && (
@@ -1458,6 +1545,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                       {tempValues2.phone_number_id && (
@@ -1468,6 +1556,7 @@ const CardGrid = () => {
                           onChange={handleInputChange2}
                           fullWidth
                           margin="normal"
+                          style={{ display: "none" }}
                         />
                       )}
                     </>
@@ -1825,7 +1914,7 @@ const CardGrid = () => {
                         </Typography>
                       )}
 
-                      {list.button_id_1 && (
+                      {/* {list.button_id_1 && (
                         <Typography
                           variant="body2"
                           sx={{
@@ -1973,7 +2062,7 @@ const CardGrid = () => {
                         >
                           Button Id 10: {list.button_id_10}
                         </Typography>
-                      )}
+                      )} */}
 
                       <Typography
                         variant="body2"
@@ -1988,7 +2077,7 @@ const CardGrid = () => {
                         Document Type: {list.document_type || "Unknown type"}
                       </Typography>
 
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         sx={{
                           color: "text.black",
@@ -1999,9 +2088,9 @@ const CardGrid = () => {
                         }}
                       >
                         Phone Number ID: {list.phone_number_id || "N/A"}
-                      </Typography>
+                      </Typography> */}
 
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         sx={{
                           color: "text.black",
@@ -2012,9 +2101,9 @@ const CardGrid = () => {
                         }}
                       >
                         Node Value: {list.node_value || "N/A"}
-                      </Typography>
+                      </Typography> */}
 
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         sx={{
                           color: "text.black",
@@ -2025,9 +2114,9 @@ const CardGrid = () => {
                         }}
                       >
                         Username: {list.username || "N/A"}
-                      </Typography>
+                      </Typography> */}
 
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         sx={{
                           color: "text.black",
@@ -2038,9 +2127,9 @@ const CardGrid = () => {
                         }}
                       >
                         Chatflow Id: {list.chatflow_id}
-                      </Typography>
+                      </Typography> */}
 
-                      <Typography
+                      {/* <Typography
                         variant="body2"
                         sx={{
                           color: "text.black",
@@ -2051,7 +2140,9 @@ const CardGrid = () => {
                         }}
                       >
                         ID: {list.id}
-                      </Typography>
+                      </Typography> */}
+
+                      <ToastContainer />
                     </>
                   )}
                 </CardContent>

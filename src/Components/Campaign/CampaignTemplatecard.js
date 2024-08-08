@@ -1,5 +1,4 @@
 import React from 'react';
-
 const TemplateFetch = ({ template, onSelectTemplate }) => {
     const { name, components, language } = template;
 
@@ -72,7 +71,7 @@ const TemplateFetch = ({ template, onSelectTemplate }) => {
                           }
                     } else if (component.type === 'BODY' && component.text) {
                         return (
-                            <div key={index} className="text-gray-700 text-sm leading-relaxed">
+                            <div key={index} style={{ wordWrap: 'break-word' }} className="text-gray-700 text-sm leading-relaxed">
                                 {component.text.split('\n').map((line, lineIndex) => (
                                     <p key={lineIndex}>{line}</p>
                                 ))}

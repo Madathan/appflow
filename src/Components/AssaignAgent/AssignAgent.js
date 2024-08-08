@@ -71,8 +71,8 @@ const AssignAgent = ({ open }) => {
         throw new Error('Network response was not ok');
       }
       message.success('Insert Successfully');
-      const data = await response.json();
-      console.log('API Response:', data);
+    
+     
       // Handle displaying response data or other logic as needed
     } catch (error) {
       console.error('Error:', error);
@@ -99,7 +99,7 @@ const AssignAgent = ({ open }) => {
 
         // Log the raw response text
         const rawText = await response.text();
-        console.log('Raw response:', rawText);
+     
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -115,7 +115,7 @@ const AssignAgent = ({ open }) => {
           return; // Exit if JSON is invalid
         }
 
-        console.log('Fetched data:', data);
+       
 
         // Setting fetched data into state variables
         setAgents(data.staffData || []);
@@ -132,6 +132,7 @@ const AssignAgent = ({ open }) => {
 
   return (
     <>
+    <div className='md:flex md:justify-end'>
       <Button
         type="button"
         variant="contained"
@@ -140,6 +141,7 @@ const AssignAgent = ({ open }) => {
       >
         View All Assigned Agent
       </Button>
+      </div>
       {show ? (
         <MaterialUITables />
       ) : (

@@ -2,7 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import Sidebar from './views/Sidebar';
 import Login from './LoginPage';
-import CrmTable from './Components/CrmTable';
+//import CrmTable from './Components/CrmTable';
 import { SiPowervirtualagents } from "react-icons/si";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineContacts } from "react-icons/md";
@@ -12,6 +12,8 @@ import { FaOpencart } from "react-icons/fa";
 import { HiOutlineCreditCard } from "react-icons/hi2";
 import  UpdateCard  from  './Components/ReactFlow/FlowUpdate'
 import { CgProfile } from "react-icons/cg";
+import Complain from './Components/RaiseComplaint'
+import { VscDebugDisconnect } from "react-icons/vsc";
 
 //menu icons
 import Logout from './Logout';
@@ -51,7 +53,6 @@ import Signup from './SignUp';
 import Validation from './Valitation';
 import FlowEdit from './Components/FlowEdit'
 import LicenceThisMonth from './Components/GenerateThisMonthExpire'
-import Profile from './Components/Profile/Profile'
 import  FetureCallBack  from './InboxCem/FetureCallBack';
 import History from './InboxCem/History'
 import TodaysCallback from './InboxCem/TodaysCallback';
@@ -110,37 +111,10 @@ function App() {
     { id: 14, title: "WECRM INTEGRATION", name: " Leads", link: '/', icon: MdLeaderboard, nav: "/CRM-Leads" },
     { id: 15, bre: "WECRM INTEGRATION", name: " Agent", link: '/', icon: MdAssignmentInd, nav: "/Assign-Agent", Margin: true  },
     { id: 16, bre: "WECRM INTEGRATION", name: "Commerce", link: '/', icon: IoSettingsOutline, nav: "/Commercesettings" , Margin: true  },
-    { id: 17, bre: "WECRM INTEGRATION", name: "Profile", link: '/', icon: CgProfile, nav: "/Profile" , Margin: true  },
+    { id: 16, bre: "WECRM INTEGRATION", name: "Support", link: '/', icon: VscDebugDisconnect, nav: "/Complain" , Margin: true  },
    // { id: 17, bre: "WECRM INTEGRATION", name: "Woo", link: '/', icon: SiWoo, nav: "/WooCommerce" , Margin: true  },
 
       
-  ];
-  const contacts = [
-    { name: 'John Doe', phoneNumber: '123-456-7890', country: 'USA', subscribe: 'subscribe' },
-    { name: 'Jane Smith', phoneNumber: '456-789-0123', country: 'Canada', subscribe: 'unsubscribe' },
-    { name: 'Alice Johnson', phoneNumber: '789-012-3456', country: 'UK', subscribe: 'subscribe' },
-    { name: 'Bob Brown', phoneNumber: '234-567-8901', country: 'Australia', subscribe: 'unsubscribe' },
-    { name: 'Eve White', phoneNumber: '567-890-1234', country: 'France', subscribe: 'subscribe' },
-    { name: 'Michael Davis', phoneNumber: '890-123-4567', country: 'Germany', subscribe: 'unsubscribe' },
-    { name: 'Sara Wilson', phoneNumber: '345-678-9012', country: 'Japan', subscribe: 'subscribe' },
-    { name: 'David Lee', phoneNumber: '678-901-2345', country: 'Brazil', subscribe: 'unsubscribe' },
-    { name: 'Emily Martinez', phoneNumber: '901-234-5678', country: 'Spain', subscribe: 'subscribe' },
-    { name: 'Kevin Rodriguez', phoneNumber: '432-345-6789', country: 'Italy', subscribe: 'unsubscribe' },
-    { name: 'Laura Garcia', phoneNumber: '765-876-9876', country: 'Mexico', subscribe: 'subscribe' },
-    { name: 'Chris Brown', phoneNumber: '987-678-3456', country: 'China', subscribe: 'unsubscribe' },
-    { name: 'Olivia Smith', phoneNumber: '543-789-2345', country: 'Russia', subscribe: 'subscribe' },
-    { name: 'Daniel Johnson', phoneNumber: '876-987-6543', country: 'India', subscribe: 'unsubscribe' },
-    { name: 'Megan Wilson', phoneNumber: '210-543-8765', country: 'South Africa', subscribe: 'subscribe' },
-    { name: 'Peter Wilson', phoneNumber: '543-876-0987', country: 'Argentina', subscribe: 'unsubscribe' },
-    { name: 'Sophia Garcia', phoneNumber: '876-098-7654', country: 'South Korea', subscribe: 'subscribe' },
-    { name: 'Alex Kim', phoneNumber: '654-321-0987', country: 'Nigeria', subscribe: 'unsubscribe' },
-    { name: 'Grace Lee', phoneNumber: '098-765-4321', country: 'Egypt', subscribe: 'subscribe' },
-    { name: 'Nathan Brown', phoneNumber: '321-654-1098', country: 'Saudi Arabia', subscribe: 'unsubscribe' },
-    { name: 'Isabella Chen', phoneNumber: '765-432-1098', country: 'Germany', subscribe: 'subscribe' },
-    { name: 'James Wilson', phoneNumber: '543-210-9876', country: 'France', subscribe: 'unsubscribe' },
-    { name: 'Emma Davis', phoneNumber: '109-876-5432', country: 'Brazil', subscribe: 'subscribe' },
-    { name: 'William Martinez', phoneNumber: '432-109-8765', country: 'Spain', subscribe: 'unsubscribe' },
-    { name: 'Ava Johnson', phoneNumber: '876-543-2109', country: 'Italy', subscribe: 'subscribe' }
   ];
   
   
@@ -156,7 +130,7 @@ function App() {
   <Route path='/Reports' element={<ProtectedRoute><Reports open={open} data={data} /></ProtectedRoute>} />
   <Route path='/REST-API' element={<ProtectedRoute><RestAPI /></ProtectedRoute>} />
   <Route path='/Orders' element={<ProtectedRoute><Orders /></ProtectedRoute>} />
-  <Route path='/Contacts' element={<ProtectedRoute><Contacts contacts={contacts} /></ProtectedRoute>} />
+  <Route path='/Contacts' element={<ProtectedRoute><Contacts/></ProtectedRoute>} />
   <Route path='/Groups' element={<ProtectedRoute><Groups /></ProtectedRoute>} />
   <Route path='/Connect-Account' element={<ProtectedRoute><ConnectAccount /></ProtectedRoute>} />
   <Route path='/Customize-Teams' element={<ProtectedRoute><CustomizeTeam /></ProtectedRoute>} />
@@ -177,13 +151,11 @@ function App() {
   <Route path='/Logout' element={<ProtectedRoute><Logout/></ProtectedRoute> } />
   <Route path='/LicenceThisMonth' element={<ProtectedRoute><LicenceThisMonth/></ProtectedRoute> } />
 
-  <Route path='/Profile' element={<ProtectedRoute><Profile/></ProtectedRoute> } />
   <Route path='/OverDue' element={<ProtectedRoute><OverDue/></ProtectedRoute> } />
   <Route path='/TodaysCallback' element={<ProtectedRoute><TodaysCallback/></ProtectedRoute> } />
   <Route path='/FetureCallBack' element={<ProtectedRoute><FetureCallBack/></ProtectedRoute> } />
   <Route path='/History' element={<ProtectedRoute><History/></ProtectedRoute> } />
-
-
+  <Route path='/Complain' element={<ProtectedRoute><Complain/></ProtectedRoute> } />
 
   <Route exact path='/Login' element={<Login />} />
   <Route path='/signup' element={<Signup/>} />

@@ -27,6 +27,7 @@ const Logout = () => {
             username: data.username || '',
             password: data.password, // Password should be kept empty for security reasons
             phonenumber: data.phone_number || '',
+            image:data.image ||'',
           });
         } else {
           console.error('Failed to fetch user data');
@@ -68,6 +69,7 @@ const Logout = () => {
       password: inputs.password,
       id: chat.id,
       phone_number: inputs.phonenumber,
+      image:inputs.file,
     };
 
     try {
@@ -95,7 +97,7 @@ const Logout = () => {
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 p-4">
       <div className="flex flex-col items-center md:items-start">
         <div className="bg-gray-300 h-[150px] w-[150px] text-white rounded-full flex items-center justify-center text-[90px]">
-          <h1>{userData?.username?.charAt(0)}</h1>
+          <img src={inputs.image} className='h-[150px] w-[150px] rounded-full' alt="profile"/>
         </div>
         <div className="mt-8 md:ml-6 p-6">
           <button

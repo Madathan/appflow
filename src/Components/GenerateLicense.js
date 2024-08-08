@@ -4,9 +4,10 @@ import Button from '@mui/material/Button';
 import GenerateLicenseTable from './GenerateLicenseTable';
 import Cookies from 'js-cookie';
 
-const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const GenerateLicense = () => {
+  const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [opens, setOpens] = useState(false);
   const [formData, setFormData] = useState({
     client_username: '',
@@ -92,6 +93,7 @@ const GenerateLicense = () => {
 
   return (
     <>
+     <div className='md:flex md:justify-end'>
       <Button
         variant="contained"
         style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem',marginLeft:'1rem' }}
@@ -99,6 +101,7 @@ const GenerateLicense = () => {
       >
         {opens ? "Generate License" : "View All Licenses"}
       </Button>
+      </div>
       {opens ? <GenerateLicenseTable /> : (
         <div className='mb-8 '>
            <form className='p-4 uppercase' onSubmit={handleSubmit}>
@@ -149,6 +152,9 @@ const GenerateLicense = () => {
                     <option value="no">No</option>
                   </select>
                 </div>
+                <div className='mt-10 mb-10 text-center'>
+                <Button type="submit" variant="contained" style={{ backgroundColor: '#00a727', color: '#FFFFFF' }}>Generate New License</Button>
+              </div>
             </div>
           </div>
           <div className='px-8 mt-16 pt-4 my-6 bg-white rounded-[15px] border border-2 border-gray-200 shadow-xl'>
@@ -167,9 +173,7 @@ const GenerateLicense = () => {
                   <input type="text" id="crm_db_password" name="crm_db_password" value={formData.crm_db_password} onChange={handleChange} className="border border-gray-400 border-2 text-gray-900 text-sm rounded-lg focus:ring-gray-400 focus:border-[--second] block w-full " required />
                 </div>
               </div>
-              <div className='mt-10 mb-10 text-center'>
-                <Button type="submit" variant="contained" style={{ backgroundColor: '#00a727', color: '#FFFFFF' }}>Generate New License</Button>
-              </div>
+            
              
           </div>
           </form>

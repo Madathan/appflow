@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-console.log("datas", chat);
 
 const CommerceSettings = () => {
+    const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
     const [formData, setFormData] = useState({
         username: chat.username,
         phone_number_id: chat.phone_number_id,

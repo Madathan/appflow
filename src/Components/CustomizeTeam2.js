@@ -4,10 +4,11 @@ import Card from './CumstomizeCard'; // Assuming this is the correct import stat
 import Cookies from 'js-cookie';
 import { message } from 'antd';
 import CustomizeTeam1 from './CustomizeTeams1'
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-console.log("datas", chat);
 
 function CustomizeTeams() {
+  
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [data, setData] = useState([]);
   const [reducer, forceUpdate] = useReducer(x => x + 1,0);
   useEffect(() => {
@@ -34,8 +35,6 @@ function CustomizeTeams() {
        
 
         const responseText = await response.text();
-        console.log("Raw response:", responseText);
-
         const initialData = JSON.parse(responseText);
         console.log("Parsed:", initialData);
         setData(initialData.teammember);
@@ -79,7 +78,7 @@ function CustomizeTeams() {
   return (
     <>
     <div className='mb-10'>        
-    <CustomizeTeam1/> 
+    <CustomizeTeam1 /> 
     </div>
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10">
       {data.map(user => (

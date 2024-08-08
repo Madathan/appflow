@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useReducer} from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Table,
@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import GenerateLicenseExpired from './GenerateLicenceTableExpired';
-import GenerateLicenseActive from './GenerateLicenceEditActive'; // Make sure the import path is correct
+import GenerateLicenseActive from './GenerateLicenceEditActive'; // Ensure the import path is correct
 
 const GenerateTable = () => {
   const [actionOpen, setActionOpen] = useState(null);
@@ -23,8 +23,9 @@ const GenerateTable = () => {
   const [orders, setOrders] = useState([]);
   const [details, setDetails] = useState({});
   const [counts, setCounts] = useState({});
-  const [reducer, forceUpdate] = useReducer(x => x + 1,0);
+  const [reducer, forceUpdate] = useReducer(x => x + 1, 0);
   const navigate = useNavigate();
+
   useEffect(() => {
     fetchOrders();
   }, [reducer]);
@@ -35,7 +36,7 @@ const GenerateTable = () => {
       if (response.ok) {
         const datas = await response.json();
         setOrders(datas.data);
-        setCounts(datas.count)
+        setCounts(datas);
       } else {
         console.error('Failed to fetch orders', response.status, response.statusText);
       }
@@ -46,7 +47,7 @@ const GenerateTable = () => {
 
   const handleView = (order) => {
     setDetails(order);
-    setEdit(true);
+    setEdit(!edit);
   };
 
   const handleActionClick = (orderId) => {
@@ -68,7 +69,6 @@ const GenerateTable = () => {
       });
 
       if (response.ok) {
-        console.log('License activated:', order.id);
         fetchOrders(); // Refresh the data after activation
       } else {
         console.error('Failed to activate license', response.status, response.statusText);
@@ -77,10 +77,11 @@ const GenerateTable = () => {
       console.error('Error:', error);
     }
   };
-  const handleMonthExpires= () =>
-  {
-    navigate('/LicenceThisMonth')
-  }
+
+  const handleMonthExpires = () => {
+    navigate('/LicenceThisMonth');
+  };
+
   const handleClick = () => {
     setShow(!show);
   };
@@ -89,7 +90,6 @@ const GenerateTable = () => {
     <>
       <h1 className="text-center text-2xl">{show ? 'Active License' : 'Expired License'}</h1>
       <div className="lg:flex justify-end">
-      
         <Button
           variant="contained"
           style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem', marginRight: '1em', paddingRight: '15px' }}
@@ -104,69 +104,68 @@ const GenerateTable = () => {
         >
           This Month Expires
         </Button>
-       
       </div>
-      
+
       {show ? (
         <>
-         
-        <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="order table">
-              <TableHead>
-                <TableRow className="bg-gray-100 sticky top-0">
-                  <TableCell align="center" className="px-4 py-2">Name</TableCell>
-                  <TableCell align="center" className="px-4 py-2">Role</TableCell>
-                  <TableCell align="center" className="px-4 py-2">Phone Number ID</TableCell>
-                  <TableCell align="center" className="px-4 py-2">Expiry Date</TableCell>
-                  <TableCell align="center" className="px-4 py-2">Status</TableCell>
-                  <TableCell align="center" className="px-4 py-2">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {orders.map((order) => (
-                  <TableRow key={order.id} className="bg-white hover:bg-gray-50">
-                    <TableCell align="center" className="px-4 py-2">{order.username}</TableCell>
-                    <TableCell align="center" className="px-4 py-2">{order.role}</TableCell>
-                    <TableCell align="center" className="px-4 py-2">{order.phone_number_id}</TableCell>
-                    <TableCell align="center" className="px-4 py-2">{order.expiry_date}</TableCell>
-                    <TableCell align="center" className="px-4 py-2">{order.status}</TableCell>
-                    <TableCell align="center" className="px-4 py-2">
-                      <Tooltip title="Edit">
-                        <IconButton onClick={() => handleActionClick(order.id)}>
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      {actionOpen === order.id && (
-                        <div className="flex flex-col bg-white shadow-lg rounded-lg p-4 items-center mt-2">
-                          <button
-                            className="border-green-600 border-2 border-solid text-green-600 px-4 py-1 rounded mb-1"
-                            onClick={() => handleView(order)}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="border-green-600 border-2 border-solid text-green-600 px-2 py-1 rounded"
-                            onClick={() => handleActivate(order)}
-                          >
-                            {order.status === 'active' ? 'Expired' : 'Active'}
-                          </button>
-                        </div>
-                      )}
-                    </TableCell>
+          <h1 className='bg-blue-600 p-2 w-[100px] text-white rounded-xl'>Total:<span className='bg-white ml-2 p-2 text-green-800 w-12 h-12 rounded-full shadow-2xl '>{counts?.count}</span></h1>
+
+          <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="order table">
+                <TableHead>
+                  <TableRow className="bg-gray-100 sticky top-0">
+                    <TableCell align="center" className="px-4 py-2">Name</TableCell>
+                    <TableCell align="center" className="px-4 py-2">Role</TableCell>
+                    <TableCell align="center" className="px-4 py-2">Phone Number ID</TableCell>
+                    <TableCell align="center" className="px-4 py-2">Expiry Date</TableCell>
+                    <TableCell align="center" className="px-4 py-2">Status</TableCell>
+                    <TableCell align="center" className="px-4 py-2">Actions</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {edit && <GenerateLicenseActive details={details} forceUpdate={forceUpdate} />}
-        </div>
+                </TableHead>
+                <TableBody>
+                  {orders.map((order) => (
+                    <TableRow key={order.id} className="bg-white hover:bg-gray-50">
+                      <TableCell align="center" className="px-4 py-2">{order.username}</TableCell>
+                      <TableCell align="center" className="px-4 py-2">{order.role}</TableCell>
+                      <TableCell align="center" className="px-4 py-2">{order.phone_number_id}</TableCell>
+                      <TableCell align="center" className="px-4 py-2">{order.expiry_date}</TableCell>
+                      <TableCell align="center" className="px-4 py-2">{order.status}</TableCell>
+                      <TableCell align="center" className="px-4 py-2">
+                        <Tooltip title="Edit">
+                          <IconButton onClick={() => handleActionClick(order.id)}>
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                        {actionOpen === order.id && (
+                          <div className="flex flex-col bg-white shadow-lg rounded-lg p-4 items-center mt-2">
+                            <button
+                              className="border-green-600 border-2 border-solid text-green-600 px-4 py-1 rounded mb-1"
+                              onClick={() => handleView(order)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="border-green-600 border-2 border-solid text-green-600 px-2 py-1 rounded"
+                              onClick={() => handleActivate(order)}
+                            >
+                              {order.status === 'active' ? 'InActive' : 'Active'}
+                            </button>
+                          </div>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
         </>
-      )
-       : (
+      ) : (
         <GenerateLicenseExpired />
       )}
-  
+
+      {edit && <GenerateLicenseActive details={details} forceUpdate={forceUpdate} />}
     </>
   );
 };

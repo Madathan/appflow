@@ -14,7 +14,6 @@ const rfStyle = {
   borderColor: "green",
   borderWidth: 5,
 };
-
 const hfStyle = {
   backgroundColor: 'white',
   top: 20,
@@ -23,7 +22,6 @@ const hfStyle = {
   borderColor: "green",
   borderWidth: 5,
 };
-
 // TextUpdaterNode Component
 const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect }) => {
   const [inputValue, setInputValue] = useState('');
@@ -34,8 +32,11 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
       data.onChange(id, evt.target.value);
     }
   };
-
   const handleTypeChange = (e) => {
+    if (!showSelect) {
+      alert('Select option is only available for the first button.');
+      return;
+    }
     const newType = e.target.value;
     setSelectedType(newType);
     const defaultValue = getDefaultValue(newType);
@@ -58,7 +59,6 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
       default: return '';
     }
   };
-
   return (
     <div>
       <button onClick={onRemove} className="text-gray-600 hover:text-red-800 text-3xl">
@@ -101,7 +101,6 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
     </div>
   );
 };
-
 // NodeContainer Component
 const NodeContainer = ({ id, data }) => {
   const [inputBoxes, setInputBoxes] = useState([]);
@@ -109,20 +108,16 @@ const NodeContainer = ({ id, data }) => {
   const { setNodes } = useReactFlow();
   const [show, setShow] = useState(false);
   const [buttonTypeSelected, setButtonTypeSelected] = useState(null);
-
   const MAX_INPUT_BOXES = 3;
-
   const addInputBox = () => {
     if (inputBoxes.length >= MAX_INPUT_BOXES) {
       alert('Maximum number of input boxes reached.');
       return;
     }
-
     if (buttonTypeSelected) {
       alert('Button type is already selected. Please remove it before adding new buttons.');
       return;
     }
-
     const newId = inputBoxes.length + 1;
     setInputBoxes((prevInputBoxes) => [
       ...prevInputBoxes,
@@ -156,26 +151,22 @@ const NodeContainer = ({ id, data }) => {
       return updatedInputBoxes;
     });
   };
-
   const handleTextChange = (inputId, value) => {
     if (data.onChange) {
       data.onChange(id, 'button_' + inputId, value);
     }
   };
-
   const handleChanges = (event) => {
     setMessage(event.target.value);
     if (data.onChange) {
       data.onChange(id, 'message', message);
     }
   };
-
   const handleTypeChange = (id, type, value) => {
     if (inputBoxes.length >= MAX_INPUT_BOXES) {
       alert('Cannot select button type. Maximum number of input boxes reached.');
       return;
     }
-
     setButtonTypeSelected(type); // Set state based on the selected type
     setInputBoxes((prevInputBoxes) =>
       prevInputBoxes.map((box) =>
@@ -188,7 +179,6 @@ const NodeContainer = ({ id, data }) => {
       data.onChange(id, 'button_value', value);
     }
   };
-
   const shows = () => { setShow(true); }
   const leave = () => { setShow(false); }
  const handledeleteNode=()=>
@@ -197,13 +187,16 @@ const NodeContainer = ({ id, data }) => {
   setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
  }
   return (
-    <div className='relative bg-[white] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600' onMouseOver={shows} onMouseOut={leave}>
+    <div className='relative bg-[white] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600 ' onMouseOver={shows} onMouseOut={leave}>
       {show && (
+
+        <div className='hover:translate-y-6 hover:transition duration-700 ease-in-out'>
         <button
           onClick={handledeleteNode}
-          className="absolute right-10 top-11 text-black text-lg rounded-lg lg p-14 bg-white shadow-2xl hover:text-red-800">
+          className="absolute right-10 top-11 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-800' style={{ fontSize: 40 }} />
         </button>
+        </div>
       )}
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
         <PiRadioButton className='mt-1 text-4xl' />
@@ -216,7 +209,7 @@ const NodeContainer = ({ id, data }) => {
             id="w3review"
             name="w3review"
             rows="6"
-            cols="35"
+            cols="40"
             value={message}
             placeholder='message'
             className='rounded-2xl border-green-600 border-3 text-4xl'
@@ -235,10 +228,9 @@ const NodeContainer = ({ id, data }) => {
         className='bg-white text-black shadow-2xl mt-4 text-4xl p-7 rounded-lg px-5 mt-6 w-full'
         disabled={inputBoxes.length >= MAX_INPUT_BOXES}
       >
-        <span className='mr-4'>+</span>Add Button
+        <span className='mr-4'>+</span> Add Button
       </button>
     </div>
   );
 };
-
 export default NodeContainer;

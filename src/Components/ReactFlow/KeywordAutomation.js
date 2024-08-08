@@ -54,9 +54,7 @@ function Flow() {
   const [list, setInputList] = useState({});
   const [flowName, setFlowName] = useState();
   const [flowKey, setFlowKey] = useState({});
-  const [alert, setAlert] = useState("");
   const [location, setLocation] = useState({});
-  const [resMessage, setResMessage] = useState("");
 
 
 
@@ -97,7 +95,7 @@ function Flow() {
   );
 
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge({ ...connection, type: 'customEdge', animated: true }, eds)),
+    (connection) => setEdges((eds) => addEdge({ ...connection, type: 'customEdge', animated: 'true' }, eds)),
     [setEdges]
   );
   
@@ -206,8 +204,6 @@ function Flow() {
         }
   
         const data = await response.json();
-        setAlert(data.status);
-        setResMessage(data.message);
         console.log('Success:', data);
   
         // Show the appropriate Swal alert based on the response

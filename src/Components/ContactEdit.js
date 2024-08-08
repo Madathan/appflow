@@ -7,6 +7,9 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
     name: contact?.name || '',
     email: contact?.email || '',
     country: contact?.country || '',
+    lead_source:contact?.lead_source||'',
+    company_name:contact?.company_name||'',
+    company_adress:contact?.company_adress||'',
     phone_number: contact?.phone_number || '', // Assuming phone_number is the mobile number
     column1: contact?.column1 || '',
     column2: contact?.column2 || '',
@@ -106,6 +109,48 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
               value={formData.phone_number}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              LeadSource 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='lead_source'
+              value={formData.lead_source}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter leadSouece'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              CompanyName 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='company_name'
+              value={formData.company_name}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 2'
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+              CompanyAddress 
+            </label>
+            <input
+              type='text'
+              id='column2'
+              name='company_adress'
+              value={formData.company_adress}
+              onChange={handleChange}
+              className='border border-gray-300 rounded py-2 px-3 w-full'
+              placeholder='Enter column 2'
             />
           </div>
           <div className="grid grid-cols-2 gap-4 mb-4">

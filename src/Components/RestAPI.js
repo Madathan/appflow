@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@mui/material';
 import api from '../assests/api.png';
 import RestTable from './RestApitable';
@@ -11,6 +11,9 @@ const RestAPI = ({ open }) => {
   const [show, setShow] = useState([]);
   const [get, setGet] = useState([]);
   const [restApiName, setRestApiName] = useState('');
+
+  // Create a ref to the API details section
+  const apiDetailsRef = useRef(null);
 
   const handleToggleApiDetails = async () => {
     setOpens(!opens);
@@ -62,6 +65,12 @@ const RestAPI = ({ open }) => {
       const data = await response.json();
       setShow(data);
       console.log('Data fetched from API:', data);
+
+      // Scroll to the API details section
+      if (apiDetailsRef.current) {
+        apiDetailsRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -69,13 +78,15 @@ const RestAPI = ({ open }) => {
 
   return (
     <>
-      <Button
-        variant="contained"
-        style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem', width: '200px' }}
-        onClick={handleToggleApiDetails}
-      >
-        View All Rest Api
-      </Button>
+      <div className='md:flex md:justify-end'>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem', width: '200px' }}
+          onClick={handleToggleApiDetails}
+        >
+          View All Rest Api
+        </Button>
+      </div>
       {opens ? (
         <div className="mb-2 grid font-Poppins flex flex-col lg:flex-row gap-8">
           <div className="border w-full bg-white shadow-xl pt-5 items-center px-7 rounded-lg overflow-hidden">
@@ -153,15 +164,18 @@ const RestAPI = ({ open }) => {
                 The REST API enables authentication for building your own API and sending official WhatsApp messages, including text, variables, media, and more.
               </p>
               {showApi && (
-                <div className="py-5 px-8 lg:mx-10 h-[330px] border border-2 rounded overflow-y-auto">
+                <div 
+                  className="py-5 px-8 lg:mx-10 h-[330px] border border-2 rounded overflow-y-auto"
+                  ref={apiDetailsRef} // Attach ref to this section
+                >
                   {show.length > 0 ? (
                     <div>
                       <h2 className="text-[--second]">Name:</h2>
                       <p>{restApiName}</p>
                       <h6 className="mt-3 text-[--second]">smartbanner_token:</h6>
                       <p>{show[0].smartbanner_token}</p>
-                      <h6 className='mt-4 text-[--second]'>API Link for Text Template: </h6>
-                      <p className='text-wrap text-sm '>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
+                      <h6 className='mt-4 text-sm text-[--second]'>API Link for Text Template: </h6>
+                      <p className='text-wrap text-sm'>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
                       <h6 className='mt-4 text-sm text-[--second]'>API Link for Text with Parameters: </h6>
                       <p>https://appnew.smartyuppies.com/campaignviaget?smartbanner_token={show[0].smartbanner_token}&campaign_name=BROADCAST_NAME&owner_name=OWNER_NAME&mobile_numbers=CLIENT_NUMBER_WITH_91_can_use_multible_numbers_seperated_by_comma&template_name=TEMPLATE_NAME&language_code=LANGUAGE_CODE&variable1=VARIABLE</p>
                       <h6 className='mt-4 text-sm text-[--second]'>API Link for Text with Media: </h6>

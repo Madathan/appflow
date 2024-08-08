@@ -9,6 +9,8 @@ const GenerateTable = () => {
   const [edit, setEdit] = useState(false);
   const [orders, setOrders] = useState([]);
   const [details, setDetails] = useState({});
+  const [counts, setCounts] = useState({});
+
   const [reducer, forceUpdate] = useReducer(x => x + 1,0)
 
   useEffect(() => {
@@ -21,6 +23,8 @@ const GenerateTable = () => {
       if (response.ok) {
         const datas = await response.json();
         setOrders(datas.data  );
+        setCounts(datas)
+
       } else {
         console.error('Failed to fetch orders', response.status, response.statusText);
       }
@@ -70,6 +74,8 @@ const GenerateTable = () => {
 
   return (
     <>
+        <h1 className='bg-blue-600 p-2 w-[100px] text-white rounded-xl'>Total:<span className='bg-white ml-2 p-2 text-green-800 w-12 h-12 rounded-full shadow-2xl '>{counts?.count}</span></h1>
+
         <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="order table">

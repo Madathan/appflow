@@ -12,12 +12,14 @@ function Groups() {
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null);
-  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [show, setShow] = useState(false);
   const [contact, setContact] = useState([]);
   const [share, setShare] = useState(null);
   const [loading, setLoading] = useState(true);
   const [reducer, forceUpdate] = useReducer(x => x + 1,0)
+
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -114,8 +116,8 @@ function Groups() {
         </TableRow>
     </TableHead>
     <TableBody>
-        {filteredGroups.map((item) => (
-            <TableRow key={item.id} className="bg-white hover:bg-gray-50">
+        {filteredGroups.map((item,index) => (
+            <TableRow key={index} className="bg-white hover:bg-gray-50">
                 <TableCell align="center" className="px-4 py-2">{item.groupname}</TableCell>
                 <TableCell align="center" className="px-4 py-2">{item.date}</TableCell>
                 <TableCell align="center" className="px-4 py-2">{item.group_member_count}</TableCell>

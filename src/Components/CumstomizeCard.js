@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AiFillDelete, AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { MdDeleteOutline } from "react-icons/md";
-import { FaEye, FaEyeSlash, FaFileUpload } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { MdOutlineModeEdit } from "react-icons/md";
 import CustomizeEdit from './CustimizeTeamEdit';
@@ -11,7 +10,7 @@ const Card = ({ id, title, description, imageUrl, remove, forceUpdate }) => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState([]);
   const [passwordVisible, setPasswordVisible] = useState(false);
-
+ console.log("idssss",id)
   const handleEdit = (id) => {
     setShow(true);
     setEdit(id);
@@ -46,14 +45,16 @@ const Card = ({ id, title, description, imageUrl, remove, forceUpdate }) => {
           <MdDeleteOutline size={20} />
         </button>
       </div>
-      <motion.img
-        className="w-full h-48 object-cover"
-        src={imageUrl}
-        alt="Profile"
-        initial={{ x: -100 }}
-        animate={{ x: 0 }}
-        transition={{ type: 'spring', stiffness: 120 }}
-      />
+      <div className="flex justify-center "> {/* Centering container */}
+    <motion.img
+      className="object-cover h-48 w-48 rounded-full"
+      src={imageUrl}
+      alt="Profile"
+      initial={{ x: -100 }}
+      animate={{ x: 0 }}
+      transition={{ type: 'spring', stiffness: 120 }}
+    />
+  </div>
       <div className="px-6 py-4">
         <div className="mb-2 text-center">
           <h3 className="text-md text-gray-700 font-poppins">User Name : {title}</h3>
@@ -67,7 +68,7 @@ const Card = ({ id, title, description, imageUrl, remove, forceUpdate }) => {
           </h3>
         </div>
       </div>
-      {show && <div className='w-screen'><CustomizeEdit edit={edit} show={handleHide} forceUpdate={forceUpdate} /></div>}
+      {show && <div className='w-screen'><CustomizeEdit edit={edit} title={title} description={description} show={handleHide} forceUpdate={forceUpdate} /></div>}
     </motion.div>
   );
 };

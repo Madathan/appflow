@@ -162,6 +162,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
       console.error('Error:', error);
     }
     forceUpdate()
+    onClose()
   };
 
   const handleShow = () => {

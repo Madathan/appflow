@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box } from '@mui/material';
-import Notes from './TodatsNotes'
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Notes from './TodatsNotes';// Corrected the import name
+
 const TodaysCallback = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showCoponent,setShowCoponent] = useState(false);
+  const [showComponent, setShowComponent] = useState(false);
   const [container, setContainer] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
@@ -29,8 +32,8 @@ const TodaysCallback = () => {
 
   const handleNotes = (notes) => {
     // Handle action button click
-    setShowCoponent(!showCoponent)
-    setContainer(notes)
+    setShowComponent(!showComponent);
+    setContainer(notes);
     console.log('Action button clicked for item:', notes);
   };
 
@@ -61,60 +64,70 @@ const TodaysCallback = () => {
       // Optionally, show an error message
     }
   };
+
   return (
     <>
-    <div className="container mx-auto p-4">
-      <TextField
-        label="Search by name"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <Grid container spacing={3}>
-        {filteredData.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <Card component={Paper} elevation={3}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {item.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong>Phone Number:</strong> {item.phone_number}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  <strong>Remainder:</strong> {item.remainder}
-                </Typography>
-                <Box display="flex" flexDirection="column" mb={2}>
-                  <Typography variant="body2" color="textSecondary">
-                    <strong>Notes:</strong> {item.notes}
+      <div className="container mx-auto p-4">
+        <TextField
+          label="Search by name"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Grid container spacing={3}>
+          {filteredData.map((item) => (
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
+              <Card component={Paper} elevation={3}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {item.name}
                   </Typography>
-                  <Box display="flex" justifyContent="space-between" mt={2}>
-                    <Button
-                      onClick={() => handleNotes(item.notes)}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Action
-                    </Button>
-                    <Button
-                      onClick={() => handleHistory(item.id)}
-                      variant="outlined"
-                      color="secondary"
-                    >
-                     Add History
-                    </Button>
+                  <Typography variant="body2" color="textSecondary" className='font-poppins'>
+                    <strong>Phone Number:</strong> {item.phone_number}
+                  </Typography>
+                  <Typography className='font-poppins' variant="body2" color="textSecondary">
+                    <strong>Remainder:</strong> {item.remainder}
+                  </Typography>
+                  <Box display="flex" flexDirection="column" mb={2}>
+                    <Typography className='font-poppins' variant="body2" color="textSecondary">
+                      <strong>Reference:</strong> {item.reference}
+                    </Typography>
+                    <Box display="flex" justifyContent="space-between" mt={2}>
+                      <Button className='font-poppins'
+                        onClick={() => handleNotes(item.notes)}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Notes
+                      </Button>
+                      <Button
+                        onClick={() => handleHistory(item.id)}
+                        variant="outlined"
+                        color="secondary"
+                        className='font-poppins'
+                      >
+                        Add TO Completed
+                      </Button>
+                      <Button
+                        onClick={() => navigate(`/Team-Inbox?phone_number=${encodeURIComponent(item.phone_number)}`)} // Redirect with phone number
+                        variant="outlined"
+                        color="info"
+                        className='font-poppins'
+                      >
+                        View Chat
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </div>
-    <div>
-        {showCoponent && (<Notes content={container} onClose={handleNotes}/>)}
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+      <div>
+        {showComponent && (<Notes content={container} onClose={handleNotes} />)}
       </div>
     </>
   );

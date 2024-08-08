@@ -222,19 +222,22 @@ function AddPdf({ id, data }) {
 
   return (
     <div
-      className='bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600'
+      className=' relative bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid border-[4px] border-green-600'
       onMouseOver={Show}
       onMouseOut={Leave}
     >
       <Handle type="target" position={Position.Left} id="media_node" className='ml[10px]' style={hfStyle} />
-
+     
       {show && (
+        <div className='group-hover:translate-x-24 group-hover:transition duration-700 ease-in-out'>
+
         <button
           onClick={() => setNodes(prevNodes => prevNodes.filter((node) => node.id !== id))}
-          className="absolute right-10 top-11 text-black-600 hover:text-red-800 mt-5 mr-5"
-        >
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+        
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>
+        </div>
       )}
       <div className='flex bg-[#def7ec] border-l-[20px] border-green-500 text-green-500 rounded-[20px] mt-1 mb-2 p-4 w-full'>
         <ImFilePdf className='mt-5 text-4xl' />

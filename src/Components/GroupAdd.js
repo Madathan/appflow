@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 const GroupAdd = ({ onClose, onClick, share }) => {
+  
+  const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [phones, setPhones] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [checkboxes, setCheckboxes] = useState({});
@@ -81,7 +83,7 @@ const GroupAdd = ({ onClose, onClick, share }) => {
 
   return (
     <div className="fixed right-0 top-0 h-full w-1/3 bg-white shadow-lg z-50">
-      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-blue-500 text-white">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-green-500 text-white">
         <h2 className="text-lg font-semibold">Phone Number Management</h2>
         <button onClick={onClose} className="text-white hover:text-gray-200 focus:outline-none">
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">

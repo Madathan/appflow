@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const CustomizeTeams1 = () => {
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,12 +61,12 @@ const CustomizeTeams1 = () => {
       } else {
         console.error('Failed to save data', response.status, response.statusText);
         const text = await response.text();
-        console.
         console.error('Response text:', text);
       }
     } catch (error) {
       console.error('Error:', error);
     }
+   
   };
 
   useEffect(() => {

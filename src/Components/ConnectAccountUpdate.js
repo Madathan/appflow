@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 
-const PopupForm = ({ onClose, account }) => {
+const PopupForm = ({ onClose, account,forceUpdate }) => {
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [formData, setFormData] = useState({
     email: account.email,
@@ -67,6 +67,7 @@ const PopupForm = ({ onClose, account }) => {
     } catch (error) {
       console.error('Error submitting data:', error);
     }
+    forceUpdate()
   };
 
   // Helper function to convert file to base64
@@ -77,6 +78,7 @@ const PopupForm = ({ onClose, account }) => {
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
+   
   };
 
   return (

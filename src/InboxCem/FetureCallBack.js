@@ -87,7 +87,7 @@ const FetureCallBack = () => {
                     <strong>Remainder:</strong> {item.remainder}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    <strong>Notes:</strong> {item.notes}
+                    <strong>Reference:</strong> {item.reference}
                   </Typography>
                   <Box display="flex" justifyContent="space-between" mt={2}>
                     <Button
@@ -102,7 +102,7 @@ const FetureCallBack = () => {
                       variant="outlined"
                       color="secondary"
                     >
-                      Another Action
+                     Add TO Completed
                     </Button>
                   </Box>
                 </CardContent>

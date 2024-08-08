@@ -5,9 +5,11 @@ import './style.css';
 import Cookies from 'js-cookie';
 import CrmTable from './CrmTable';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const LeadTable = () => {
+    
+    const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
     const navigate = useNavigate();
     const [leads, setLeads] = useState([]);
     const [showCrmTable, setShowCrmTable] = useState(false);

@@ -3,9 +3,9 @@ import { Modal, Box, TextField, Button, FormControl, InputLabel, Select, MenuIte
 import Cookies from 'js-cookie';
 import { message } from 'antd';
 
-const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const StaffModal = ({ open, handleClose, data }) => {
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   // State variables
   const [keywordName, setKeywordName] = useState(data.keyword || ''); // Ensure keywordName is initialized correctly
   const [staffName, setStaffName] = useState(data.staff_name || ''); // Ensure staffName is initialized correctly
