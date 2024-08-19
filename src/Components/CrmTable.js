@@ -74,7 +74,7 @@ const CrmTable = ({ status }) => {
     };
 
     return (
-        <div className="rounded-xl shadow-[20px] h-[610px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
+        <div className="rounded-xl shadow-[20px] h-[570px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
             <table className="min-w-full bg-white shadow-md rounded my-6">
                 <thead>
                     <tr className="bg-gray-100 sticky top-0 ">

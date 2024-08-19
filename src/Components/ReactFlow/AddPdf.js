@@ -89,7 +89,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
           {showSelect && (
             <select
               onChange={handleTypeChange}
-              className='mt-2 p-2 rounded-lg w-full'
+               className='rounded-2xl p-10 text-2xl w-full'
               value={type}
             >
               <option value="">Select type</option>
@@ -105,7 +105,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
                 type="text"
                 value={prefix}
                 onChange={handlePrefixChange}
-                className='rounded-2xl p-2 text-xl w-full'
+                className='rounded-2xl p-10 text-2xl w-full'
               />
             </div>
           )}
@@ -161,6 +161,15 @@ function AddPdf({ id, data }) {
   };
 
   const removeInputBox = (idToRemove) => {
+    if (data.onChange) {
+      data.onChange(id, `button_`, null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_value', null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_type',null);
+    }
     setInputBoxes((prevInputBoxes) => prevInputBoxes.filter(({ id }) => id !== idToRemove));
     setAddButtonDisabled(false);
   };
@@ -219,7 +228,28 @@ function AddPdf({ id, data }) {
   const Leave = () => {
     setShow(false);
   };
-
+  const handledeleteNode=()=>
+  {
+    if (data.onChange) {
+      data.onChange(id, 'button_value', null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_type', null);
+    }
+    if (data.onChange) {
+      data.onChange(id, `button`, null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'document_name',null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'uploaded_file_url',null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'document_caption',null);
+    }
+    setNodes(prevNodes => prevNodes.filter((node) => node.id !== id))
+  }
   return (
     <div
       className=' relative bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid border-[4px] border-green-600'
@@ -232,7 +262,7 @@ function AddPdf({ id, data }) {
         <div className='group-hover:translate-x-24 group-hover:transition duration-700 ease-in-out'>
 
         <button
-          onClick={() => setNodes(prevNodes => prevNodes.filter((node) => node.id !== id))}
+          onClick={handledeleteNode}
           className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
         
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
@@ -295,16 +325,13 @@ function AddPdf({ id, data }) {
           )}
         </div>
       </div>
-
-        
-
         {inputBoxes.map(({ id, component }) => (
           <div key={id}>{component}</div>
         ))}
       </div>
       <button
           onClick={addInputBox}
-          className='block mt-4 bg-blue-500 text-white px-6 py-3 rounded-xl'
+          className='bg-white text-black shadow-2xl mt-4 text-4xl p-7 rounded-lg px-5 mt-6 w-full'
           disabled={addButtonDisabled}
         >
           Add Input Box

@@ -9,7 +9,6 @@
 
 
     const DropdownMenu = ({ isOpen, toggleDropdown, share ,datas,forceUpdate}) => {
-        
         const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 

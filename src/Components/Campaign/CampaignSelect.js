@@ -71,7 +71,7 @@ const CampaignSelect = () => {
       googleSheetapikey:formData.googleSheetApiKey,
       spreadsheetname:formData.spreadsheetName,
       googleSheetid:formData.googleSheetId,
-      columnvariable1: selectValues.columnVariable1,
+      columnvariable1: selectValues,
       uploadedfileurl: base64File ?? " "
     };
     console.log('Data to be sent:', input);
@@ -85,11 +85,13 @@ const CampaignSelect = () => {
       });
 
       if (!response.ok) {
+        message.error('failed to send the data ');
         throw new Error('Network response was not ok');
       }
       message.success('Add sucess fully');
       const result = await response.json();
       console.log('Success:', result);
+     
       // Handle success (e.g., show a success message, navigate to another page, etc.)
     } catch (error) {
       console.error('Error:', error);
@@ -112,13 +114,13 @@ const CampaignSelect = () => {
       <div className="flex justify-center  mb-4">
         <button
           onClick={handleSubmit}
-          className="px-4 py-2 mt-4  text-white bg-[#00a727] px-[50px] rounded hover:bg-blue-700"
+          className="px-4 py-2 mt-4  text-white bg-green-600 px-[50px] rounded hover:bg-green-700"
         >
           SendNow
         </button>
         <button
           onClick={handleDateButtonClick}
-          className="px-4 py-2 mt-4 ml-5 text-white bg-[#00a727]  px-[50px] rounded hover:bg-green-700"
+          className="px-4 py-2 mt-4 ml-5 text-white bg-green-600  px-[50px] rounded hover:bg-green-700"
         >
          Schedule
         </button>

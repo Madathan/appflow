@@ -36,16 +36,12 @@ const Reports = ({ open }) => {
         const jsonData = await response.json();
         setData(jsonData.campaignInfo);
         setLoading(false);
-
-        console.log(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [page]);
-
   const handleToggle = (rowData) => {
     setSelectedRow(rowData);
     setPopup(!popup);
@@ -83,7 +79,7 @@ const Reports = ({ open }) => {
       label: 'Campaign Name',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div>{value}</div>
         ),
       },
     },
@@ -92,7 +88,7 @@ const Reports = ({ open }) => {
       label: 'Date',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div >{value}</div>
         ),
       },
     },
@@ -101,7 +97,7 @@ const Reports = ({ open }) => {
       label: 'Owner Name',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div >{value}</div>
         ),
       },
     },
@@ -110,7 +106,7 @@ const Reports = ({ open }) => {
       label: 'Contacts',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div >{value}</div>
         ),
       },
     },
@@ -119,7 +115,7 @@ const Reports = ({ open }) => {
       label: 'Sent',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div>{value}</div>
         ),
       },
     },
@@ -128,7 +124,7 @@ const Reports = ({ open }) => {
       label: 'Failed',
       options: {
         customBodyRender: (value) => (
-          <div style={{ textAlign: 'center' }}>{value}</div>
+          <div >{value}</div>
         ),
       },
     },
@@ -201,11 +197,8 @@ const Reports = ({ open }) => {
       ) : (
         <div>
           <div className={`bg-white border-solid border shadow-lg mb-4 rounded-xl px-5 py-3`}>
-            <div className={`flex justify-between items-center text-lg font-bold`}>
+            <div className={`flex justify-center  items-center text-lg font-bold`}>
               <h2>LATEST CAMPAIGNS</h2>
-              <button className="flex gap-x-1 group py-2.5 px-8 items-center border-[1px] rounded-lg hover:bg-[--second] border-[--second]">
-                <span className="text-sm text-green-600 group-hover:text-white">EXPORT</span>
-              </button>
             </div>
           </div>
           <div className={`bg-white mb-4 border-gray-300 border border-solid shadow-lg rounded-xl px-5 py-3`}>

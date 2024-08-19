@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { message } from 'antd';
+import logo from '../src/assests/smartyuppies.png';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
- 
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -30,12 +30,10 @@ const LoginPage = () => {
         Cookies.set('userData', JSON.stringify(data), { expires: 7, path: "/" });
         navigate('/Team-Inbox');
       } else {
-        message.error( 'Invalid username or password');
-      
+        message.error('Invalid username or password');
       }
     } catch (error) {
-      message.error( 'Invalid username or password');
-      
+      message.error('Network error');
     }
   };
 
@@ -51,9 +49,18 @@ const LoginPage = () => {
     navigate('/signup');
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center">
       <div className="bg-white border border-gray-200 shadow-2xl p-8 rounded-2xl w-full max-w-md">
+        <div className="flex justify-center mb-6">
+          <img src={logo} alt="Logo" className="h-20" />
+        </div>
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Login</h1>
         <input
           type="text"
@@ -61,6 +68,7 @@ const LoginPage = () => {
           placeholder="Enter your Username"
           value={username}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown} // Attach to username input
           className="block w-full border border-gray-300 rounded-md p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="relative mb-4">
@@ -70,6 +78,7 @@ const LoginPage = () => {
             placeholder="Enter your Password"
             value={password}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown} // Attach to password input
             className="block w-full border border-gray-300 rounded-md p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
@@ -80,7 +89,7 @@ const LoginPage = () => {
             {showPassword ? (
               <FaEye className="text-gray-400" />
             ) : (
-              < FaEyeSlash className="text-gray-400" />
+              <FaEyeSlash className="text-gray-400" />
             )}
           </button>
         </div>
@@ -90,7 +99,6 @@ const LoginPage = () => {
         >
           Login
         </button>
-        
         <p className="mt-4 text-center text-gray-700">
           Don't have an account?{' '}
           <button

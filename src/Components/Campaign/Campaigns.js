@@ -3,6 +3,7 @@ import CampaignTemplates from './CampaignTemplates';
 import { RxUpdate } from "react-icons/rx";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 const CommerceSettings = () => {
     const [groups, setGroups] = useState([]);
@@ -49,7 +50,6 @@ const CommerceSettings = () => {
     });
     const navigate = useNavigate();
     const [selectedTemplate, setSelectedTemplate] = useState([]); // State to hold selected template
-    const [error, setError] = useState(''); // State to hold error message
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -70,37 +70,34 @@ const CommerceSettings = () => {
 
     const onSelectTemplate = (template) => {
         setSelectedTemplate(template);
-        setError(''); // Clear any previous error message
+       
         console.log('Selected Template:', selectedTemplate ?? null);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (selectedTemplate.length === 0) {
-            setError('Please select a template before proceeding.');
+            message.error('Please select a template before proceeding.');
+         
         } else {
             navigate('/campaignSelect', { state: { userData, formData, selectedTemplate } });
         }
     };
 
     return (
-        <>
-        <div className="flex flex-col w-full md:flex-row gap-6 md:gap-10 md:h-[620px] md:overflow-scroll">
+        <div className="flex flex-col w-full md:flex-row gap-6 md:gap-10 md:h-[620px] md:overflow-y-auto">
             {/* Left side - Form */}
-            <div className="w-full md:w-1/2 shadow-lg bg-white h-[600px] rounded-xl border-solid border p-4 md:p-8">
-                <h2 className="text-xl md:text-3xl mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
-                {error && (
-                    <div className="mb-3 md:mb-4 text-red-500 text-sm font-bold">
-                        {error}
-                    </div>
-                )}
-                <form onSubmit={handleSubmit} className="w-full max-w-6xl mx-auto">
+            <div className="w-full md:w-1/2 shadow-lg bg-white h-auto md:h-[600px] rounded-xl border-solid border p-4 md:p-8">
+                <h2 className="text-lg md:text-3xl mb-4 md:mb-6 text-center mt-4">Create <span className='text-green-600'>Campaign</span></h2>
+
+                <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignName">
-                                Campaign Name:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="campaignName">
+                                Campaign Name:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:ring-gray-100 focus:outline-none focus:ring-white"
                                 id="campaignName"
                                 name="campaignName"
                                 type="text"
@@ -111,11 +108,11 @@ const CommerceSettings = () => {
                             />
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="campaignOwner">
-                                Campaign Owner:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="campaignOwner">
+                                Campaign Owner:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                                 id="campaignOwner"
                                 name="campaignOwner"
                                 type="text"
@@ -126,11 +123,11 @@ const CommerceSettings = () => {
                             />
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="phoneNumber">
-                                From Phone Number:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="phoneNumber">
+                                From Phone Number:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white" 
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white" 
                                 id="phoneNumber"
                                 name="phoneNumber"
                                 type="text"
@@ -141,7 +138,7 @@ const CommerceSettings = () => {
                             />
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2">Select Audience:-</label>
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2">Select Audience:</label>
                             <div className="flex flex-wrap">
                                 <label className="inline-flex items-center mr-4">
                                     <input
@@ -157,9 +154,9 @@ const CommerceSettings = () => {
                             </div>
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2">Groups:-</label>
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2">Groups:</label>
                             <select
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                                 name="group"
                                 value={formData.group}
                                 onChange={handleGroupChange}
@@ -171,11 +168,11 @@ const CommerceSettings = () => {
                             </select>
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetId">
-                                Google Sheet ID:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="googleSheetId">
+                                Google Sheet ID:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                                 id="googleSheetId"
                                 name="googleSheetId"
                                 type="text"
@@ -186,11 +183,11 @@ const CommerceSettings = () => {
                             />
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="spreadsheetName">
-                                Spreadsheet Name:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="spreadsheetName">
+                                Spreadsheet Name:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                                 id="spreadsheetName"
                                 name="spreadsheetName"
                                 type="text"
@@ -201,11 +198,11 @@ const CommerceSettings = () => {
                             />
                         </div>
                         <div className="mb-3 md:mb-4">
-                            <label className="block text-gray-700 text-md mb-1 md:mb-2" htmlFor="googleSheetApiKey">
-                                Google Sheet API Key:-
+                            <label className="block text-gray-700 text-sm md:text-md mb-1 md:mb-2" htmlFor="googleSheetApiKey">
+                                Google Sheet API Key:
                             </label>
                             <input
-                                className="appearance-none text-sm rounded-lg border-1 border-solid border-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
+                                className="appearance-none text-sm rounded-lg border border-solid border-gray-600 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-white"
                                 id="googleSheetApiKey"
                                 name="googleSheetApiKey"
                                 type="text"
@@ -219,21 +216,20 @@ const CommerceSettings = () => {
                     {/* Error Message */}
                     <div className="flex items-center justify-center mt-6">
                         <button
-                            className="bg-green-700 hover:bg-green-900 text-white flex mb-4 items-center text-sm justify-center py-2 px-16 rounded-lg focus:outline-none w-full md:w-auto"
+                            className="bg-green-700 hover:bg-green-900 text-white flex mb-4 font-bold py-2 px-4 md:px-8 rounded-lg shadow"
                             type="submit"
                         >
-                            Start Campaign
-                            <RxUpdate className="ml-2" />
+                            <RxUpdate className='mx-1 md:mx-2 text-white-500' size={24} /> Create Campaign
                         </button>
                     </div>
                 </form>
             </div>
-            {/* Right side - Campaign Templates */}
-            <div className="w-full md:w-1/2 shadow-lg h-[600px] bg-white border-gray-200 rounded-xl border-solid border overflow-y-auto p-4 md:p-8">
+            
+            {/* Right side - Templates */}
+            <div className="w-full md:w-1/2 shadow-lg bg-white h-auto md:h-[600px] rounded-xl p-4 md:p-8 overflow-y-scroll">
                 <CampaignTemplates onSelectTemplate={onSelectTemplate} />
             </div>
         </div>
-        </>
     );
 };
 

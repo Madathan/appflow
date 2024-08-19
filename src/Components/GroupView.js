@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
+
 const GroupView = ({ onClose, onClick }) => {
   const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
   const [phones, setPhones] = useState([]);
-
+ 
   useEffect(() => {
     fetchPhoneData(); // Initial fetch when component mounts
   }, [onClick]); // Fetch data when onClick.group_name changes
@@ -62,7 +64,8 @@ const GroupView = ({ onClose, onClick }) => {
       if (!response.ok) {
         throw new Error('Failed to update phone data');
       }
-      onClose()
+      message.success('Item Added successfully');
+      
       const result = await response.json();
       console.log('Update result:', result);
 
@@ -71,6 +74,7 @@ const GroupView = ({ onClose, onClick }) => {
     } catch (error) {
       console.error('Error updating phone data:', error);
     }
+    onClose()
   };
 
   // Print the phone numbers when the component mounts and updates
@@ -83,7 +87,7 @@ const GroupView = ({ onClose, onClick }) => {
   return (
     <div className="fixed right-0 top-0 h-full w-1/3 bg-white shadow-lg z-50">
       <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-green-600 text-white">
-        <h2 className="text-lg font-semibold">Phone Number Management</h2>
+        <h2 className="text-lg font-poppins font-semibold">Phone Number Management</h2>
         <button onClick={onClose} className="text-white hover:text-gray-200 focus:outline-none">
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M13.414 10l3.293 3.293a1 1 0 0 1-1.414 1.414L12 11.414l-3.293 3.293a1 1 0 1 1-1.414-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414L12 8.586l3.293-3.293a1 1 0 1 1 1.414 1.414L13.414 10z" clipRule="evenodd" />
@@ -98,7 +102,7 @@ const GroupView = ({ onClose, onClick }) => {
               <th className=" px-4 py-2 text-sm font-medium text-gray-700">Phone Number</th>
             </tr>
           </thead>
-          <div className='overflow-y-auto max-h-[580px]'>
+          <div className='overflow-y-auto max-h-[480px]'>
           <tbody>
             {phones && phones.map((phone) => (
               <tr key={phone.id} className="">
@@ -119,7 +123,7 @@ const GroupView = ({ onClose, onClick }) => {
         </table>
         <button
           onClick={handleUpdateClick}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded w-full hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="mt-4 px-4 py-2 bg-green-500 text-white font-poppins rounded w-full hover:bg-green-800 focus:outline-none focus:bg-blue-600"
         >
           Update Selected
         </button>

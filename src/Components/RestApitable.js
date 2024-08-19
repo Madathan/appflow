@@ -19,7 +19,7 @@ const ScrollableTable = ({ datas }) => {
   };
 
   return (
-    <div className="rounded-lg shadow-xl overflow-x-scroll h-[610px]">
+    <div className="rounded-lg shadow-xl overflow-x-scroll h-[510px]">
       <div className="p-4 flex justify-between items-center">
         {/* Add any header content if needed */}
       </div>
@@ -29,8 +29,8 @@ const ScrollableTable = ({ datas }) => {
             <TableRow className="bg-gray-100 sticky top-0">
               <TableCell align="center" className="px-4 py-2">ID</TableCell>
               <TableCell align="center" className="px-4 py-2">Name</TableCell>
-              <TableCell align="center" className="px-4 py-2">SmartBanner Token</TableCell>
-              <TableCell align="center" className="px-4 py-2">API Link</TableCell>
+              <TableCell align="center" className="px-4 py-2">SmartBannerToken</TableCell>
+              <TableCell align="center" className="px-4 py-2">APILink</TableCell>
               <TableCell align="center" className="px-4 py-2">Actions</TableCell> {/* Add Actions header */}
             </TableRow>
           </TableHead>

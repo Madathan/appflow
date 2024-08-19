@@ -1,29 +1,27 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate, } from 'react-router-dom';
-const Valitation = () => {
-    const navigate=useNavigate()
-    
-    const userData=Cookies.get("userData")
-    if(userData!==undefined){
-        navigate("/dashboard",{replace:true})
-      }
-      else{
-        navigate('./Login')
-      }
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-10">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Welcome to Smart Yuppies Dashboard
-        </h1>
-        <h2 className="text-2xl text-gray-600">
-          & Bulk WhatsApp Official
-        </h2>
-      </div>
-    </div>
-  )
-  
-}
+import { useNavigate } from 'react-router-dom';
 
-export default Valitation
+const Valitation = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState(false);
+
+  useEffect(() => {
+    const userData = Cookies.get('userData');
+    if (userData !== undefined) {
+      setData(true);
+      navigate('/Team-Inbox', { replace: true });
+    } else {
+      navigate('/Login');
+    }
+  }, [navigate]);
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500">
+      {/* You can optionally display a loading spinner or message here */}
+      {!data && <p>Redirecting...</p>}
+    </div>
+  );
+};
+
+export default Valitation;

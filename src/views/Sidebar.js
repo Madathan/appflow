@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi'; // Icon for the hamburger menu
-
-
 const Sidebar = ({ menus }) => {
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 

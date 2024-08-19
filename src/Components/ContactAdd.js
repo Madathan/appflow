@@ -122,7 +122,6 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
       });
 
       if (response.ok) {
-        console.log('Form submitted successfully');
         toast.success('Successfully Added', {
           position: 'top-center',
           autoClose: 5000,
@@ -291,22 +290,32 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
         >
           Import via Excel
         </button>
+        <div className='text-center'>
+            <button
+             onClick={handleSubmit}
+              className='bg-green-700 hover:bg-green-800 mb-4 text-white  py-2 px-8 w-full rounded-lg'
+            >
+              Add Contact
+            </button>
+          </div>
         {show && (
-          <div className='bg-white border-solid border-gray border p-4 rounded-xl shadow-xl mb-4'>
+          <div className='bg-white border-solid border-gray border p-2 rounded-xl shadow-xl mb-4'>
             <div className='flex items-center mb-4'>
-              <label htmlFor='imageType' className='mr-2'>Image Type:</label>
+              <label htmlFor='imageType' className='mr-2'>Select Group  :
               <select
                 id='imageType'
                 name='imageType'
-                className='border rounded px-2 py-1'
+                className='border rounded w-[20px] p-2'
                 onChange={handleChange}
                 value={formData.imageType}
               >
-                <option value=''>Select Image Type</option>
+                
+                
                 {groups.map((imageType, index) => (
                   <option key={index} value={imageType.groupname}>{imageType.groupname}</option>
                 ))}
               </select>
+              </label>
             </div>
             <div className='flex items-center mb-4'>
               <label htmlFor='imageFile' className='mr-2'>Upload Image:</label>
@@ -342,7 +351,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className='bg-white p-4 rounded shadow-md'>
+        <form  className='bg-white p-4 rounded shadow-md'>
           <div className='mb-4'>
             <label htmlFor='name' className='block text-sm font-medium text-gray-700 mb-2'>
               Name
@@ -681,14 +690,7 @@ const ContactAdd = ({ onClose ,forceUpdate}) => {
           </div>
 
           
-          <div className='text-center'>
-            <button
-              type='submit'
-              className='bg-green-700 hover:bg-green-800 text-white  py-2 px-8 w-full rounded'
-            >
-              Add Contact
-            </button>
-          </div>
+         
         </form>
       </div>
     </div>

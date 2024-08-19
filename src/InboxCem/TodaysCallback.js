@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Notes from './TodatsNotes';// Corrected the import name
+import CrmButtons from './CrmgButtons'
 
 const TodaysCallback = () => {
   const [data, setData] = useState([]);
@@ -67,6 +68,7 @@ const TodaysCallback = () => {
 
   return (
     <>
+    <CrmButtons/>
       <div className="container mx-auto p-4">
         <TextField
           label="Search by name"
@@ -91,10 +93,8 @@ const TodaysCallback = () => {
                     <strong>Remainder:</strong> {item.remainder}
                   </Typography>
                   <Box display="flex" flexDirection="column" mb={2}>
-                    <Typography className='font-poppins' variant="body2" color="textSecondary">
-                      <strong>Reference:</strong> {item.reference}
-                    </Typography>
-                    <Box display="flex" justifyContent="space-between" mt={2}>
+                   
+                    <Box display="flex" justifyContent="space-between" gap="4px" mt={2}>
                       <Button className='font-poppins'
                         onClick={() => handleNotes(item.notes)}
                         variant="contained"

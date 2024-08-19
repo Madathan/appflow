@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box } from '@mui/material';
 import Notes from './OverDueNotes';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import CrmButtons from './CrmgButtons'
 
 const OverDue = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showComponent, setShowComponent] = useState(false);
   const [container, setContainer] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
@@ -62,6 +65,8 @@ const OverDue = () => {
   };
 
   return (
+    <>
+    <CrmButtons/>
     <div className="container mx-auto p-4">
       <TextField
         label="Search by name"
@@ -86,10 +91,7 @@ const OverDue = () => {
                   <strong>Remainder:</strong> {item.remainder}
                 </Typography>
                 <Box display="flex" flexDirection="column" mb={2}>
-                  <Typography variant="body2" color="textSecondary">
-                    <strong>Reference:</strong> {item.reference}
-                  </Typography>
-                  <Box display="flex" justifyContent="space-between" mt={2}>
+                  <Box display="flex" justifyContent="space-between" gap="4px" mt={2}>
                     <Button
                       onClick={() => handleNotes(item.notes)}
                       variant="contained"
@@ -104,6 +106,14 @@ const OverDue = () => {
                     >
                      Add TO Completed
                     </Button>
+                    <Button
+                        onClick={() => navigate(`/Team-Inbox?phone_number=${encodeURIComponent(item.phone_number)}`)} // Redirect with phone number
+                        variant="outlined"
+                        color="info"
+                        className='font-poppins'
+                      >
+                        View Chat
+                      </Button>
                   </Box>
                 </Box>
               </CardContent>
@@ -115,6 +125,7 @@ const OverDue = () => {
         {showComponent && (<Notes content={container} onClose={handleNotes}/>)}
       </div>
     </div>
+    </>
   );
 };
 

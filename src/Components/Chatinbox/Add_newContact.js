@@ -4,10 +4,12 @@ import * as XLSX from 'xlsx';
 import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { message } from 'antd';
 
 const ContactAdd = ({ onClose }) => {
   const [groups, setGroups] = useState([]);
   const [show, setShow] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: '',
     newGroup: '',
@@ -126,13 +128,20 @@ const ContactAdd = ({ onClose }) => {
           column20: formData.column20,
         }),
       });
-
       if (response.ok) {
-        console.log('Form submitted successfully');
-        toast.success('Successfully Added', {
-          position: 'top-center',
-          autoClose: 5000,
-        });
+        
+        const datas = await response.json()
+        console.log("result",datas)
+        if(datas.status==="success")
+        {
+        message.success(datas.message);  
+        }
+        else
+        {
+        message.error(datas.message);  
+        setShow(datas)
+      } 
+        
         setFormData({
           name: '',
           country: '',
@@ -165,110 +174,16 @@ const ContactAdd = ({ onClose }) => {
           imageFile: null,
         });
       } else {
-        console.error('Form submission failed');
+        message.error(show);      
       }
     } catch (error) {
       console.error('Error:', error);
     }
     onClose() 
   };
+  
 
-  const handleShow = () => {
-    setShow(!show);
-  };
-
-  const handleDownloadExcel = () => {
-    const headers = [
-      'Name', 'MobileNumber', 'Country', 'EmailAddress',
-      'Column1', 'Column2', 'Column3', 'Column4', 'Column5', 'Column6','Column7','Column8',,'Column9','Column10','Column11','Column12','Column13','Column14'
-      ,'Column15','Column16','Column17','Column18','Column19','Column20'
-    ];
-
-    const data = [
-      {
-        Name: formData.name,
-        MobileNumber: formData.mobile,
-        Country: formData.country,
-        EmailAddress: formData.email,
-        lead_source:formData.leadsource,
-        company_name:formData.companyname,
-        company_adress:formData.companyaddress,
-        Column1: formData.column1,
-        Column2: formData.column2,
-        Column3: formData.column3,
-        Column4: formData.column4,
-        Column5: formData.column5,
-        Column6: formData.column6,
-        Column7: formData.column7,
-        Column9: formData.column8,
-        Column10: formData.column9,
-        Column11: formData.column10,
-        Column12: formData.column11,
-        Column13: formData.column12,
-        Column14: formData.column13,
-        Column15: formData.column15,
-        Column16: formData.column16,
-        Column17: formData.column17,
-        Column18: formData.column18,
-        Column19: formData.column19,
-        Column20: formData.column20
-      }
-    ];
-
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-    XLSX.writeFile(workbook, 'contact_data.xlsx');
-  };
-
-  const handleImport = async () => {
-    try {
-      if (!formData.imageFile) {
-        console.error('No file selected');
-        return;
-      }
-
-      const reader = new FileReader();
-
-      reader.onloadend = async () => {
-        const base64data = reader.result.split(',')[1]; // Extracting base64 data
-
-        try {
-          const response = await fetch('https://ci4backend.smartyuppies.com/Contact/ContactExcelImport', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: userData?.username,
-              phone_number_id: userData?.phone_number_id,
-              existing_group: formData.imageType,
-              group_name: formData.newGroup,
-              excel: base64data, // Include base64 data in the request
-            }),
-          });
-        
-          if (response.ok) {
-            toast.success('Successfully Added', {
-              position: 'top-center',
-              autoClose: 5000,
-            });
-            const responseData = await response.json();
-            console.log('Import successful',responseData);
-          } else {
-            console.error('Import failed');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-
-      reader.readAsDataURL(formData.imageFile); // Read file as base64
-    } catch (error) {
-      console.error('Error:', error);
-    }
-
-  };
+ 
 
   return (
     <>
@@ -284,75 +199,17 @@ const ContactAdd = ({ onClose }) => {
             <MdOutlineCancel size={24} />
           </button>
         </div>
-        <div className='flex justify-end mb-4'>
-          <button
-            onClick={handleDownloadExcel}
-            className='bg-green-700 hover:bg-green-800 text-white  py-2 px-4 rounded'
-          >
-            Download Excel
-          </button>
-        </div>
+        
         <hr className='mb-4' />
-
-        <button
-          type='button'
-          onClick={handleShow}
-          className='bg-white text-black w-full mb-3 border-gray-200 border-solid border shadow-lg  py-2 px-4 rounded'
-        >
-          Import via Excel
-        </button>
-        {show && (
-          <div className='bg-white border-solid border-gray border p-4 rounded-xl shadow-xl mb-4'>
-            <div className='flex items-center mb-4'>
-              <label htmlFor='imageType' className='mr-2'>Image Type:</label>
-              <select
-                id='imageType'
-                name='imageType'
-                className='border rounded px-2 py-1'
-                onChange={handleChange}
-                value={formData.imageType}
-              >
-                <option value=''>Select Image Type</option>
-                {groups.map((imageType, index) => (
-                  <option key={index} value={imageType.groupname}>{imageType.groupname}</option>
-                ))}
-              </select>
-            </div>
-            <div className='flex items-center mb-4'>
-              <label htmlFor='imageFile' className='mr-2'>Upload Image:</label>
-              <input
-                type='file'
-                id='imageFile'
-                name='imageFile'
-                onChange={handleImageChange}
-                accept='.xlsx, .xls, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                className='border rounded px-2 py-1'
-              />
-            </div>
-            <div className='flex items-center mb-4'>
-              <label htmlFor='country' className='mr-2'>NewGroupName:</label>
-              <input
-                type='text'
-                id='country'
-                name='newGroup'
-                value={formData.newGroup}
-                onChange={handleChange}
-                className='border rounded px-2 py-1 flex-1'
-              />
-            </div>
-            <div className='text-center'>
-              <button
-                type='button'
-                onClick={handleImport}
-                className='bg-green-700 hover:bg-green-800 text-white  py-2 px-8  rounded'
-              >
-                Import
-              </button>
-            </div>
+      <div className='text-center'>
+            <button
+             onClick={handleSubmit}
+              className='bg-green-600 hover:bg-green-800 text-white  py-2 px-8  rounded'
+            >
+              Add Contact
+            </button>
           </div>
-        )}
-
-        <form onSubmit={handleSubmit} className='bg-white p-4 rounded shadow-md'>
+        <form className='bg-white p-4 rounded shadow-md'>
           <div className='mb-4'>
             <label htmlFor='name' className='block text-sm font-medium text-gray-700 mb-2'>
               Name
@@ -411,7 +268,7 @@ const ContactAdd = ({ onClose }) => {
           </div>
           <div className='mb-4'>
             <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              LeadSource 
+              Lead Source 
             </label>
             <input
               type='text'
@@ -425,7 +282,7 @@ const ContactAdd = ({ onClose }) => {
           </div>
           <div className='mb-4'>
             <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              CompanyName 
+              Company Name 
             </label>
             <input
               type='text'
@@ -434,12 +291,12 @@ const ContactAdd = ({ onClose }) => {
               value={formData.companyname}
               onChange={handleChange}
               className='border border-gray-300 rounded py-2 px-3 w-full'
-              placeholder='Enter column 2'
+              placeholder='Enter company name'
             />
           </div>
           <div className='mb-4'>
             <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              CompanyAddress 
+              Company Address 
             </label>
             <input
               type='text'
@@ -448,7 +305,7 @@ const ContactAdd = ({ onClose }) => {
               value={formData.companyaddress}
               onChange={handleChange}
               className='border border-gray-300 rounded py-2 px-3 w-full'
-              placeholder='Enter column 2'
+              placeholder='Enter company address'
             />
           </div>
           
@@ -467,7 +324,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column2' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 2
             </label>
             <input
@@ -481,7 +338,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column3' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column3' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 3
             </label>
             <input
@@ -495,7 +352,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column4' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column4' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 4
             </label>
             <input
@@ -509,7 +366,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column5' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column5' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 5
             </label>
             <input
@@ -523,7 +380,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column6' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column6' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 6
             </label>
             <input
@@ -537,7 +394,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column7' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column7' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 7
             </label>
             <input
@@ -551,7 +408,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column8' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column8' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 8
             </label>
             <input
@@ -565,7 +422,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column9' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column9' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 9
             </label>
             <input
@@ -579,7 +436,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column10' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column10' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 10
             </label>
             <input
@@ -593,7 +450,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column11' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column11' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 11
             </label>
             <input
@@ -607,7 +464,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column12' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column12' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 12
             </label>
             <input
@@ -621,7 +478,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column13' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column13' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 13
             </label>
             <input
@@ -635,7 +492,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column14' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column14' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 14
             </label>
             <input
@@ -649,7 +506,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column15' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column15' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 15
             </label>
             <input
@@ -663,7 +520,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column16' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column16' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 16
             </label>
             <input
@@ -677,7 +534,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column17' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column17' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 17
             </label>
             <input
@@ -691,7 +548,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column18' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column18' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 18
             </label>
             <input
@@ -705,7 +562,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column19' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column19' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 19
             </label>
             <input
@@ -719,7 +576,7 @@ const ContactAdd = ({ onClose }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column20' className='block text-sm font-medium text-gray-700 mb-2'>
+            <label htmlFor='column20' className='block text-sm font-poppins text-gray-700 mb-2'>
               Column 20
             </label>
             <input
@@ -734,14 +591,7 @@ const ContactAdd = ({ onClose }) => {
           </div>
 
           
-          <div className='text-center'>
-            <button
-              type='submit'
-              className='bg-green-700 hover:bg-green-800 text-white  py-2 px-8 w-full rounded'
-            >
-              Add Contact
-            </button>
-          </div>
+         
         </form>
       </div>
     </div>

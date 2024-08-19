@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import MaterialUITables from './AssignAgentTale';
 import Cookies from 'js-cookie';
 import { message } from 'antd';
-
+import AgentCrm from './AssaignahentCrm'
 
 const AssignAgent = ({ open }) => {
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
@@ -16,7 +16,7 @@ const AssignAgent = ({ open }) => {
     source_name: '',
     status_name: '',
     staff_name: '',
-    phone_number_id: '105581585784909',
+    phone_number_id: chat.phone_number_id,
     status_id: '',
     staff_id: '',
     source_id: '',
@@ -71,8 +71,6 @@ const AssignAgent = ({ open }) => {
         throw new Error('Network response was not ok');
       }
       message.success('Insert Successfully');
-    
-     
       // Handle displaying response data or other logic as needed
     } catch (error) {
       console.error('Error:', error);
@@ -104,7 +102,6 @@ const AssignAgent = ({ open }) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
         // Validate and parse the JSON response
         let data;
         try {
@@ -256,7 +253,7 @@ const AssignAgent = ({ open }) => {
               transition={{ type: 'spring', stiffness: 120, duration: 2.5, delay: 0.1 }}
               className="lg:w-3/4 lg:flex hidden"
             >
-              <img src={Assign} alt="Assign" className="object-cover h-full w-80 lg:w-full" />
+              <AgentCrm />
             </motion.div>
           </div>
         </div>

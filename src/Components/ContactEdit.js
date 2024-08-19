@@ -7,10 +7,10 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
     name: contact?.name || '',
     email: contact?.email || '',
     country: contact?.country || '',
-    lead_source:contact?.lead_source||'',
-    company_name:contact?.company_name||'',
-    company_adress:contact?.company_adress||'',
-    phone_number: contact?.phone_number || '', // Assuming phone_number is the mobile number
+    lead_source: contact?.lead_source || '',
+    company_name: contact?.company_name || '',
+    company_adress: contact?.company_adress || '',
+    phone_number: contact?.phone_number || '',
     column1: contact?.column1 || '',
     column2: contact?.column2 || '',
     column3: contact?.column3 || '',
@@ -54,7 +54,6 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
         message.error('Failed to Update');
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       message.success('Contact updated successfully');
       const data = await response.json();
       console.log('Contact updated successfully:', data);
@@ -67,10 +66,27 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-gray-800 bg-opacity-75">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-screen overflow-y-auto">
-        <h2 className="text-2xl font-bold mb-4">Edit Contact</h2>
-        <form onSubmit={handleSubmit}>
+    <div className="fixed inset-0 z-50 flex w-full justify-center items-center bg-gray-800 bg-opacity-75">
+      <div className="bg-white p-6 rounded-lg mt-6 mb-6 h-[500px] shadow-lg w-full max-w-lg max-h-screen overflow-hidden">
+        <div className="flex justify-between space-x-4 mb-4">
+          <h2 className="text-2xl font-bold">Edit Contact</h2>
+          <div className="flex space-x-2">
+            <button
+              onClick={handleSubmit}
+              className="px-4 py-2 bg-green-700 text-white rounded-lg focus:outline-none"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 text-red-600 font-bold rounded-lg focus:outline-none"
+              onClick={onClose}
+            >
+              X
+            </button>
+          </div>
+        </div>
+        <form className="overflow-y-auto max-h-[400px] pr-2"> {/* Added scrollbar */}
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Name</label>
             <input
@@ -112,50 +128,50 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              LeadSource 
+            <label htmlFor='lead_source' className='block text-sm font-medium text-gray-700 mb-2'>
+              Lead Source
             </label>
             <input
               type='text'
-              id='column2'
+              id='lead_source'
               name='lead_source'
               value={formData.lead_source}
               onChange={handleChange}
               className='border border-gray-300 rounded py-2 px-3 w-full'
-              placeholder='Enter leadSouece'
+              placeholder='Enter Lead Source'
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              CompanyName 
+            <label htmlFor='company_name' className='block text-sm font-medium text-gray-700 mb-2'>
+              Company Name
             </label>
             <input
               type='text'
-              id='column2'
+              id='company_name'
               name='company_name'
               value={formData.company_name}
               onChange={handleChange}
               className='border border-gray-300 rounded py-2 px-3 w-full'
-              placeholder='Enter column 2'
+              placeholder='Enter Company Name'
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='column2' className='block text-sm font-medium text-gray-700 mb-2'>
-              CompanyAddress 
+            <label htmlFor='company_adress' className='block text-sm font-medium text-gray-700 mb-2'>
+              Company Address
             </label>
             <input
               type='text'
-              id='column2'
+              id='company_adress'
               name='company_adress'
               value={formData.company_adress}
               onChange={handleChange}
               className='border border-gray-300 rounded py-2 px-3 w-full'
-              placeholder='Enter column 2'
+              placeholder='Enter Company Address'
             />
           </div>
           <div className="grid grid-cols-2 gap-4 mb-4">
             {[...Array(20)].map((_, index) => (
-              <div key={index}>
+              <div key={index} className="col-span-2 w-full">
                 <label className="block text-gray-700 mb-2">Column {index + 1}</label>
                 <input
                   type="text"
@@ -166,21 +182,6 @@ const ContactEdit = ({ contact, onClose, forceUpdate }) => {
                 />
               </div>
             ))}
-          </div>
-          <div className="flex justify-end space-x-4">
-            <button
-              type="button"
-              className="px-6 py-2 bg-gray-300 rounded-lg focus:outline-none"
-              onClick={onClose}
-            >
-              Close
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-green-700 text-white rounded-lg focus:outline-none"
-            >
-              Save
-            </button>
           </div>
         </form>
       </div>

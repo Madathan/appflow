@@ -150,6 +150,12 @@ const GroupCreateGroup = ({ onClick, data, forceUpdate }) => {
                   className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-green-500 mt-3 w-full text-white text-sm font-medium rounded-md hover:bg-green-800 focus:outline-none focus:bg-blue-700"
+              >
+                Create
+              </button>
               <div className="mb-4">
                 <label className="flex items-center">
                   <input
@@ -191,12 +197,7 @@ const GroupCreateGroup = ({ onClick, data, forceUpdate }) => {
                   </tbody>
                 </table>
               </div>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-600 mt-3 w-full text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
-              >
-                Create
-              </button>
+             
             </form>
           </div>
         </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
 
 
-const CustomizeTeams1 = () => {
+const CustomizeTeams1 = ({forceUpdate}) => {
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -13,7 +14,7 @@ const CustomizeTeams1 = () => {
   const [image, setImage] = useState(null);
   const [savedData, setSavedData] = useState(null);
   const [roles, setRoles] = useState([]);
-
+  const[phoneNo,setPhoneNo]=useState();
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
@@ -51,6 +52,8 @@ const CustomizeTeams1 = () => {
 
       if (response.ok) {
         const responseData = await response.json();
+        message.success('Add Successfully');
+
         alert('Team member added successfully');
         setSavedData({ name, email, role, image });
         setName('');
@@ -59,14 +62,14 @@ const CustomizeTeams1 = () => {
         setImage(null);
         setIsPopupOpen(false);
       } else {
-        console.error('Failed to save data', response.status, response.statusText);
+        message.error('Failed to Add');
         const text = await response.text();
         console.error('Response text:', text);
       }
     } catch (error) {
-      console.error('Error:', error);
+      message.error('Failed to Add');
     }
-   
+    forceUpdate()
   };
 
   useEffect(() => {
@@ -105,7 +108,7 @@ const CustomizeTeams1 = () => {
       <div className="flex justify-center mt-5">
         <button
           onClick={togglePopup}
-          className="bg-green-700 text-white rounded-lg px-4 py-2 hover:bg-green-800 transition-colors"
+          className="bg-green-500 text-white rounded px-6 py-2 font-poppins hover:bg-green-700 transition-colors"
         >
           Add a Team
         </button>
@@ -146,6 +149,19 @@ const CustomizeTeams1 = () => {
                   />
                 </div>
                 <div className="mb-4">
+                  <label htmlFor="email" className="block mb-2 text-gray-700">
+                    Phone Number:
+                  </label>
+                  <input
+                    type="Tel"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setPhoneNo(e.target.value)}
+                    placeholder="Enter team member email"
+                    className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-gray-200"
+                  />
+                </div>
+                <div className="mb-4">
                   <label htmlFor="role" className="block mb-2 text-gray-700">
                     Role:
                   </label>
@@ -155,7 +171,7 @@ const CustomizeTeams1 = () => {
                     onChange={handleRoleChange}
                     className="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 bg-gray-200"
                   >
-                    <option value="">Select a role</option>
+                    <option value="">Select a Account</option>
                     {roles.map((role) => (
                       <option key={role.id} value={role.id}>
                         {role.business_name}

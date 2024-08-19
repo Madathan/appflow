@@ -57,7 +57,7 @@ const LeadTable = () => {
             {showCrmTable ? (
                 <CrmTable status={edit} />
             ) : (
-                <div className="rounded-xl shadow-[20px] h-[610px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
+                <div className="rounded-xl shadow-[20px] h-[570px] shadoew-xl border-solid border border-gray-200 overflow-x-scroll h-[500px]">
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="lead table">
                             <TableHead>
@@ -68,8 +68,8 @@ const LeadTable = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {leads.map((lead) => (
-                                    <TableRow key={lead.id} className="bg-white hover:bg-gray-50">
+                                {leads.map((lead,index) => (
+                                    <TableRow key={index} className="bg-white hover:bg-gray-50">
                                         <TableCell align="center" className="px-4 py-2">{lead.name}</TableCell>
                                         <TableCell align="center" className="px-4 py-2">{lead.count}</TableCell>
                                         <TableCell align="center" className="px-4 py-2">

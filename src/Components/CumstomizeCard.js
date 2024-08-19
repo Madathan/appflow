@@ -10,7 +10,6 @@ const Card = ({ id, title, description, imageUrl, remove, forceUpdate }) => {
   const [show, setShow] = useState(false);
   const [edit, setEdit] = useState([]);
   const [passwordVisible, setPasswordVisible] = useState(false);
- console.log("idssss",id)
   const handleEdit = (id) => {
     setShow(true);
     setEdit(id);

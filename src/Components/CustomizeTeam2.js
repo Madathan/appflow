@@ -11,6 +11,7 @@ function CustomizeTeams() {
 
   const [data, setData] = useState([]);
   const [reducer, forceUpdate] = useReducer(x => x + 1,0);
+  const[incre,setIncre]=useState("")
   useEffect(() => {
     // Fetch initial data
     const fetchData = async () => {
@@ -36,9 +37,7 @@ function CustomizeTeams() {
 
         const responseText = await response.text();
         const initialData = JSON.parse(responseText);
-        console.log("Parsed:", initialData);
         setData(initialData.teammember);
-        console.log("Parsed data:", data);
 
       } catch (error) {
         console.error('Error fetching initial data:', error);
@@ -78,10 +77,10 @@ function CustomizeTeams() {
   return (
     <>
     <div className='mb-10'>        
-    <CustomizeTeam1 /> 
+    <CustomizeTeam1 forceUpdate={forceUpdate} /> 
     </div>
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10">
-      {data.map(user => (
+      {data.map((user,index) => (
         <Card
           id={user.id}
           title={user.username}

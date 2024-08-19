@@ -18,28 +18,27 @@ const GenerateLicense = ({ details, forceUpdate }) => {
   const [formData, setFormData] = useState({
     client_username: details?.username || '',
     password: details?.password || '',
-    phone_number: details?.phone_number || '',
+    contact_number: details?.contact_number || '',
     validity_period: details?.date ? dayjs(details.date) : null, // Use dayjs for initial date
-    phone_number_id: details?.phone_number_id || '',
-    whatsapp_id: details?.app_id || '',
-    access_token: details?.access_token || '',
+    db_name: details?.db_name || '',
+    db_username: details?.db_username|| '',
+    db_password: details?.db_password || '',
     crm_db_name: details?.crm_db_name || '',
     crm_db_username: details?.crm_db_username || '',
     crm_db_password: details?.crm_db_password || '',
     is_catalog: details?.iscatalogue || '',
   });
   const [modalOpen, setModalOpen] = useState(false);
-
   useEffect(() => {
     if (details) {
       setFormData({
         client_username: details.username || '',
         password: details.password || '',
-        phone_number: details.phone_number || '',
+        contact_number: details.contact_number || '',
         validity_period: details.date ? dayjs(details.date) : null, // Use dayjs for initial date
-        phone_number_id: details.phone_number_id || '',
-        whatsapp_id: details.app_id || '',
-        access_token: details.access_token || '',
+        db_name: details.phone_number_id || '',
+        db_username: details.app_id || '',
+        db_password: details.db_password || '',
         crm_db_name: details.crm_db_name || '',
         crm_db_username: details.crm_db_username || '',
         crm_db_password: details.crm_db_password || '',
@@ -74,9 +73,10 @@ const GenerateLicense = ({ details, forceUpdate }) => {
           username: formData.client_username,
           password: formData.password,
           app_id: chat.app_id,
-          phone_number_id: formData.phone_number_id,
-          access_token: formData.access_token,
-          phone_number: formData.phone_number,
+          db_name: formData.db_name,
+          db_password: formData.db_password,
+          contact_number: formData.contact_number,
+          db_username:formData.db_username,
           role: chat.role,
           validity: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
           expiry_date: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
@@ -92,11 +92,11 @@ const GenerateLicense = ({ details, forceUpdate }) => {
         setFormData({
           client_username: '',
           password: '',
-          phone_number: '',
+          contact_number: '',
           validity_period: null,
-          phone_number_id: '',
-          whatsapp_id: '',
-          access_token: '',
+          db_name: '',
+          db_username: '',
+          db_password: '',
           crm_db_name: '',
           crm_db_username: '',
           crm_db_password: '',
@@ -116,6 +116,7 @@ const GenerateLicense = ({ details, forceUpdate }) => {
 
   return (
     <Dialog open={modalOpen} onClose={handleModalClose}>
+      
       <DialogTitle>Generate New License</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -146,11 +147,11 @@ const GenerateLicense = ({ details, forceUpdate }) => {
           <TextField
             margin="dense"
             id="phone_number"
-            name="phone_number"
-            label="Phone Number"
+            name="contact_number"
+            label="contact number"
             type="text"
             fullWidth
-            value={formData.phone_number}
+            value={formData.contact_number}
             onChange={handleChange}
           />
           <Space direction="vertical" style={{ width: '100%', marginTop: 16 }}>
@@ -164,31 +165,31 @@ const GenerateLicense = ({ details, forceUpdate }) => {
           <TextField
             margin="dense"
             id="phone_number_id"
-            name="phone_number_id"
-            label="Phone Number ID"
+            name="db_name"
+            label="db name"
             type="text"
             fullWidth
-            value={formData.phone_number_id}
+            value={formData.db_name}
             onChange={handleChange}
           />
           <TextField
             margin="dense"
             id="whatsapp_id"
-            name="whatsapp_id"
-            label="WhatsApp Business Account ID"
+            name="db_username"
+            label="WhatsApp Business Account IDdb_username"
             type="text"
             fullWidth
-            value={formData.whatsapp_id}
+            value={formData.db_username}
             onChange={handleChange}
           />
           <TextField
             margin="dense"
-            id="access_token"
-            name="access_token"
-            label="Permanent Access Token"
+            id="db_password"
+            name="db_password"
+            label="db_password"
             type="text"
             fullWidth
-            value={formData.access_token}
+            value={formData.db_password}
             onChange={handleChange}
           />
           <Select

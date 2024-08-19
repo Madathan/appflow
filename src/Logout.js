@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash, FaFileUpload } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 const Logout = () => {
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
@@ -14,6 +15,7 @@ const Logout = () => {
     username: '',
     password: '',
     phonenumber: '',
+    image:'',
   });
 
   useEffect(() => {
@@ -22,12 +24,13 @@ const Logout = () => {
         const response = await fetch(`https://ci4backend.smartyuppies.com/Signinpage/displaySignup/${chat.id}`); // Replace with your API endpoint
         if (response.ok) {
           const data = await response.json();
+          console.log("signup data ",data)
           setUserData(data);
           setInputs({
             username: data.username || '',
-            password: data.password, // Password should be kept empty for security reasons
+            password: data.password || '', // Password should be kept empty for security reasons
             phonenumber: data.phone_number || '',
-            image:data.image ||'',
+            image: data.image || '',
           });
         } else {
           console.error('Failed to fetch user data');
@@ -64,32 +67,36 @@ const Logout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const jsonData = {
-      username: inputs.username,
-      password: inputs.password,
-      id: chat.id,
-      phone_number: inputs.phonenumber,
-      image:inputs.file,
-    };
+    // Create a FormData object to hold the form data
+    const formData = new FormData();
+    formData.append('username', inputs.username);
+    formData.append('password', inputs.password);
+    formData.append('id', chat.id);
+    formData.append('phone_number', inputs.phonenumber);
+
+    // Append the file if it's selected
+    if (file) {
+      formData.append('image', file);
+    }
 
     try {
-      const response = await fetch('https://ci4backend.smartyuppies.com/Signinpage/updateSignup', { // Replace with your API endpoint
+      const response = await fetch('https://ci4backend.smartyuppies.com/Signinpage/updateSignup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(jsonData),
+        body: formData,
       });
 
       if (response.ok) {
         const result = await response.json();
         console.log('Form submitted successfully:', result);
-        // Handle successful submission
+        // Handle successful submission, e.g., show a success message
+        message.success('Form submitted successfully!');
       } else {
         console.error('Failed to submit form');
+        message.error('Failed to submit form');
       }
     } catch (error) {
       console.error('An error occurred:', error);
+      message.error('An error occurred while submitting the form');
     }
   };
 
@@ -97,7 +104,7 @@ const Logout = () => {
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100 p-4">
       <div className="flex flex-col items-center md:items-start">
         <div className="bg-gray-300 h-[150px] w-[150px] text-white rounded-full flex items-center justify-center text-[90px]">
-          <img src={inputs.image} className='h-[150px] w-[150px] rounded-full' alt="profile"/>
+          <img src={inputs.image} className='h-[150px] w-[150px] rounded-full' alt="profile" />
         </div>
         <div className="mt-8 md:ml-6 p-6">
           <button
@@ -158,6 +165,7 @@ const Logout = () => {
               ref={fileInputRef}
               onChange={handleFileChange}
               className="hidden"
+              required
             />
             <button
               type="button"
@@ -170,7 +178,7 @@ const Logout = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-green-800 text-white py-2 rounded hover:bg-blue-600 transition duration-200"
+            className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-800 transition duration-200"
           >
             Submit
           </button>

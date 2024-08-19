@@ -47,17 +47,32 @@ function  Location({ id, data }) {
 
   const shows = () => setShow(true);
   const leave = () => setShow(false);
-
+ const handledeleteNode=()=>
+ {
+  if (data.onChange) {
+    data.onChange(id, 'location_name',null);
+  }
+  if (data.onChange) {
+    data.onChange(id, 'location_address', null);
+  }
+  if (data.onChange) {
+    data.onChange(id, 'latitude',null);
+  }
+  if (data.onChange) {
+    data.onChange(id, "longitude",null);
+  }
+  setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
+ }
   return (
     <div className='bg-[#ffffff] rounded-[45px] p-10 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
       <Handle type="target" position={Position.Left} id="AddImage_Handle_key" className='ml[10px]' style={hfStyle} />
 
       {show && (
-        <div className='hover:translate-y-6 hover:transition duration-700 ease-in-out'>
+        <div className=''>
 
         <button
-          onClick={() => setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))}
-          className="absolute right-10 top-11 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+          onClick={handledeleteNode}
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
         
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>

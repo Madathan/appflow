@@ -82,8 +82,7 @@ const RestAPI = ({ open }) => {
         <Button
           variant="contained"
           style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem', width: '200px' }}
-          onClick={handleToggleApiDetails}
-        >
+          onClick={handleToggleApiDetails}>
           View All Rest Api
         </Button>
       </div>
@@ -92,7 +91,7 @@ const RestAPI = ({ open }) => {
           <div className="border w-full bg-white shadow-xl pt-5 items-center px-7 rounded-lg overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6">
               <div className="flex flex-col justify-between">
-                <h1 className="text-center lg:py-2 pb-1 font-Poppins text-black sm:text-[20px] text-[16px]">
+                <h1 className="text-center lg:py-2 pb-1 font-Poppins text-black text-[13px] md:text-[28px]">
                   Build Your <span className="text-[--second]">REST API</span>
                 </h1>
                 <div className="p-4 mt-3">
@@ -103,14 +102,14 @@ const RestAPI = ({ open }) => {
                     type="text"
                     id="REST_API"
                     name="REST_API"
-                    className="border border-gray-300 border-2 py-3 text-black text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
+                    className="border border-gray-300 border-2 p-2.5 text-black text-md rounded-lg focus:ring-[--second] focus:border-[--second] block w-full"
                     placeholder=""
                     onChange={handleChangeRestApiName}
                     required
                   />
                 </div>
                 <div>
-                  <div className="p-4">
+                  <div className="p-4 mb-2 ">
                     <label htmlFor="phone_number_id" className="block mb-1 text-sm font-medium text-black dark:text-black">
                       Phone Number ID:-
                     </label>
@@ -124,7 +123,7 @@ const RestAPI = ({ open }) => {
                       value={chat.phone_number_id}
                     />
                   </div>
-                  <div className="p-4">
+                  <div className="p-4 ">
                     <label htmlFor="access_token" className="block mb-1 text-md font-medium text-black dark:text-black">
                       Access Token:-
                     </label>
@@ -139,7 +138,7 @@ const RestAPI = ({ open }) => {
                     />
                   </div>
                 </div>
-                <div className="flex mt-5 lg:my-4 justify-center">
+                <div className="flex  lg:my-4 justify-center">
                   <Button
                     type="submit"
                     variant="contained"

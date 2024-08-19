@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { LiaRocketSolid } from 'react-icons/lia';
 import { SiGooglesheets } from 'react-icons/si';
+import Cookies from 'js-cookie';
 
 const OrderModal = ({ isOpen, onClose, order }) => {
+    const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+
     const [orderDetails, setOrderDetails] = useState([]);
+    const [orderAddress, setOrderAddress] = useState([]);
 
     useEffect(() => {
         if (isOpen && order) {
@@ -19,7 +23,7 @@ const OrderModal = ({ isOpen, onClose, order }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    phone_number_id: "105581585784909",
+                    phone_number_id: userData.phone_number_id,
                     order_id: orderId
                 })
             });
@@ -30,6 +34,7 @@ const OrderModal = ({ isOpen, onClose, order }) => {
 
             const data = await response.json();
             setOrderDetails(data.order_details);
+            setOrderAddress(data.order_address)
         } catch (error) {
             console.error('Error fetching order details:', error);
         }
@@ -45,17 +50,29 @@ const OrderModal = ({ isOpen, onClose, order }) => {
                         Close
                     </button>
                 </div>
-                <div className="p-4">
-                    <p className='bg-white shadow-sm rounded-sm p-3 mb-3 border border-solid border-gray-300'>
-                        <span className='mr-2 font-bold'>Name:</span>{order?.customer_name}
-                    </p>
-                    <p className='bg-white shadow-sm rounded-sm p-3 mb-3 border border-solid border-gray-300'>
-                        <span className='mr-2 font-bold'>Phone:</span>{order?.customer_phone_number}
-                    </p>
-                    <p className='bg-white shadow-sm rounded-sm p-3 mb-3 border border-solid border-gray-300'>
-                        <span className='mr-2 font-bold'>Order Placed:</span>{order?.date}
-                    </p>
-                </div>
+                {orderAddress ?
+                <div className="p-4 bg-white shadow-xl mx-auto sm:w-80 border border-solid border-gray-300 rounded-sm">
+                    <h1 className='mb-4 text-center text-lg text-white bg-green-700 w-full rounded py-2'>Order Address</h1>
+                    {orderAddress.map((item, index) => (
+                        <div key={index} className="mb-4">
+                            <p className="text-center p-2 mb-1">
+                                <span className='font-bold'>name:</span> {item.name}
+                            </p>
+                            <p className="text-center p-2 mb-1">
+                            <span className='font-bold'>email_address:</span> {item.email_address}
+                            </p>
+                            <p className="text-center p-2 mb-1">
+                            <span className='font-bold'>phone_number:</span> {item.phone_number}
+                            </p>
+                            <p className="text-center p-2 mb-1">
+                            <span className='font-bold'>delivery_address:</span> {item.delivery_address}
+                            </p>
+                            <p className="text-center p-2 mb-1">
+                            <span className='font-bold'>pincode:</span> {item.pincode}
+                            </p>
+                        </div>
+                    ))}
+                </div>:<p>No data occurred</p>}
                 <div className="p-4 bg-white shadow-xl mx-auto sm:w-80 border border-solid border-gray-300 rounded-sm">
                     <h1 className='mb-4 text-center text-lg text-white bg-green-700 w-full rounded py-2'>Order List</h1>
                     {orderDetails.map((item, index) => (
@@ -69,6 +86,7 @@ const OrderModal = ({ isOpen, onClose, order }) => {
                         </div>
                     ))}
                 </div>
+               
                 <div className="grid grid-cols-2 gap-4 p-4 mt-10">
                     <div className="flex flex-col items-center">
                         <LiaRocketSolid className="text-green-700 text-3xl" />

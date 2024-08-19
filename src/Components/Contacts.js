@@ -7,6 +7,7 @@ import ContactEdit from './ContactEdit';
 import ContactAdd from './ContactAdd';
 import Cookies from 'js-cookie';
 import { Instagram } from 'react-content-loader';
+import { message } from 'antd';
 
 const columnHelper = createMRTColumnHelper();
 const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
@@ -48,13 +49,10 @@ const Contacts = () => {
       // Handle error state or display an error message
     }
   };
-
   const handleEdit = (row) => {
-    console.log('Edit clicked for row:', row);
     setSelectedContact(row);
     setOpenEdit(true);
   };
-
   const handleDelete = async (row) => {
     console.log('Delete clicked for row:', row);
 
@@ -69,8 +67,8 @@ const Contacts = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       // Update the contacts state after successful deletion
+      message.success('Contact updated successfully');
       setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== row.id));
       console.log('Contact deleted successfully:', row);
     } catch (error) {
@@ -78,7 +76,6 @@ const Contacts = () => {
       // Handle error state or display an error message
     }
   };
-
   const columns = [
     columnHelper.accessor('name', {
       header: 'Name',
@@ -113,40 +110,32 @@ const Contacts = () => {
       id: 'actions',
       header: 'Actions',
       Cell: ({ row }) => (
-        <Box sx={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-          <Button
+        <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+          <button
             variant="contained"
             size="small"
-            sx={{
-              backgroundColor: '#0067B3',color:"white",
-              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
-            }}
+           className='border-solid border-green-600 border-2 p-2 bg-white font-poppins shadow-xl rounded-lg text-green-600 hover:text-white hover:bg-green-800'
             onClick={() => handleSubscribe(row.original)}
           >
             {row.original.status === 'subscribed' ? 'Unsubscribe' : 'Subscribe'}
-          </Button>
-          <Button
+          </button>
+          <button
             variant="contained"
             size="small"
-            sx={{
-              backgroundColor: 'white',borderStyle:"solid",borderWidth:"2px",borderColor:"green",color:"green",
-              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
-            }}
+            className='border-solid border-green-600 border-2 shadow-xl bg-white font-poppins p-2 rounded-lg text-green-600 hover:text-white hover:bg-green-800'
             onClick={() => handleEdit(row.original)}
           >
             Edit
-          </Button>
-          <Button
+          </button>
+          <button
             variant="contained"
             size="small"
-            sx={{
-              backgroundColor: 'white',borderStyle:"solid",borderWidth:"2px",borderColor:"green",color:"green",
-              '&:hover': { backgroundColor: '#45a049' ,color:"white" },
-            }}
+            className='border-solid border-green-600 border-2 font-poppins bg-white  shadow-xl p-2 rounded-lg text-green-600 hover:text-white hover:bg-green-800'
+
             onClick={() => handleDelete(row.original)}
           >
             Delete
-          </Button>
+          </button>
         </Box>
       ),
       size: 200,

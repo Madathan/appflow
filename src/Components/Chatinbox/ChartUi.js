@@ -11,9 +11,13 @@ import ChatweCrm from './AssignWeCrm'
 import { BulletList } from 'react-content-loader';
 import { RiFunctionAddLine } from "react-icons/ri";
 import { message } from 'antd';
-import AddNewContact from './Add_newContact'
 import { useLocation } from 'react-router-dom';
-
+import { IoMdCall } from "react-icons/io";
+import { IoIosMail } from "react-icons/io";
+import ChatCrm from './ChatCrm'
+import { MdMail } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
+import SelectedTemplates from './SelectTemplate'
 const App = () => {
   const [chatData, setChatData] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -26,16 +30,18 @@ const App = () => {
   const [assignwecrmopen,setAssignwecrmopen]=useState(false);
   const [loading, setLoading] = useState(true);
   const [templates, setTemplates] = useState(false);
-  const [addContacts,setAddContacts]=useState(false);
   const [dateTime, setDateTime] = useState('');
   const [remimder, setRemimder] = useState('');
   const [notes,setNotes]=useState("");
   const location = useLocation();
+  const [shownotes,setShowNotes]=useState("");
   const [phoneNumbers, setPhoneNumbers] = useState(null);
+  const [templateshow,setTemplateshow] = useState(false)
   // Get the location object
   
 
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+ 
   const chatContainerRef = useRef(null);
   useEffect(() => {
     // Retrieve phoneNumbers from URL or some other source
@@ -69,7 +75,7 @@ const App = () => {
   }, [searchTerm, contacts]);
 
   const fetchContacts = async () => {
-    setLoading(true)
+  
     try {
       const response = await fetch(`https://appnew.smartyuppies.com/applistchat/${chat.phone_number_id}`, {
         method: 'POST',
@@ -83,7 +89,6 @@ const App = () => {
       });
       const responseData = await response.json();
       if (responseData && responseData.customerData) {
-        console.log("Fetched contacts for phone_number_id:", chat);
         setContacts(responseData.customerData);
         setFilteredContacts(responseData.customerData); // Initialize filteredContacts
         setLoading(false)
@@ -135,7 +140,7 @@ const App = () => {
       console.error('Error fetching messages:', error.message);
     }
   };
-  
+   
   const handleSend = async () => {
     if (selectedContact) {
       if (newMessage.trim() !== '') {
@@ -241,7 +246,7 @@ const App = () => {
     } else {
       setFilteredContacts(
         contacts.filter((contact) =>
-          contact.customer_name?.toLowerCase().includes(term.toLowerCase())
+          contact.customer_phone_number?.toLowerCase().includes(term.toLowerCase())
         )
       );
     }
@@ -302,18 +307,77 @@ const App = () => {
   {
     setTemplates(!templates)
   }
- 
+  useEffect(() => {
+    
+    const handleshownotes = async () => {
+      const phoneNumber = MobileNumber ?? phoneNumbers;
+    
+    if (!phoneNumber) {
+      console.error('No phone number available for fetching messages.');
+      return;
+    }
+      try {
+        const response = await fetch(`https://ci4backend.smartyuppies.com/ChatInbox/notesCheck/${phoneNumber}/${chat.phone_number_id}`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setShowNotes(result.data);
+         console.log("notedata",shownotes)
+      } catch (error) {
+        
+      }
+    };
+
+    handleshownotes();
+  }, [selectedContact,notes]);
+  const handlenotessave = async () => {
+    // Data to be sent in the POST request
+    const data = {
+      user_id:chat.id,
+      username:chat.username,
+      phone_number_id:chat.phone_number_id,
+      phone_number: firstItem.customer_phone_number,
+      name:firstItem.customer_name,
+      notes:notes,
+      
+    };
+    console.log("crmdata",data)
+    try {
+      const response = await fetch('https://ci4backend.smartyuppies.com/ChatInbox/insertNotes', {
+        method: 'POST', // Specify the request method
+        headers: {
+          'Content-Type': 'application/json', // Specify content type as JSON
+        },
+        body: JSON.stringify(data), // Convert data to JSON
+      });
+  
+      if (!response.ok) {
+        message.error('Failed to Add');
+        throw new Error('Network response was not ok');
+      }
+      message.success('Add Contact successfully');
+      const result = await response.json(); // Parse the JSON response
+      console.log('Success:', result); // Handle the success result
+      localStorage.setItem('id', JSON.stringify(result));
+
+    } catch (error) {
+      console.error('Error:', error); // Handle errors
+      message.error('Failed to Add');
+    }
+    setNotes(" ")
+  };
   const handlecrmSubbmit = async () => {
     // Data to be sent in the POST request
     const data = {
       user_id:chat.id,
+      username:chat.username,
       phone_number_id:chat.phone_number_id,
       phone_number: firstItem.customer_phone_number,
       name:firstItem.customer_name,
       remainder	:dateTime,
       notes:notes,
-      reference:remimder,
-
+      
     };
     console.log("crmdata",data)
     try {
@@ -338,6 +402,7 @@ const App = () => {
       console.error('Error:', error); // Handle errors
       message.error('Failed to Add');
     }
+    setNotes(" ")
   };
   const handleAdd = async (phone) => {
     try {
@@ -373,12 +438,21 @@ const App = () => {
         console.error('Error adding contact:', error);
     }
 };
-const handleAddContact=()=>
+const handletemplateshoe=()=>
 {
-  setAddContacts(!addContacts)
+  setTemplateshow(!templateshow)
 }
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter') {
+    handleSend();
+  }
+};
   return (
-  <div className='grid grid-cols-1 md:grid-cols-2 md:relative md:bottom-[50px] '>
+    <>
+    <div className='mt-4'>
+   <ChatCrm />
+   </div>
+  <div className='grid grid-cols-1 md:grid-cols-2 md:relative md:bottom-[50px] h-[620px] mt-4 '>
     <div className="flex h-[600px] mt-[30px] w-[1000px]  shadow-xl  ">
      
       <div className="w-1/3 bg-white rounded-xl text-white shadow-2xl">
@@ -473,8 +547,9 @@ const handleAddContact=()=>
             </>
             
           )}
-          
+        
         </div>
+        {templateshow && <SelectedTemplates PhoneNO={selectedContact?.customer_phone_number} onClose={handletemplateshoe}/>}
         <div className="flex p-2 border-l rounded-r-xl border-gray-200 bg-white">
           {/* Input area */}
           <input
@@ -484,14 +559,15 @@ const handleAddContact=()=>
             className="hidden"
             id="file-upload"
           />
-          
           <label htmlFor="file-upload" className="p-3 bg-green-500 text-white rounded-full shadow-2xl border-solid border-gray-400 cursor-pointer mr-2">
             <MdOutlineAttachFile />
           </label>
+          <button className="p-3 bg-green-500 text-white rounded-full shadow-2xl border-solid border-gray-400 cursor-pointer mr-2" onClick={handletemplateshoe}><IoMdAdd/></button>
           <textarea
             rows="1"
             className="flex-1  border-none focus:ring-white rounded-md focus:outline-none resize-none"
             value={newMessage}
+            onKeyDown={handleKeyDown}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message here..."
           />
@@ -505,104 +581,105 @@ const handleAddContact=()=>
         </div>
       </div>
     </div>
+   
     {firstItem &&
-    <div className="w-[400px] h-[600px] mt-[30px] relative shadow-xl relative left-[310px] overflow-x-scroll bg-white ">
-    <div className='h-16 w-full  bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg p-x-6 border border-solid border-gray-200   '>
-          {firstItem && (
-            <div className='ml-2 p-1 sticky top-0'>
-              {firstItem.customer_name && (
-                <h1 className=' text-white  font-poppins'>Name:-<span className='ml-2 font-poppins font-normal text-sm '>{firstItem.customer_name}</span></h1>
-              )}
-              {firstItem.customer_phone_number && (
-                <p className=' text-white  font-poppins'>Phone No:-<span className='ml-2 font-poppins font-normal text-sm '>{firstItem.customer_phone_number}</span></p>
-              )}
-             
-            </div>
+    <div className="w-[400px] h-[600px] mt-[30px] relative shadow-xl left-[310px] bg-white overflow-x-scroll">
+    <div className="h-16 w-full flex bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg px-6 border border-solid border-gray-200">
+      {firstItem && (
+        <div className="ml-2 p-1 sticky top-0 bg-gradient-to-r from-blue-400 to-purple-500">
+          {firstItem.customer_name && (
+            <h1 className="text-white font-poppins">
+              Name: <span className="ml-2 font-normal text-sm">{firstItem.customer_name}</span>
+            </h1>
+          )}
+          {firstItem.customer_phone_number && (
+            <p className="text-white font-poppins">
+              Phone No: <span className="ml-2 font-normal text-sm">{firstItem.customer_phone_number}</span>
+            </p>
           )}
         </div>
-      <div className='flex flex-col p-4'>
-       <button
-         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-lg w-full justify-center"
-         onClick={handleToggleAgent}
-       >
-         <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">Assign Team Member</span>
-       </button>
-       <button
-         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
-         onClick={handleAddContact}
-       >
-         <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">Add New Contact</span>
-       </button>
-       <button
-         className="mt-2 flex items-center bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full justify-center"
-         onClick={handleAdd}
-       >
-         <MdKeyboardDoubleArrowDown size={24} />
-         <span className="ml-2">Add to Contact</span>
-       </button>
-       
-       {assignopen && (
-         <div className="mt-2">
-           <AssignChat onClose={handleToggleAgent} name={firstItem?.customer_phone_number} />
-         </div>
-       )}
-       {assignwecrmopen && (
-         <div className="mt-2">
-           <ChatweCrm onClose={handleToggleAgentWeCrm} />
-         </div>
-       )}
-     </div>
-    { addContacts &&(<div>
-      <AddNewContact onClose={handleAddContact}/>
-    </div>)}
-     <div className="p-6 bg-gray-100">
-        <h2>Notes:</h2>
-      <textarea
-        className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-        placeholder="Write your notes here..."
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-      ></textarea>
+      )}
+      <div className='mt-4 ml-4 text-lg'>  
+          <button className='bg-white text-green-600 p-2 mr-4 rounded-full'><IoMdCall /></button>
+          <button className='bg-white text-green-600 p-2 rounded-full '><MdMail/></button>
+      </div>
+
     </div>
-      
-      <div className="p-6 bg-gray-100">
-        <h2>Reminder:</h2>
-      <textarea
-        className="w-full h-40 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-        placeholder="Write your notes here..."
-        value={remimder}
-        onChange={(e) => setRemimder(e.target.value)}
-      ></textarea>
-      <div className="mt-4">
-         
+    <div className="grid md:grid-cols-2 gap-2 px-6 mt-2">
+      <button
+        className="flex items-center  bg-green-500 hover:bg-green-800 text-white p-1 rounded-lg w-full justify-center"
+        onClick={handleToggleAgent}
+      >
+        <MdKeyboardDoubleArrowDown size={24} />
+        <span className="ml-2">Assign Team </span>
+      </button>
+      <button
+        className="flex justify-center bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg w-full"
+        onClick={handleAdd}
+      >
+        <MdKeyboardDoubleArrowDown size={24} />
+        <span className="ml-2">Add to Contact</span>
+      </button>
+  
+      {assignopen && (
+        <div className="mt-2">
+          <AssignChat onClose={handleToggleAgent} name={firstItem?.customer_phone_number} />
         </div>
+      )}
+  
+      {assignwecrmopen && (
+        <div className="mt-2">
+          <ChatweCrm onClose={handleToggleAgentWeCrm} />
+        </div>
+      )}
     </div>
-    <div className="flex flex-col items-center  absolute top-[600px]  justify-center min-h-screen w-full ">
-      <div className="p-6 bg-white rounded-lg w-full shadow-lg">
-        <h2 className="mb-4 text-xl font-semibold text-gray-700">Select Reminder</h2>
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-600">Date and Time</label>
-          <input
-            type="datetime-local"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div className="mt-4">
-          <button
-            onClick={handlecrmSubbmit}
-            className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Submit
-          </button>
-        </div>
+    <div className="w-full h-[200px] overflow-y-scroll bg-gray-100 p-2 border border-gray-200 mt-4" style={{ direction: 'rtl' }}>
+      <div style={{ direction: 'ltr' }}>
+        {shownotes && shownotes.length > 0 && (
+          shownotes.map((note, index) => (
+            <div key={index} className="mb-2">
+              <p className="text-sm font-semibold">{note.username}</p>
+              <p className="text-sm">{note.notes}</p>
+              <p className="text-xs text-gray-500">{note.created_at}</p>
+            </div>
+          ))
+        )}
       </div>
     </div>
-     </div> }
+    <textarea
+      className="w-full h-20 mt-4 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+      placeholder="Write your notes here..."
+      value={notes}
+      onChange={(e) => setNotes(e.target.value)}
+    ></textarea>
+    <div className='text-center'>
+    <button className='bg-green-500 px-6 py-3 rounded-lg hover:bg-greeen-800 text-white font-poppins mb-2'onClick={handlenotessave}>Save Notes</button>
+    </div>
+<div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center justify-center  bg-blue-100 rounded-xl w-full px-6">
+  <div className="p-6 rounded-lg">
+    <div className="mb-4">
+      <label className="block mb-2 text-sm font-medium text-black">Select Remainder</label>
+      <input
+        type="datetime-local"
+        value={dateTime}
+        onChange={(e) => setDateTime(e.target.value)}
+        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
   </div>
+  <div className="mt-4 md:mt-0 flex justify-center items-center">
+    <button
+      onClick={handlecrmSubbmit}
+      className="px-6 py-3 font-poppins text-white bg-blue-500 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+  </div>
+  }
+  </div>
+  </>
   );
 };
 

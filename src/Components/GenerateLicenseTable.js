@@ -45,7 +45,7 @@ const GenerateTable = () => {
     }
   };
 
-  const handleView = (order) => {
+  const handleEdited = (order) => {
     setDetails(order);
     setEdit(!edit);
   };
@@ -95,7 +95,7 @@ const GenerateTable = () => {
           style={{ backgroundColor: '#00a727', color: '#FFFFFF', marginBottom: '1rem', marginRight: '1em', paddingRight: '15px' }}
           onClick={handleClick}
         >
-          {show ? 'Expired' : 'Active'}
+          {show ? "Expired" : "Active"}
         </Button>
         <Button
           variant="contained"
@@ -105,10 +105,10 @@ const GenerateTable = () => {
           This Month Expires
         </Button>
       </div>
-
+    
       {show ? (
         <>
-          <h1 className='bg-blue-600 p-2 w-[100px] text-white rounded-xl'>Total:<span className='bg-white ml-2 p-2 text-green-800 w-12 h-12 rounded-full shadow-2xl '>{counts?.count}</span></h1>
+          <h1 className='bg-gray-200 p-2 w-[100px]  mb-4 text-green-700 font-poppins rounded-xl'>Total:<span className='bg-white ml-2 p-2 text-green-800 w-10 h-10 text-sm rounded-full shadow-2xl'>{counts?.count}</span></h1>
 
           <div className="rounded-xl shadow-[20px] overflow-x-scroll h-[500px]">
             <TableContainer component={Paper}>
@@ -137,11 +137,12 @@ const GenerateTable = () => {
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
+                       
                         {actionOpen === order.id && (
                           <div className="flex flex-col bg-white shadow-lg rounded-lg p-4 items-center mt-2">
                             <button
                               className="border-green-600 border-2 border-solid text-green-600 px-4 py-1 rounded mb-1"
-                              onClick={() => handleView(order)}
+                              onClick={() => handleEdited(order)}
                             >
                               Edit
                             </button>
@@ -149,7 +150,7 @@ const GenerateTable = () => {
                               className="border-green-600 border-2 border-solid text-green-600 px-2 py-1 rounded"
                               onClick={() => handleActivate(order)}
                             >
-                              {order.status === 'active' ? 'InActive' : 'Active'}
+                              {order.status === 'active' ? 'Inactive' : 'Active'}
                             </button>
                           </div>
                         )}
@@ -165,7 +166,7 @@ const GenerateTable = () => {
         <GenerateLicenseExpired />
       )}
 
-      {edit && <GenerateLicenseActive details={details} forceUpdate={forceUpdate} />}
+      {edit && <GenerateLicenseActive details={details} onClose={handleEdited} forceUpdate={forceUpdate} />}
     </>
   );
 };

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, TextField, Typography, Grid, Paper, Button, Box, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Notes from './OverDueNotes';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import CrmButtons from './CrmgButtons'
 
 const History = () => {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showComponent, setShowComponent] = useState(false);
   const [container, setContainer] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch data from the API when the component mounts
@@ -35,24 +38,11 @@ const History = () => {
     console.log('Action button clicked for item:', notes);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`https://ci4backend.smartyuppies.com/ChatInbox/historyRecords/closed/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        setData(data.filter(item => item.id !== id));
-        console.log(`Item with id ${id} deleted`);
-      } else {
-        console.error('Error deleting item:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error deleting item:', error);
-    }
-  };
+  
 
   return (
+    <>
+    <CrmButtons/>
     <div className="container mx-auto p-4">
       <TextField
         label="Search by name"
@@ -77,9 +67,6 @@ const History = () => {
                   <strong>Remainder:</strong> {item.remainder}
                 </Typography>
                 <Box display="flex" flexDirection="column" mb={2}>
-                  <Typography variant="body2" color="textSecondary">
-                    <strong>Reference:</strong> {item.reference}
-                  </Typography>
                   <Box display="flex" justifyContent="space-between" mt={2}>
                     <Button
                       onClick={() => handleNotes(item.notes)}
@@ -88,9 +75,15 @@ const History = () => {
                     >
                       Action
                     </Button>
-                    <IconButton onClick={() => handleDelete(item.id)} color="secondary">
-                      <DeleteIcon />
-                    </IconButton>
+                    <Button
+                        onClick={() => navigate(`/Team-Inbox?phone_number=${encodeURIComponent(item.phone_number)}`)} // Redirect with phone number
+                        variant="outlined"
+                        color="info"
+                        className='font-poppins'
+                      >
+                        View Chat
+                      </Button>
+                    
                   </Box>
                 </Box>
               </CardContent>
@@ -102,6 +95,7 @@ const History = () => {
         {showComponent && (<Notes content={container} onClose={handleNotes}/>)}
       </div>
     </div>
+    </>
   );
 };
 

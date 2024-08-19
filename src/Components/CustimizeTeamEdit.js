@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { message } from 'antd';
 
 const PopupForm = ({ edit, show,forceUpdate,title,description}) => {
-  console.log("array", edit);
   const [formData, setFormData] = useState({
     name:title,
     password:description ,

@@ -57,7 +57,11 @@ const SignUpPage = () => {
   const handleLogin = () => {
     navigate('/Login');
   };
-  
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSignUp();
+    }
+  };
   return (
     <div className="fixed inset-0 bg-gradient-to-r from-green-400 to-blue-500 flex justify-center items-center">
       <div className="bg-white border border-gray-200 shadow-2xl p-8 w-full max-w-md rounded-lg">
@@ -70,6 +74,7 @@ const SignUpPage = () => {
           value={username}
           onChange={handleInputChange}
           className="block w-full border border-gray-300 rounded-md p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          onKeyDown={handleKeyDown}
         />
         <input
           type="password"
@@ -78,6 +83,7 @@ const SignUpPage = () => {
           value={password}
           onChange={handleInputChange}
           className="block w-full border border-gray-300 rounded-md p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          onKeyDown={handleKeyDown}
         />
         <input
           type="text"
@@ -86,7 +92,8 @@ const SignUpPage = () => {
           value={phoneNumber}
           onChange={handleInputChange}
           className="block w-full border border-gray-300 rounded-md p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+          onKeyDown={handleKeyDown}
+       />
         <button
           onClick={handleSignUp}
           className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-200"

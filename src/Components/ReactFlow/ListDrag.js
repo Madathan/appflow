@@ -47,7 +47,7 @@ function TextUpdaterNode({ data, onRemove, id }) {
               name="w3review" 
               rows="4" 
               cols="43" 
-              placeholder={`Link1-${id}`} 
+              placeholder='Description' 
               className='rounded-2xl border-green-600 border-3 text-2xl' 
               style={{ border: "none" }} 
               onChange={handleCaptionChange}
@@ -115,16 +115,33 @@ function ListDrag({ id, data }) {
   };
   const shows = () => setShow(true);
   const leave = () => setShow(false);
-
+ const handledeleteNode=()=>
+ {
+  if (data.onChange) {
+    data.onChange(id, 'header', null);
+  }if (data.onChange) {
+    data.onChange(id, 'body',null);
+  }
+  if (data.onChange) {
+    data.onChange(id, 'footer', null);
+  }
+  if (data.onChange) {
+    data.onChange(id, { [`list_title_`]:null, [`list_description`]:null});
+  }
+  if (data.onChange) {
+    data.onChange(id, { [`list_title_`]: null, [`list_description_`]: null});
+  }
+  setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
+ }
   return (
-    <div className='bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
+    <div className='relativebg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
       <Handle type="target" position={Position.Left} id="a" className='ml[10px]' style={hfStyle} />
 
       {show && (
         <button
-          onClick={() => setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))}
-          className="absolute right-10 top-11 text-black-600 hover:text-red-800 mt-5 mr-5"
-        >
+          onClick={handledeleteNode}
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+        
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>
       )}

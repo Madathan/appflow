@@ -70,8 +70,6 @@ const StaffModal = ({ open, handleClose, data }) => {
   
   // Handle save function
   const handleSave = async () => {
-   
-
     try {
       const response = await fetch(`https://ci4backend.smartyuppies.com/AssignAgent/updateAgent/${data.id}`, {
         method: 'POST',

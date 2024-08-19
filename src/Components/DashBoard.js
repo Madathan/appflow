@@ -220,7 +220,7 @@ const DashBoard = ({ open, data }) => {
           </Slider>
         </div>
       </div>*/}
-    </div>
+   </div>
   );
 };
 

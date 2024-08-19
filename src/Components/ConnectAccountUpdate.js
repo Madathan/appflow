@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
 
 const PopupForm = ({ onClose, account,forceUpdate }) => {
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
@@ -52,6 +53,7 @@ const PopupForm = ({ onClose, account,forceUpdate }) => {
       });
 
       if (!response.ok) {
+        message.error('Failed to Update');
         const errorText = await response.text();
         console.error(`Error response: ${response.status} ${response.statusText}`);
         console.error(`Error details: ${errorText}`);
@@ -59,6 +61,8 @@ const PopupForm = ({ onClose, account,forceUpdate }) => {
       }
 
       // Handle response if needed
+      message.success(' Update succssfully');
+
       const result = await response.json();
       console.log('Success:', result);
 
@@ -66,6 +70,7 @@ const PopupForm = ({ onClose, account,forceUpdate }) => {
       onClose();
     } catch (error) {
       console.error('Error submitting data:', error);
+      message.error('Correct the Network');
     }
     forceUpdate()
   };
@@ -154,7 +159,7 @@ const PopupForm = ({ onClose, account,forceUpdate }) => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+            className="hover:bg-green-800 border-2 border-solid border-green-800 w-[90px] rounded-lg  hover:text-white text-green-800 py-2 px-4 rounded hover:bg-blue-600"
           >
             Submit
           </button>

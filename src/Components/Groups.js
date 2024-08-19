@@ -76,7 +76,7 @@ function Groups() {
   };
 
   return (
-     <div className="rounded-lg shadow-xl overflow-x-scroll h-[610px]">
+     <div className="rounded-lg shadow-xl overflow-x-scroll h-[570px]">
     
    {loading ? (
           
@@ -87,13 +87,12 @@ function Groups() {
         <>
      <div className="p-4 flex justify-between items-center">
      <h1 className="font-bold text-xl sm:text-2xl mb-2">Recent Groups</h1>
-          <TextField
+          <input
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search by group name"
-            variant="outlined"
             size="small"
-            className="mb-4 lg:mb-0 focus:ring-gray-200"
+            className="mb-4 lg:mb-0 focus:ring-none p-2  bg-gray-50 rounded-sm border- border border-gray-200 focus:outline-gray-300"
           />
           <Button
             type="submit"

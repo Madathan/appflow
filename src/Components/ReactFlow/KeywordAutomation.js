@@ -15,9 +15,7 @@ import Location from './FlowLocation'
 import { MdLocationPin } from "react-icons/md";
 import { MdOutlinePermMedia } from "react-icons/md";
 import Swal from 'sweetalert2';
-
 import { useNavigate, } from 'react-router-dom';
-
 import Cookies from 'js-cookie';
 
 
@@ -95,7 +93,7 @@ function Flow() {
   );
 
   const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge({ ...connection, type: 'customEdge', animated: 'true' }, eds)),
+    (connection) => setEdges((eds) => addEdge({ ...connection, type: 'customEdge', animated: "true" }, eds)),
     [setEdges]
   );
   
@@ -110,9 +108,6 @@ function Flow() {
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
   
-
-  
-
   const handleSidebarImgDocument = () => {
     const newNode = {
       id: (nodes.length).toString(),
@@ -128,7 +123,7 @@ function Flow() {
       id: (nodes.length ).toString(),
       type: 'listDrag',
       position: { x: Math.random() * 250, y: Math.random() * 250 },
-      data: { onChange: handleListDrag },
+      data:{onChange:handleListDrag}
     };
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
@@ -319,23 +314,17 @@ function Flow() {
       <div className="flex-grow  w-full " style={{height:"87%"}}>
    <div className='flex  w-full h-14 bg-white border-dashed border-b border-gray-400'>
    <div className='mb-2'>
-          <input type="text" className='  border-2 border-black border-solid mt-2 rounded-lg' placeholder='name the Flow' required  onChange={handleFlowName}/>
+          <input type="text" className='  border-2 border-black border-solid mt-2 rounded-lg' placeholder='name the flow' required  onChange={handleFlowName}/>
       </div>
       <div className='ml-16'>
             <button
                 onClick={handleSubmit}
-                className=" mt-2   bg-green-800 text-white p-2 rounded-lg font-poppins  text-sm"
+                className=" mt-1  bg-green-500 text-white px-14 py-3 hover:bg-green-800 rounded font-poppins  "
               >
-                Save Changes
+                Save Flow
               </button>
               </div>
             <div className='ml-30'>
-                <button
-             
-                  className="text-right mt-2  ml-20 bg-green-800 text-white p-2 rounded-lg    text-sm"
-                >
-                   Flow Detail
-                </button>
             </div>
   </div>
         <ReactFlow

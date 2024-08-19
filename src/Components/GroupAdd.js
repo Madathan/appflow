@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { message } from 'antd';
+
 const GroupAdd = ({ onClose, onClick, share }) => {
-  
-  const chat= Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+  const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
   const [phones, setPhones] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [checkboxes, setCheckboxes] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
- 
+  const [errorMessage, setErrorMessage] = useState('');
+
   useEffect(() => {
     // Initialize checkboxes from localStorage or with default values
     const storedCheckboxes = JSON.parse(localStorage.getItem('checkboxes')) || {};
@@ -18,11 +20,16 @@ const GroupAdd = ({ onClose, onClick, share }) => {
     }, {});
     setCheckboxes(initialCheckboxes);
     setPhones(onClick); // Set phones data
+
+    // Cleanup function for potential side effects
+    return () => {
+      localStorage.removeItem('checkboxes');
+    };
   }, [onClick]);
 
   const handleSubmit = async (selectedContacts) => {
     const payload = {
-      username:chat.username,
+      username: chat.username,
       group_name: groupName,
       old_group_name: share,
       selected_contacts: selectedContacts,
@@ -40,7 +47,8 @@ const GroupAdd = ({ onClose, onClick, share }) => {
       });
 
       if (response.ok) {
-        onClose();
+        message.success('Item added successfully');
+
         const responseData = await response.json();
         console.log('Group created:', responseData);
         setSuccessMessage('Group successfully created!');
@@ -48,17 +56,17 @@ const GroupAdd = ({ onClose, onClick, share }) => {
           setSuccessMessage('');
           onClose();
         }, 3000);
-        
+
       } else {
-        console.error('Failed to create group', response.status, response.statusText);
         const errorData = await response.json();
-        console.error('Error details:', errorData);
-        // Handle error (e.g., show error message)
+        console.error('Failed to create group', response.status, response.statusText);
+        setErrorMessage(errorData.message || 'Failed to create group');
       }
     } catch (error) {
       console.error('Error:', error);
-      // Handle error (e.g., show error message)
+      setErrorMessage('An error occurred while creating the group.');
     }
+    // onClose(); Removed to avoid premature closing
   };
 
   const handleCheckboxChange = (id) => {
@@ -68,13 +76,6 @@ const GroupAdd = ({ onClose, onClick, share }) => {
     };
     setCheckboxes(updatedCheckboxes);
     localStorage.setItem('checkboxes', JSON.stringify(updatedCheckboxes));
-    
-    const selectedContacts = phones
-      .filter(item => updatedCheckboxes[item.id])
-      .map(item => `${item.phone_number}|${item.name || 'null'}`);
-
-    const changedPhone = phones.find(phone => phone.id === id);
-    console.log('Phone number checkbox changed:', changedPhone.phone_number);
   };
 
   const handleGroupNameChange = (event) => {
@@ -87,7 +88,7 @@ const GroupAdd = ({ onClose, onClick, share }) => {
         <h2 className="text-lg font-semibold">Phone Number Management</h2>
         <button onClick={onClose} className="text-white hover:text-gray-200 focus:outline-none">
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M13.414 10l3.293 3.293a1 1 0 0 1-1.414 1.414L12 11.414l-3.293 3.293a1 1 1 1 1 1.414-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414L12 8.586l3.293-3.293a1 1 1 1 1 1.414 1.414L13.414 10z" clipRule="evenodd" />
+            <path fillRule="evenodd" d="M13.414 10l3.293 3.293a1 1 0 0 1-1.414 1.414L12 11.414l-3.293 3.293a1 1 0 1 1-1.414-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414L12 8.586l3.293-3.293a1 1 0 0 1 1.414 1.414L13.414 10z" clipRule="evenodd" />
           </svg>
         </button>
       </div>
@@ -95,6 +96,11 @@ const GroupAdd = ({ onClose, onClick, share }) => {
         {successMessage && (
           <div className="mb-4 text-green-500 text-center">
             {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="mb-4 text-red-500 text-center">
+            {errorMessage}
           </div>
         )}
         <div className="mb-4">

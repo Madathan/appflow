@@ -106,20 +106,20 @@ function MaterialUITables() {
                   </IconButton>
                   {editingRowId === row.id && (
                     <div className="flex space-x-2">
-                      <Button
+                      <button
                         variant="outlined"
-                        color="primary"
+                        className='border-green-600 border-2 border-solid text-green-600 px-4 py-1 rounded mb-1'
                         onClick={() => handleEdit(row)}
                       >
                         Edit
-                      </Button>
-                      <Button
+                      </button>
+                      <button
                         variant="outlined"
-                        color="secondary"
+                        className='border-green-600 border-2 border-solid text-green-600 px-4 py-1 rounded mb-1'
                         onClick={() => handleDeleteClick(row.id)}
                       >
                         Delete
-                      </Button>
+                      </button>
                     </div>
                   )}
                 </TableCell>

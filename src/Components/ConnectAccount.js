@@ -5,6 +5,7 @@ import ConnectAccountModal from './ConnectAccountModal';
 import Cookies from 'js-cookie';
 import { AiOutlineEdit } from "react-icons/ai"; // Import edit icon
 import ConnectAccountUpdate from './ConnectAccountUpdate';
+import { message } from 'antd';
 
 const ConnectAccount = () => {
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
@@ -15,7 +16,7 @@ const ConnectAccount = () => {
   const [update, setUpdate] = useState(false);
   const [count, setCount] = useState("");
   const [selectedAccount, setSelectedAccount] = useState(null); // For updating
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  const [reducer, forceUpdate] = useReducer(x => x + 1, 0);
 
   // Fetch data from API
   useEffect(() => {
@@ -38,7 +39,7 @@ const ConnectAccount = () => {
     };
 
     fetchData(); // Call fetchData function on component mount
-  }, [count, forceUpdate]);
+  }, [count, reducer]);
 
   useEffect(() => {
     const fetchDatas = async () => {
@@ -98,7 +99,7 @@ const ConnectAccount = () => {
   // Handle deleting a template
   const handleDelete = async (templateId) => {
     try {
-      const response = await fetch(`https://ci4backend.smartyuppies.com/DeleteAccount/${templateId}`, {
+      const response = await fetch(`https://ci4backend.smartyuppies.com/ConnectAccount/deleteAccount/${templateId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -106,9 +107,13 @@ const ConnectAccount = () => {
         body: JSON.stringify({ user_id: userData.id })
       });
       if (!response.ok) {
+        message.error('faild to delete');
         throw new Error('Failed to delete template');
       }
+      else{
+      message.success(' Delete succssfully');
       setApiData(apiData.filter(item => item.templateId !== templateId));
+      }
     } catch (error) {
       console.error('Error deleting template:', error);
     }
@@ -116,22 +121,21 @@ const ConnectAccount = () => {
 
   return (
     <>
-      <h1 className="text-center text-2xl font-semibold mb-6">Connect Account</h1>
-      <div className="flex justify-center mb-6">
+      <div style={{ wordWrap: 'break-word' }} className="flex justify-center mb-6">
         <button
-          className="bg-green-500 rounded-lg p-3 text-white hover:bg-green-600 transition duration-200"
+          className="bg-green-500 rounded py-4 font-poppins  px-6 text-white hover:bg-green-600 transition duration-200"
           onClick={() => setShow(true)}
         >
           Create More Account
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3 md:w-full  ">
         {fetchData.data?.map((data, index) => (
-          <div key={index} className="relative max-w-sm rounded-lg shadow-lg bg-white hover:shadow-xl transition duration-300">
+          <div key={index} className="md:relative max-w-sm rounded-lg shadow-lg bg-white hover:shadow-xl transition duration-300">
             {/* Edit Icon Button */}
             <button
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 transition duration-200"
+              className="md:absolute md:top-4 md:right-4 p-2 text-gray-500 hover:text-gray-700 transition duration-200"
               aria-label="Edit"
               onClick={() => handleEdit(data)}
             >
@@ -142,7 +146,7 @@ const ConnectAccount = () => {
               <img className="object-cover h-48 w-48 rounded-full" src={data.profile_picture_url} alt="Profile" />
             </div>
             <div className="p-4 text-center">
-              <h5 className="mb-2 text-xl font-semibold text-gray-900">{data.email}</h5>
+              <h5 style={{ wordWrap: 'break-word' }} className="mb-2 text-xl font-semibold text-gray-900">{data.email}</h5>
               <p className="mb-4 text-gray-700 font-medium">Description</p>
               <p className="text-gray-700">{data.description}</p>
             </div>
@@ -151,10 +155,10 @@ const ConnectAccount = () => {
               <div className="flex flex-col items-center md:items-start">
                 <p className="text-gray-700 mb-2">About: <span className="font-medium">{data.about}</span></p>
                 <div className="flex items-center mb-2">
-                  <p className="text-gray-700 mr-2">Address: <span>{data.address}</span></p>
+                  <p style={{ wordWrap: 'break-word' }} className="text-gray-700 mr-2">Address: <span>{data.address}</span></p>
                  
                 </div>
-                <p className="text-gray-700">Websites: <span>{data.websites}</span></p>
+                <p style={{ wordWrap: 'break-word' }} className="text-gray-700">Websites: <span>{data.websites}</span></p>
               </div>
             </div>
           </div>
@@ -164,16 +168,16 @@ const ConnectAccount = () => {
   <div key={index} className="max-w-sm rounded-lg shadow-lg bg-white hover:shadow-xl transition duration-300">
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
-        <h5 className="text-xl font-semibold text-gray-900">{data.business_name}</h5>
+        <h5 style={{ wordWrap: 'break-word' }} className="text-xl font-semibold text-gray-900">{data.business_name}</h5>
         <div className="flex">
-          <button
-            className={`px-4 py-2 text-sm font-medium rounded-lg transition duration-200 ${data.active ? 'bg-green-500 text-white' : 'bg-gray-700 text-white'}`}
+          <button style={{ wordWrap: 'break-word' }}
+            className={`px-4 py-2 text-sm font-poppins rounded transition duration-200 ${data.active ? 'bg-green-500 text-white hover:green-700' : 'bg-gray-700 text-white'} `}
             onClick={() => handleSwitch(data)}
           >
             {data.active ? "Active" : "Switch Account"}
           </button>
           <RiDeleteBin6Line
-            className="ml-4 text-gray-700 cursor-pointer text-xl"
+            className="ml-4 text-gray-700 cursor-pointer text-xl hover:text-red-700"
             onClick={() => handleDelete(data.id)}
           />
         </div>

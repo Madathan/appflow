@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
-const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+import { message } from 'antd';
 
 const Popup = ({ onClose }) => {
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
+  console.log("userdata",userData)
+  const[alert,setAlert]=useState();
   const [formData, setFormData] = useState({
     business_name: '',
     phone_number: '',
@@ -10,18 +13,19 @@ const Popup = ({ onClose }) => {
     app_id: '',
     access_token: '',
     username:userData.username,
-    user_id:userData.id,
+    id:userData.id,
   });
-
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("connectaccount", formData);
+    
     try {
       const response = await fetch('https://ci4backend.smartyuppies.com/ConnectAccount/addAccount', {
         method: 'POST',
@@ -30,19 +34,28 @@ const Popup = ({ onClose }) => {
         },
         body: JSON.stringify(formData)
       });
-    console.log("connectaccount",formData);
+  
       if (response.ok) {
-        // Handle successful response
-        console.log('Form submitted successfully',formData);
-        onClose(); // Close the popup after successful submission
+        const data = await response.json();
+        if (data.success === true) {
+          message.success(data.message);
+        } else {
+          message.error(data.message);
+        }
+        setAlert(data); // Ensure setAlert is properly initialized
+        console.log("Response data:", data);
+        onClose(); // Ensure onClose is defined
       } else {
-        // Handle error response
-        console.error('Failed to submit the form');
+        const errorMessage = `Failed to add account: ${response.statusText}`;
+        message.error(errorMessage);
+        console.error(errorMessage);
       }
     } catch (error) {
+      message.error('Network issue');
       console.error('Error:', error);
     }
   };
+  
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">

@@ -10,19 +10,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import dayjs from 'dayjs'; // Import dayjs for date formatting
 
-
-const GenerateLicense = ({ details,forceUpdate }) => {
+const GenerateLicense = ({ details, forceUpdate }) => {
   const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-  console.log("details",details)
+
   const [formData, setFormData] = useState({
     client_username: details?.username || '',
     password: details?.password || '',
-    phone_number: details?.phone_number || '',
-    validity_period: details?.date ||'',
-    phone_number_id: details?.phone_number_id || '',
-    whatsapp_id: details?.app_id || '',
-    access_token: details?.access_token || '',
+    contact_number: details?.phone_number || '',
+    validity_period: details?.date ? dayjs(details.date) : null, // Use dayjs for initial date
+    db_name: details?.db_name || '',
+    db_username: details?.app_id || '',
+    db_password: details?.db_password || '',
     crm_db_name: details?.crm_db_name || '',
     crm_db_username: details?.crm_db_username || '',
     crm_db_password: details?.crm_db_password || '',
@@ -35,25 +35,25 @@ const GenerateLicense = ({ details,forceUpdate }) => {
       setFormData({
         client_username: details.username || '',
         password: details.password || '',
-        phone_number: details.phone_number || '',
-        validity_period: details.date || '',
-        phone_number_id: details.phone_number_id || '',
-        whatsapp_id: details.app_id || '',
-        access_token: details.access_token || '',
+        contact_number: details.contact_number || '',
+        validity_period: details.date ? dayjs(details.date) : null, // Use dayjs for initial date
+        db_name: details.db_name || '',
+        db_username: details.db_username || '',
+        db_password: details.db_password || '',
         crm_db_name: details.crm_db_name || '',
         crm_db_username: details.crm_db_username || '',
         crm_db_password: details.crm_db_password || '',
         is_catalog: details.iscatalogue || '',
       });
-      setModalOpen(true); // Automatically open the modal when component mounts
     }
-  }, [details]);
 
+    setModalOpen(true); // Automatically open the modal when component mounts
+  }, [details]);
+ console.log("date",details.date )
   const onChange = (date, dateString) => {
-    setFormData({ ...formData, validity_period: dateString });
+    setFormData({ ...formData, validity_period: date });
   };
 
- 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -75,28 +75,29 @@ const GenerateLicense = ({ details,forceUpdate }) => {
           username: formData.client_username,
           password: formData.password,
           app_id: chat.app_id,
-          phone_number_id: formData.phone_number_id,
-          access_token: formData.access_token,
-          phone_number: formData.phone_number,
-          validity: formData.validity_period,
-          expiry_date: formData.validity_period,
+          db_name: formData.db_name,
+          db_password: formData.db_password,
+          contact_number: formData.contact_number,
+          role: chat.role,
+          db_username:formData.db_username,
+          validity: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
+          expiry_date: formData.validity_period ? formData.validity_period.format('YYYY-MM-DD') : null, // Format the date
           crm_db_username: formData.crm_db_username || null,
           crm_db_password: formData.crm_db_password || null,
           crm_db_name: formData.crm_db_name || null,
-          iscatalogue: formData.is_catalog,
+          iscatalogue: formData.is_catalog
         }),
       });
-
       if (response.ok) {
         message.success('License generated successfully');
         setFormData({
           client_username: '',
           password: '',
-          phone_number: '',
+          contact_number: '',
           validity_period: null,
-          phone_number_id: '',
-          whatsapp_id: '',
-          access_token: '',
+          db_name: '',
+          db_username: '',
+          db_password: '',
           crm_db_name: '',
           crm_db_username: '',
           crm_db_password: '',
@@ -104,15 +105,14 @@ const GenerateLicense = ({ details,forceUpdate }) => {
         });
         handleModalClose();
       } else {
-        const errorResponse = await response.json();
-        message.error(`Failed to generate license: ${errorResponse.message}`);
+        message.error('Failed to generate license');
         console.error('Failed to generate license', response.status, response.statusText);
       }
     } catch (error) {
       message.error('Error generating license');
       console.error('Error:', error);
     }
-    forceUpdate()
+    forceUpdate();
   };
 
   return (
@@ -133,7 +133,6 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.client_username}
             onChange={handleChange}
-            required
           />
           <TextField
             margin="dense"
@@ -144,53 +143,54 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             fullWidth
             value={formData.password}
             onChange={handleChange}
-            required
           />
           <TextField
             margin="dense"
             id="phone_number"
-            name="phone_number"
-            label="Phone Number"
+            name="contact_number"
+            label="contact_number"
             type="text"
             fullWidth
-            value={formData.phone_number}
+            value={formData.contact_number}
             onChange={handleChange}
-            required
           />
-          <Space direction="vertical" style={{ width: '100%' }}>
-            <DatePicker style={{ padding: '10px', border: '2px solid var(--second)', width: '100%' }} onChange={onChange} />
+          <Space direction="vertical" style={{ width: '100%', marginTop: 16 }}>
+            <DatePicker 
+              style={{ width: '100%' }} 
+              onChange={onChange} 
+              format="YYYY-MM-DD"
+              value={formData.validity_period}
+            />
           </Space>
           <TextField
             margin="dense"
-            id="phone_number_id"
-            name="phone_number_id"
-            label="Phone Number ID"
+            id="db_name"
+            name="db_name"
+            label="db name"
             type="text"
             fullWidth
-            value={formData.phone_number_id}
+            value={formData.db_name}
             onChange={handleChange}
-            required
           />
           <TextField
             margin="dense"
             id="whatsapp_id"
-            name="whatsapp_id"
-            label="WhatsApp Business Account ID"
+            name="db_username"
+            label="Db Username"
             type="text"
             fullWidth
-            value={formData.whatsapp_id}
+            value={formData.db_username}
             onChange={handleChange}
           />
           <TextField
             margin="dense"
             id="access_token"
-            name="access_token"
-            label="Permanent Access Token"
+            name="db_password"
+            label="Db Password"
             type="text"
             fullWidth
-            value={formData.access_token}
+            value={formData.db_password}
             onChange={handleChange}
-            required
           />
           <Select
             labelId="is_catalog-label"
@@ -200,6 +200,7 @@ const GenerateLicense = ({ details,forceUpdate }) => {
             onChange={handleChange}
             fullWidth
             displayEmpty
+            style={{ marginTop: 16 }}
           >
             <MenuItem value="">
               <em>Select</em>

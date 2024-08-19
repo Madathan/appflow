@@ -14,6 +14,7 @@ const rfStyle = {
   borderColor: "green",
   borderWidth: 5,
 };
+
 const hfStyle = {
   backgroundColor: 'white',
   top: 20,
@@ -26,12 +27,16 @@ const hfStyle = {
 const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect }) => {
   const [inputValue, setInputValue] = useState('');
   const [selectedType, setSelectedType] = useState(type);
-
+  const[idshow,setidshow]=useState(true);
   const onChange = (evt) => {
     if (data.onChange) {
       data.onChange(id, evt.target.value);
     }
-  };
+  }; 
+  if(selectedType && (id===2 || id===3))
+  {
+    setidshow(false)
+  }
   const handleTypeChange = (e) => {
     if (!showSelect) {
       alert('Select option is only available for the first button.');
@@ -61,23 +66,23 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
   };
   return (
     <div>
-      <button onClick={onRemove} className="text-gray-600 hover:text-red-800 text-3xl">
+      <button onClick={onRemove} className="text-gray-600  mt-4 hover:text-red-800 text-5xl">
         <MdCancel />
       </button>
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
           <Handle type="source" position={Position.Top} id={`button_id_${id}`} style={rfStyle} />
-          <input
+        {idshow && (<input
             id="text"
             name="text"
             onChange={onChange}
             className='rounded-2xl p-20 text-4xl w-full'
             placeholder='Enter the text'
-          />
+          />)}
           {showSelect && (
             <select
               onChange={handleTypeChange}
-              className='mt-2 p-6 rounded-lg w-full'
+             className='rounded-2xl p-20 text-4xl w-full'
               value={selectedType}
             >
               <option value="">Select type</option>
@@ -92,7 +97,7 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
               type="text"
               value={inputValue}
               onChange={handleInputChange}
-              className='mt-2 p-6 border rounded-lg w-full'
+               className='rounded-2xl p-20 text-4xl w-full'
               placeholder={`Enter ${selectedType} value`}
             />
           )}
@@ -107,6 +112,7 @@ const NodeContainer = ({ id, data }) => {
   const [message, setMessage] = useState("");
   const { setNodes } = useReactFlow();
   const [show, setShow] = useState(false);
+  const [button,setButton]=useState();
   const [buttonTypeSelected, setButtonTypeSelected] = useState(null);
   const MAX_INPUT_BOXES = 3;
   const addInputBox = () => {
@@ -123,7 +129,7 @@ const NodeContainer = ({ id, data }) => {
       ...prevInputBoxes,
       {
         id: newId,
-        type: '',
+        type: '', 
         component: (
           <TextUpdaterNode
             key={newId}
@@ -140,7 +146,13 @@ const NodeContainer = ({ id, data }) => {
   };
 
   const removeInputBox = (idToRemove) => {
-    setMessage('');
+    if (data.onChange) {
+      data.onChange(id, 'button_type',null)
+      data.onChange(id, 'button_value',null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_' ,null);
+    }
     setInputBoxes((prevInputBoxes) => {
       const updatedInputBoxes = prevInputBoxes.filter(({ id }) => id !== idToRemove);
       // Reset button type selection if all buttons of that type are removed
@@ -151,9 +163,11 @@ const NodeContainer = ({ id, data }) => {
       return updatedInputBoxes;
     });
   };
-  const handleTextChange = (inputId, value) => {
+  const handleTextChange = (inputId,value) => {
+    console.log("buttonvalue",value)
+    setButton(value)
     if (data.onChange) {
-      data.onChange(id, 'button_' + inputId, value);
+      data.onChange(id, 'button_' + inputId,button);
     }
   };
   const handleChanges = (event) => {
@@ -183,17 +197,27 @@ const NodeContainer = ({ id, data }) => {
   const leave = () => { setShow(false); }
  const handledeleteNode=()=>
  {
-  setMessage(null)
+  setMessage('');
+    if (data.onChange) {
+      data.onChange(id, 'message', null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_type',null)
+      data.onChange(id, 'button_value',null);
+    }
+    if (data.onChange) {
+      data.onChange(id, 'button_' ,null);
+    }
   setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
  }
   return (
-    <div className='relative bg-[white] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600 ' onMouseOver={shows} onMouseOut={leave}>
+    <div className=' relative bg-[white] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600 ' onMouseOver={shows} onMouseOut={leave}>
       {show && (
 
-        <div className='hover:translate-y-6 hover:transition duration-700 ease-in-out'>
+        <div className=''>
         <button
           onClick={handledeleteNode}
-          className="absolute right-10 top-11 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-800' style={{ fontSize: 40 }} />
         </button>
         </div>
@@ -209,7 +233,7 @@ const NodeContainer = ({ id, data }) => {
             id="w3review"
             name="w3review"
             rows="6"
-            cols="40"
+            cols="50"
             value={message}
             placeholder='message'
             className='rounded-2xl border-green-600 border-3 text-4xl'
@@ -230,7 +254,7 @@ const NodeContainer = ({ id, data }) => {
       >
         <span className='mr-4'>+</span> Add Button
       </button>
-    </div>
+    </div>  
   );
 };
 export default NodeContainer;

@@ -2,7 +2,6 @@ import React from 'react';
 
 const TemplateFetch = ({ template }) => {
   const { name, components, language } = template;
-
   return (
     <div className="max-w-full mx-auto mb-12 font-poppins h-full rounded-lg shadow-xl bg-white border border-gray-300 border-solid my-4 hover:shadow-xl transition-transform duration-300">
       <div className="p-6">

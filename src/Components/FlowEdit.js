@@ -19,6 +19,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Edit, Delete ,} from "@mui/icons-material";
 import CancelIcon from '@mui/icons-material/Cancel';
+import Cookies from 'js-cookie';
 
 const FlowTable = () => {
   const [flows, setFlows] = useState([]);
@@ -28,12 +29,13 @@ const FlowTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
+  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://ci4backend.smartyuppies.com/chatbotflow/105581585784909"
+          `https://ci4backend.smartyuppies.com/chatbotflow/${userData.phone_number_id}`
         );
         const data = await response.json();
         setFlows(data.FlowName || []);
@@ -144,32 +146,23 @@ const FlowTable = () => {
   };
   return (
     <Box sx={{ margin: 2, backgroundColor: "#f5f5f5", borderRadius: 2 }}>
-      <Button
+      <button
         variant="contained"
         color="success" // Green color
-        sx={{
-          marginBottom: 4,
-          fontSize: "0.85rem",
-          backgroundColor: "#388e3c", // Darker green
-          "&:hover": {
-            backgroundColor: "#2c6c2f",
-          },
-        }}
+       className="bg-green-500 p-2  text-white mb-4 rounded hover:bg-green-800"
         onClick={handleFlow}
       >
-        Add Flow
-      </Button>
+        Create Flow
+      </button>
       <div style={{ position: "relative" }}>
-        <TextField
-          label="Search"
+        <input
+          placeholder="Search..."
           variant="outlined"
           fullWidth
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{
-            marginBottom: 2,
-            "& .MuiInputBase-input": { fontSize: "0.9rem" },
-          }}
+          className="mb-4 lg:mb-0 focus:ring-none p-2 bg-gray-100 rounded-lg border- border border-gray-200 focus:outline-gray-300"
+
         />
         {searchTerm && (
           <IconButton
@@ -218,7 +211,7 @@ const FlowTable = () => {
                   onClick={() => handleRequestSort("flow_start_keyword")}
                   sx={{
                     fontSize: "1rem",
-                    color: "#388e3c",
+                    
                     textAlign: "center",
                   }} // Green color
                 >
@@ -234,7 +227,7 @@ const FlowTable = () => {
                   onClick={() => handleRequestSort("document_type")}
                   sx={{
                     fontSize: "1rem",
-                    color: "#388e3c",
+                    
                     textAlign: "center",
                   }} // Green color
                 >
