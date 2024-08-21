@@ -5,6 +5,7 @@ import 'reactflow/dist/style.css';
 import { ImFilePdf } from "react-icons/im";
 import { FaImage } from 'react-icons/fa6';
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { message } from 'antd';
 
 const rfStyle = {
   backgroundColor: 'white',
@@ -29,7 +30,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
   const [type, setType] = useState('');
   const [prefix, setPrefix] = useState('');
   const [textValue, setTextValue] = useState('');
-
+  
   const onChange = (evt) => {
     const newValue = evt.target.value;
     setTextValue(newValue);
@@ -87,18 +88,20 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
             placeholder='Enter the text'
           />
           {showSelect && (
+         
             <select
               onChange={handleTypeChange}
                className='rounded-2xl p-10 text-2xl w-full'
               value={type}
             >
-              <option value="">Select type</option>
+              <option value="">Text</option>
               <option value="url">URL</option>
               <option value="call">Call</option>
               <option value="email">Email</option>
               <option value="whatsapp">WhatsApp</option>
             </select>
-          )}
+            
+          ) }
           {prefix && (
             <div className='mt-2'>
               <input
@@ -116,6 +119,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
 }
 
 function AddPdf({ id, data }) {
+ 
   const [inputBoxes, setInputBoxes] = useState([]);
   const [addButtonDisabled, setAddButtonDisabled] = useState(false);
   const { setNodes } = useReactFlow();
@@ -126,12 +130,13 @@ function AddPdf({ id, data }) {
   const [show, setShow] = useState(false);
   const [selectAdded, setSelectAdded] = useState(false);
 
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
   const addInputBox = () => {
-    alert('only one button and one cta is allowed');
+  
     if (selectAdded) {
       alert('Please select an option from the dropdown before adding more buttons.');
       return;
@@ -252,14 +257,14 @@ function AddPdf({ id, data }) {
   }
   return (
     <div
-      className=' relative bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid border-[4px] border-green-600'
+      className='  bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid border-[4px] border-green-600'
       onMouseOver={Show}
       onMouseOut={Leave}
     >
       <Handle type="target" position={Position.Left} id="media_node" className='ml[10px]' style={hfStyle} />
      
       {show && (
-        <div className='group-hover:translate-x-24 group-hover:transition duration-700 ease-in-out'>
+        <div className='relative group-hover:translate-x-24 group-hover:transition duration-700 ease-in-out'>
 
         <button
           onClick={handledeleteNode}
@@ -273,31 +278,9 @@ function AddPdf({ id, data }) {
         <ImFilePdf className='mt-5 text-4xl' />
         <h3 className='text-center text-[40px] mt-2 ml-4'>Media</h3>
       </div>
-
+     
       <div className='bg-[#eae6df] border-[3px] border-solid border-red-600 rounded-[25px] p-3 mt-5'>
-        <div className='block bg-[#eae6df] p-2 rounded-xl w-full'>
-          <input
-            type='text'
-            placeholder='Enter a name'
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
-            style={{ border: "none" }}
-            value={keyword}
-            onChange={handleKeywordChange}
-          />
-        </div>
-
-        <div className='block bg-[#eae6df] p-2 rounded-xl mt-4 w-full'>
-          <input
-            type='text'
-            placeholder='Enter a message'
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
-            style={{ border: "none" }}
-            value={message}
-            onChange={handleMessageChange}
-          />
-        </div>
-
-        <div className='bg-white p-5 mt-5  rounded-3xl'>
+      <div className='bg-white p-5 mt-5  rounded-3xl'>
         <div className='p-5 ] rounded-2xl h-[350px] text-center'>
           <input
             type="file"
@@ -325,6 +308,29 @@ function AddPdf({ id, data }) {
           )}
         </div>
       </div>
+        <div className='block bg-[#eae6df] p-2 rounded-xl w-full'>
+          <input
+            type='text'
+            placeholder='Enter media  name'
+            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
+            style={{ border: "none" }}
+            value={keyword}
+            onChange={handleKeywordChange}
+          />
+        </div>
+
+        <div className='block bg-[#eae6df] p-2 rounded-xl mt-4 w-full'>
+          <input
+            type='text'
+            placeholder='Enter a Caption'
+            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
+            style={{ border: "none" }}
+            value={message}
+            onChange={handleMessageChange}
+          />
+        </div>
+
+       
         {inputBoxes.map(({ id, component }) => (
           <div key={id}>{component}</div>
         ))}

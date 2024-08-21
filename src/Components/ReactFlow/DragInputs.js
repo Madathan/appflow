@@ -27,7 +27,8 @@ const hfStyle = {
 const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect }) => {
   const [inputValue, setInputValue] = useState('');
   const [selectedType, setSelectedType] = useState(type);
-  const[idshow,setidshow]=useState(true);
+
+
   const onChange = (evt) => {
     if (data.onChange) {
       data.onChange(id, evt.target.value);
@@ -74,16 +75,16 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
             id="text"
             name="text"
             onChange={onChange}
-            className='rounded-2xl p-20 text-4xl w-full'
+            className='rounded-2xl p-10 text-4xl w-full'
             placeholder='Enter the text'
           />
           {showSelect && (
             <select
               onChange={handleTypeChange}
-             className='rounded-2xl p-20 text-4xl w-full'
+             className='rounded-2xl px-5 py-5 text-4xl w-full'
               value={selectedType}
             >
-              <option value="">Select type</option>
+              <option  value="">Text</option>
               <option value="url">URL</option>
               <option value="call">Call</option>
               <option value="email">Email</option>
@@ -115,7 +116,7 @@ const NodeContainer = ({ id, data }) => {
   const [buttonTypeSelected, setButtonTypeSelected] = useState(null);
   const MAX_INPUT_BOXES = 3;
   const addInputBox = () => {
-    alert('only one button and one cta is allowed');
+   
     if (inputBoxes.length >= MAX_INPUT_BOXES) {
       alert('Maximum number of input boxes reached.');
       return;
@@ -165,15 +166,15 @@ const NodeContainer = ({ id, data }) => {
   };
   const handleTextChange = (inputId,value) => {
     console.log("buttonvalue",value)
-    setButton(value)
+  
     if (data.onChange) {
-      data.onChange(id, 'button_' + inputId,button);
+      data.onChange(id, `button_${inputId}`,value);
     }
   };
   const handleChanges = (event) => {
     setMessage(event.target.value);
     if (data.onChange) {
-      data.onChange(id, 'message', message);
+      data.onChange(id, 'message', event.target.value);
     }
   };
   const handleTypeChange = (id, type, value) => {
@@ -233,7 +234,7 @@ const NodeContainer = ({ id, data }) => {
             id="w3review"
             name="w3review"
             rows="6"
-            cols="50"
+            cols="55"
             value={message}
             placeholder='message'
             className='rounded-2xl border-green-600 border-3 text-4xl'

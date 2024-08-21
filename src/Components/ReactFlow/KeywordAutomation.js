@@ -15,12 +15,10 @@ import Location from './FlowLocation'
 import { MdLocationPin } from "react-icons/md";
 import { MdOutlinePermMedia } from "react-icons/md";
 import Swal from 'sweetalert2';
-import { useNavigate, } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { useNavigate, useLocation} from 'react-router-dom';
 
 
 
-const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
 
 const rfStyle = {
   backgroundColor: 'white',
@@ -29,14 +27,17 @@ const rfStyle = {
 };
 
  // Initialize with an empty array
-
+ 
 const nodeTypes = { nodeContainer: NodeContainer,  addPdf: AddPdf, listDrag: ListDrag,flowKey:FlowKey,location:Location};
 const edgeTypes = {
   customEdge: CustomEdge, // Match the type here with the one you're using in addEdge
 };
 
 function Flow() {
-  const navigate=useNavigate()
+const location = useLocation();
+const { phoneNumberId } = location.state || {};
+console.log("parameter",phoneNumberId)
+    const navigate=useNavigate()
   const initialNodes = [{id:"0",
     type: 'flowKey',
     position: { x: Math.random() * 250, y: Math.random() * 250 },
@@ -52,7 +53,8 @@ function Flow() {
   const [list, setInputList] = useState({});
   const [flowName, setFlowName] = useState();
   const [flowKey, setFlowKey] = useState({});
-  const [location, setLocation] = useState({});
+  const [locations, setLocations] = useState({});
+
 
 
 
@@ -70,12 +72,12 @@ function Flow() {
   const connectionData = extractConnectionData();
   const {message}=flowKey
   const combinedArray =  [
-    {username:userData.username,phone_number_id:userData.phone_number_id},
+   {phone_number_id:phoneNumberId },
     {Type:"flow_name",flow_start_keyword:message,flow_name:flowName},
     { Type: 'Document', data: inputpdf },
     { Type:"Text" ,data: inputButton},
     { Type: 'List', data: list  },
-    { Type: 'Location', data: location  },
+    { Type: 'Location', data: locations  },
     { Type: 'Connection', data: connectionData  },
   ];
   const handleFlowName=(e)=>
@@ -170,7 +172,7 @@ function Flow() {
     }));
   };
   const handleLocate = (nodeId,inputType, value) => {
-    setLocation((prevValues) => ({
+    setLocations((prevValues) => ({
       ...prevValues,
       [nodeId]:{
         ...prevValues[nodeId],
@@ -183,17 +185,17 @@ function Flow() {
     e.preventDefault();
   
     console.log('Image_&_button:', JSON.stringify(combinedArray, null, 2));
-  
+
     if (flowKey) {
       try {
-        const response = await fetch('https://ci4backend.smartyuppies.com/ChatFlow/insertKeyword', {
+        const response = await fetch("https://appnew.smartyuppies.com/ChatFlow/insertKeyword", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ "data": combinedArray })
         });
-  
+        console.log("user",combinedArray)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -210,7 +212,7 @@ function Flow() {
         });
   
         if (data.status === "success") {
-          navigate('/FlowEdit');
+          navigate(`/?phone_number_id=${phoneNumberId}`);
         }
   
       } catch (error) {

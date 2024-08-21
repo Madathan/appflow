@@ -20,22 +20,30 @@ import "react-toastify/dist/ReactToastify.css";
 import { Edit, Delete ,} from "@mui/icons-material";
 import CancelIcon from '@mui/icons-material/Cancel';
 import Cookies from 'js-cookie';
-
+import { useLocation } from 'react-router-dom';
 const FlowTable = () => {
+  
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const phoneNumberId = queryParams.get('phone_number_id');
+
   const [flows, setFlows] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
   const [orderBy, setOrderBy] = useState("flow_name");
+  const [parameter, setParameter] = useState({});
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
-  const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-
+  const handleFlow = () => {
+    navigate("/Keyword-Automation",{ state:{ phoneNumberId} });
+  };
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://ci4backend.smartyuppies.com/chatbotflow/${userData.phone_number_id}`
+          `https://appnew.smartyuppies.com/chatbotflow/${phoneNumberId}`
         );
         const data = await response.json();
         setFlows(data.FlowName || []);
@@ -53,10 +61,9 @@ const FlowTable = () => {
       chatflow_id: flowId,
       phone_number_id: phoneNumberId,
     };
-
     try {
       const response = await fetch(
-        "https://ci4backend.smartyuppies.com/showchatflow",
+        "https://appnew.smartyuppies.com/showchatflow",
         {
           method: "POST",
           headers: {
@@ -87,7 +94,7 @@ const FlowTable = () => {
 
     try {
       const response = await fetch(
-        `https://ci4backend.smartyuppies.com/delete/${flowId}`,
+        `https://appnew.smartyuppies.com/delete/${flowId}`,
         {
           method: "DELETE",
         }
@@ -105,9 +112,7 @@ const FlowTable = () => {
     }
   };
 
-  const handleFlow = () => {
-    navigate("/Keyword-Automation");
-  };
+  
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && sortDirection === "asc";
