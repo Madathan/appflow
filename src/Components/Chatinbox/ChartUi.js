@@ -323,7 +323,7 @@ const App = () => {
         }
         const result = await response.json();
         setShowNotes(result.data);
-         console.log("notedata",shownotes)
+       
       } catch (error) {
         
       }
@@ -452,13 +452,13 @@ const handleKeyDown = (e) => {
     <div className='mt-4'>
    <ChatCrm />
    </div>
-  <div className='grid grid-cols-1 md:grid-cols-2 md:relative md:bottom-[50px] h-[620px] mt-4 '>
+  <div className='grid grid-cols-1 md:grid-cols-2 md:relative md:bottom-[50px] h-[610px] mt-4 '>
     <div className="flex h-[600px] mt-[30px] w-[1000px]  shadow-xl  ">
      
-      <div className="w-1/3 bg-white rounded-xl text-white shadow-2xl">
-        <div className='h-16 w-full  border-r border-solid border-gray-400 '>
+      <div className="w-1/3 bg-white rounded-l-xl text-white shadow-2xl">
+        <div className='h-16 w-full  '>
           <div className='p-3 flex'>
-            <p className='text-3xl bg-gradient-to-r  rounded-full from-[#01949A] to-[#004369] p-1'><FaUserCircle /></p>
+            <p className='text-3xl  rounded-full from-[#01949A] to-[#004369] p-1'><FaUserCircle /></p>
             <p className='p-2 text-black '>{chat?.username.toUpperCase()}</p>
           </div>
         </div>
@@ -472,7 +472,7 @@ const handleKeyDown = (e) => {
               onChange={handleSearchChange}
             />
           </div>
-          <div className=" overflow-y-scroll l   shadow-xl bg-white w-full border-solid border-gray-200 border-y   bg-gray-100 text-black">
+          <div className=" overflow-y-scroll    shadow-xl bg-white w-full border-solid border-gray-200 border-y   bg-gray-100 text-black">
             {filteredContacts.map((contact, index) => (
               <div key={contact.customer_id} onClick={() => handleContactClick(contact)}>
                 {loading ? (
@@ -494,7 +494,7 @@ const handleKeyDown = (e) => {
         </div>
       </div>
       <div className='text-red-700'></div>
-      <div className="w-4/5 rounded-xl bg-[url('https://i.pinimg.com/originals/07/b3/7d/07b37d9e8af59caf15b0f8e1b49da368.jpg')] flex flex-col">
+      <div className="w-4/5 rounded-xl bg-[url('https://i.pinimg.com/736x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg')] flex flex-col">
         <div className='h-16 w-full bg-white rounded-r-xl border border-solid border-gray-200   '>
           {firstItem && (
             <div className='ml-2 p-1'>
@@ -584,30 +584,30 @@ const handleKeyDown = (e) => {
    
     {firstItem &&
     <div className="w-[400px] h-[600px] mt-[30px] relative shadow-xl left-[310px] bg-white overflow-x-scroll">
-    <div className="h-16 w-full flex bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg px-6 border border-solid border-gray-200">
+    <div className="h-16 w-full flex bg-white rounded-lg px-6 border border-solid border-gray-200">
       {firstItem && (
-        <div className="ml-2 p-1 sticky top-0 bg-gradient-to-r from-blue-400 to-purple-500">
+        <div className="ml-2 p-1 sticky top-0 ">
           {firstItem.customer_name && (
-            <h1 className="text-white font-poppins">
-              Name: <span className="ml-2 font-normal text-sm">{firstItem.customer_name}</span>
+            <h1 className="text-black font-poppins">
+              Name: <span className="ml-2 text-balck font-normal text-sm">{firstItem.customer_name}</span>
             </h1>
           )}
           {firstItem.customer_phone_number && (
-            <p className="text-white font-poppins">
-              Phone No: <span className="ml-2 font-normal text-sm">{firstItem.customer_phone_number}</span>
+            <p className="text-black font-poppins">
+              Phone No: <span className="ml-2 text-balck font-normal text-sm">{firstItem.customer_phone_number}</span>
             </p>
           )}
         </div>
       )}
       <div className='mt-4 ml-4 text-lg'>  
-          <button className='bg-white text-green-600 p-2 mr-4 rounded-full'><IoMdCall /></button>
-          <button className='bg-white text-green-600 p-2 rounded-full '><MdMail/></button>
+          <button className='bg-green-600 text-white p-2 mr-4 rounded-full'><IoMdCall /></button>
+          <button className='bg-green-600 text-white p-2 rounded-full '><MdMail/></button>
       </div>
 
     </div>
     <div className="grid md:grid-cols-2 gap-2 px-6 mt-2">
       <button
-        className="flex items-center  bg-green-500 hover:bg-green-800 text-white p-1 rounded-lg w-full justify-center"
+        className="flex items-center  bg-green-500 hover:bg-green-600 text-white p-1 rounded-lg w-full justify-center"
         onClick={handleToggleAgent}
       >
         <MdKeyboardDoubleArrowDown size={24} />
@@ -633,29 +633,31 @@ const handleKeyDown = (e) => {
         </div>
       )}
     </div>
-    <div className="w-full h-[200px] overflow-y-scroll bg-gray-100 p-2 border border-gray-200 mt-4" style={{ direction: 'rtl' }}>
-      <div style={{ direction: 'ltr' }}>
+    <div className="w-full h-[200px] overflow-y-scroll bg-orange-50 p-2 border border-gray-200 mt-4" style={{ direction: 'rtl' }}>
+      <div style={{ direction: 'ltr',wordWrap: 'break-word' }}>
         {shownotes && shownotes.length > 0 && (
           shownotes.map((note, index) => (
             <div key={index} className="mb-2">
-              <p className="text-sm font-semibold">{note.username}</p>
+              <p className="text-sm font-semibold font-poppins">{note.username}</p>
               <p className="text-sm">{note.notes}</p>
-              <p className="text-xs text-gray-500">{note.created_at}</p>
+              <p className="text-xs  font-poppins text-gray-500">{note.created_at}</p>
             </div>
           ))
         )}
       </div>
     </div>
+    <div className='p-2'>
     <textarea
       className="w-full h-20 mt-4 p-3 border resize-none border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
       placeholder="Write your notes here..."
       value={notes}
       onChange={(e) => setNotes(e.target.value)}
     ></textarea>
-    <div className='text-center'>
-    <button className='bg-green-500 px-6 py-3 rounded-lg hover:bg-greeen-800 text-white font-poppins mb-2'onClick={handlenotessave}>Save Notes</button>
     </div>
-<div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center justify-center  bg-blue-100 rounded-xl w-full px-6">
+    <div className='text-center'>
+    <button className='bg-green-500 px-6 py-3 text-sm rounded hover:bg-greeen-800 text-white font-poppins mb-2'onClick={handlenotessave}>Save Notes</button>
+    </div>
+<div className="flex flex-col md:grid md:grid-cols-2 gap-4 items-center justify-center   rounded-xl w-full px-6">
   <div className="p-6 rounded-lg">
     <div className="mb-4">
       <label className="block mb-2 text-sm font-medium text-black">Select Remainder</label>
@@ -670,7 +672,7 @@ const handleKeyDown = (e) => {
   <div className="mt-4 md:mt-0 flex justify-center items-center">
     <button
       onClick={handlecrmSubbmit}
-      className="px-6 py-3 font-poppins text-white bg-blue-500 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="px-6 py-3 font-poppins text-white bg-green-500 text-sm rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
       Submit
     </button>

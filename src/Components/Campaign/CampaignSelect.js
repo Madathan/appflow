@@ -88,8 +88,9 @@ const CampaignSelect = () => {
         message.error('failed to send the data ');
         throw new Error('Network response was not ok');
       }
-      message.success('Add sucess fully');
+    
       const result = await response.json();
+      message.success(result.success);
       console.log('Success:', result);
      
       // Handle success (e.g., show a success message, navigate to another page, etc.)

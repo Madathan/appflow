@@ -163,7 +163,7 @@ const CustomizeTeams1 = ({forceUpdate}) => {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="role" className="block mb-2 text-gray-700">
-                    Role:
+                  Choose Business Account:
                   </label>
                   <select
                     id="role"
@@ -179,6 +179,15 @@ const CustomizeTeams1 = ({forceUpdate}) => {
                     ))}
                   </select>
                 </div>
+               <div className=' sm:block'>
+               <button className='bg-green-500 md:mr-4  p-2 rounded text-white'>
+                AssignLeads
+                </button>
+                <button className='bg-green-500 p-2 rounded text-white'>
+                            All Inbox
+                </button>
+               </div>
+
                 <div className="mb-4">
                   <label htmlFor="image" className="block mb-2 text-gray-700">
                     Image:

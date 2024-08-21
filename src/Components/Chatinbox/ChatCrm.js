@@ -113,32 +113,34 @@ function Breadcrumb({ open, menus }) {
      
       <div className="mx-4  px-2 relative text-black duration-500 my-5 py-4 flex md:justify-around flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center font-semibold">
        <div className='relative '>
-        <button className="bg-green-600 text-white px-4 font-poppins  py-3 sm:text-sm rounded" onClick={handleOverDue}>
+        <button  className='border-green-600 border border-solid  font-poppins text-sm text-green-600 px-4 py-1 rounded mb-1' onClick={handleOverDue}>
           OverDue<span className='text-sm absolute animate-bounce  font-poppins  top-0   text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{overdata?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white font-poppins  px-4 py-3 sm:text-sm rounded" onClick={handleFetureCallback}>
+        <button  className='border-green-600 border border-solid  font-poppins text-sm text-green-600 px-4 py-1 rounded mb-1' onClick={handleFetureCallback}>
           FutureCallback<span className='text-sm animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{data?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white px-4 font-poppins    py-3 sm:text-sm rounded" onClick={handleTodayCallBack}>
+        <button  className='border-green-600 border border-solid  font-poppins text-sm text-green-600 px-4 py-1 rounded mb-1' onClick={handleTodayCallBack}>
           TodaysCallback<span className='text-sm animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{todaysdata?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white font-poppins   px-4 py-3  sm:text-sm rounded" onClick={handleHistory}>
+        <button  className='border-green-600 border  font-poppins text-sm border-solid text-green-600 px-4 py-1 rounded mb-1' onClick={handleHistory}>
           Task Completed <span className='text-sm animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl  w-[22px] h-[22px]  rounded-full'>{histrydata?.count}</span>
         </button>
         </div>
-        
-        <button className="bg-green-600 text-white font-poppins flex   px-4 py-3  sm:text-sm rounded" 
+        <div className='flex '>     
+             <button  className=' flex border-green-600 border border-solid text-green-600 px-4 py-1 rounded mb-1' 
         onClick={handleAddContact}
       >
         <MdKeyboardDoubleArrowDown size={24} />
-        <span className="ml-2">Add New Contact</span>
+        <span className="ml-2 font-poppins text-sm ">Add New Contact</span>
       </button>
+      </div>
+
       {addContacts && (
         <div className="px-6 mt-2">
           <AddNewContact onClose={handleAddContact} />

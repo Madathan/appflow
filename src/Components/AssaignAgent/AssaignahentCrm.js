@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import Button from '@mui/material/Button';
 
 function KeywordSelect() {
   const [keyword, setKeyword] = useState('');
@@ -35,7 +36,7 @@ function KeywordSelect() {
     <div className="flex flex-col space-y-4 w-full max-w-md mx-auto p-4 mb-[200px]">
       {/* Input Box */}
       <div className="flex flex-col  mb-8">
-        <label htmlFor="keyword" className="text-gray-700 font-poppis">Keyword</label>
+        <label htmlFor="keyword" className="text-black font-poppis">Keyword</label>
         <input 
           type="text" 
           id="keyword" 
@@ -48,14 +49,14 @@ function KeywordSelect() {
 
       {/* Select Tag */}
       <div className="flex flex-col">
-        <label htmlFor="member" className="text-gray-700 font-poppins mb-2">Select a Member</label>
+        <label htmlFor="member" className="text-black font-poppins mb-2">Select a Member</label>
         <select 
           id="member" 
           value={selectedMember}
           onChange={(e) => setSelectedMember(e.target.value)}
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">-- Select a member --</option>
+          <option value="">Select a member</option>
           <option value="member1">Member 1</option>
           <option value="member2">Member 2</option>
           <option value="member3">Member 3</option>
@@ -63,12 +64,15 @@ function KeywordSelect() {
       </div>
 
       {/* Save Button */}
-      <button
-        onClick={handleSave}
-        className="mt-4 p-2 bg-green-500 text-white rounded-md hover:bg-green-800"
-      >
-        Save
-      </button>
+      <Button
+       type="submit"
+       variant="contained"
+       style={{ backgroundColor: '#00a727', color: '#FFFFFF' }}
+       onClick={handleSave}
+         >
+
+        Assign to Agent
+       </Button>
     </div>
   );
 }

@@ -131,6 +131,7 @@ function AddPdf({ id, data }) {
   };
 
   const addInputBox = () => {
+    alert('only one button and one cta is allowed');
     if (selectAdded) {
       alert('Please select an option from the dropdown before adding more buttons.');
       return;
@@ -173,7 +174,6 @@ function AddPdf({ id, data }) {
     setInputBoxes((prevInputBoxes) => prevInputBoxes.filter(({ id }) => id !== idToRemove));
     setAddButtonDisabled(false);
   };
-
   const handleTextChange = (inputId, value) => {
     if (data.onChange) {
       data.onChange(id, `button_${inputId}`, value);
@@ -263,7 +263,7 @@ function AddPdf({ id, data }) {
 
         <button
           onClick={handledeleteNode}
-          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-6 bg-white shadow-2xl hover:text-red-800">
         
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>

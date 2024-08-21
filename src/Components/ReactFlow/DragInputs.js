@@ -33,10 +33,8 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
       data.onChange(id, evt.target.value);
     }
   }; 
-  if(selectedType && (id===2 || id===3))
-  {
-    setidshow(false)
-  }
+ 
+  
   const handleTypeChange = (e) => {
     if (!showSelect) {
       alert('Select option is only available for the first button.');
@@ -72,13 +70,13 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
           <Handle type="source" position={Position.Top} id={`button_id_${id}`} style={rfStyle} />
-        {idshow && (<input
+      <input
             id="text"
             name="text"
             onChange={onChange}
             className='rounded-2xl p-20 text-4xl w-full'
             placeholder='Enter the text'
-          />)}
+          />
           {showSelect && (
             <select
               onChange={handleTypeChange}
@@ -108,6 +106,7 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
 };
 // NodeContainer Component
 const NodeContainer = ({ id, data }) => {
+  
   const [inputBoxes, setInputBoxes] = useState([]);
   const [message, setMessage] = useState("");
   const { setNodes } = useReactFlow();
@@ -116,6 +115,7 @@ const NodeContainer = ({ id, data }) => {
   const [buttonTypeSelected, setButtonTypeSelected] = useState(null);
   const MAX_INPUT_BOXES = 3;
   const addInputBox = () => {
+    alert('only one button and one cta is allowed');
     if (inputBoxes.length >= MAX_INPUT_BOXES) {
       alert('Maximum number of input boxes reached.');
       return;
@@ -129,7 +129,7 @@ const NodeContainer = ({ id, data }) => {
       ...prevInputBoxes,
       {
         id: newId,
-        type: '', 
+        type: '',
         component: (
           <TextUpdaterNode
             key={newId}
@@ -217,7 +217,7 @@ const NodeContainer = ({ id, data }) => {
         <div className=''>
         <button
           onClick={handledeleteNode}
-          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-6 bg-white shadow-2xl hover:text-red-800">
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-800' style={{ fontSize: 40 }} />
         </button>
         </div>

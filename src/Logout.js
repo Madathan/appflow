@@ -24,7 +24,7 @@ const Logout = () => {
         const response = await fetch(`https://ci4backend.smartyuppies.com/Signinpage/displaySignup/${chat.id}`); // Replace with your API endpoint
         if (response.ok) {
           const data = await response.json();
-          console.log("signup data ",data)
+          console.log("logout",data)
           setUserData(data);
           setInputs({
             username: data.username || '',
@@ -78,7 +78,7 @@ const Logout = () => {
     if (file) {
       formData.append('image', file);
     }
-
+    console.log("logout",file)
     try {
       const response = await fetch('https://ci4backend.smartyuppies.com/Signinpage/updateSignup', {
         method: 'POST',
@@ -143,7 +143,7 @@ const Logout = () => {
               className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
               onClick={togglePasswordVisibility}
             >
-              {showPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+              {showPassword ? <FaEyeSlash className="text-gray-500 mt-8" /> : <FaEye className="text-gray-500 mt-8" />}
             </div>
           </div>
           <div className="mb-4">

@@ -4,7 +4,7 @@ import { message } from 'antd';
 
 const CommerceSettings = () => {
     const chat = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-    console.log("userdata", chat);
+    console.log("user",chat )
     const [formData, setFormData] = useState({
         username: chat.username,
         phone_number_id: chat.phone_number_id,
@@ -88,8 +88,12 @@ const CommerceSettings = () => {
                             value={formData.upi_type}
                             onChange={handleChange}
                         >
+                            {console.log("upi Type",chat.upi_type === "razorpay" ? "upi" : "razerpay"
+
+                            )}
                             <option value={chat.upi_type}>{chat.upi_type}</option>
-                            <option value={chat.upi_type === "razorpay" ? "upi" : "razerpay"}>{chat.upi_type === "razorpay" ? "upi" : "razerpay"}</option>
+                            <option value={chat.upi_type === "razerpay" ? "upi" : "razerpay"}>{chat.upi_type === "razerpay" ? "upi" : "razerpay"}</option>
+                        
                         </select>
                     </div>
 

@@ -109,22 +109,22 @@ function Breadcrumb({ open, menus }) {
      
       <div className="mx-4  px-2 relative text-black duration-500 my-5 py-4 flex md:justify-around flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center font-semibold">
        <div className='relative '>
-        <button className="bg-green-600 text-white px-4 font-poppins  py-3 sm:text-sm rounded" onClick={handleOverDue}>
+        <button  className='border-green-600 border border-solid text-green-600 px-4 py-1 rounded mb-1' onClick={handleOverDue}>
           OverDue<span className=' absolute animate-bounce  font-poppins  top-0   text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{overdata?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white font-poppins  px-4 py-3 sm:text-sm rounded" onClick={handleFetureCallback}>
+        <button  className='border-green-600 border border-solid text-green-600 px-4 py-1 rounded mb-1' onClick={handleFetureCallback}>
           Future Callback<span className=' animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{data?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white px-4 font-poppins    py-3 sm:text-sm rounded" onClick={handleTodayCallBack}>
+        <button className='border-green-600 border border-solid text-green-600 px-4 py-1 rounded mb-1' onClick={handleTodayCallBack}>
           Todays Callback<span className=' animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl w-[22px] h-[22px]  rounded-full'>{todaysdata?.count}</span>
         </button>
         </div>
         <div className='relative'>
-        <button className="bg-green-600 text-white font-poppins   px-4 py-3  sm:text-sm rounded" onClick={handleHistory}>
+        <button  className='border-green-600 border border-solid text-green-600 px-4 py-1 rounded mb-1' onClick={handleHistory}>
           Task Completed <span className=' animate-bounce  font-poppins absolute top-0 text-green-600 bg-white shadow-xl  w-[22px] h-[22px]  rounded-full'>{histrydata?.count}</span>
         </button>
         </div>

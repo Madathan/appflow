@@ -4,7 +4,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import 'reactflow/dist/style.css';
 import { RiDeleteBin5Line } from "react-icons/ri";  
 
-const hfStyle = { backgrxoundColor: 'white', top: 20, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
+const hfStyle = { backgroundColor: 'white', top: 20, padding: 8, borderStyle: 'solid', borderColor: "green", borderWidth: 5 };
 
 function  Location({ id, data }) {
   const [inputBoxes, setInputBoxes] = useState([]);
@@ -72,7 +72,7 @@ function  Location({ id, data }) {
 
         <button
           onClick={handledeleteNode}
-          className="absolute right-0 top-0 text-black text-lg  rounded-full p-14 bg-white shadow-2xl hover:text-red-800">
+          className="absolute right-0 top-0 text-black text-lg  rounded-full p-6 bg-white shadow-2xl hover:text-red-800">
         
           <RiDeleteBin5Line className='text-gray-600 hover:text-red-500' style={{ fontSize: 50 }} />
         </button>

@@ -22,8 +22,7 @@ const Contacts = () => {
   
 
   const handleSubscribe = async (row) => {
-    console.log('Subscribe clicked for row:', row);
-
+   
     try {
       const newStatus = row.status === 'subscribed' ? 'unsubscribed' : 'subscribed';
       const response = await fetch(`https://ci4backend.smartyuppies.com/Contact/changeContactStatus/${row.id}/${newStatus}`, {

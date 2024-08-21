@@ -4,7 +4,7 @@ import { message } from 'antd';
 
 const Popup = ({ onClose }) => {
   const userData = Cookies.get('userData') ? JSON.parse(Cookies.get('userData')) : null;
-  console.log("userdata",userData)
+  
   const[alert,setAlert]=useState();
   const [formData, setFormData] = useState({
     business_name: '',
@@ -113,6 +113,7 @@ const Popup = ({ onClose }) => {
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>
+          
           <div className="flex justify-end">
             <button
               type="button"

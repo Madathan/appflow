@@ -29,7 +29,7 @@ const ThisMonthExpires = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="order table">
         <TableHead>
-          <TableRow className="bg-orange-200 sticky top-0">
+          <TableRow className="bg-green-50 sticky top-0">
             <TableCell align="center" className="px-4 py-2  font-popins ">Name</TableCell>
             <TableCell align="center" className="px-4 py-2 font-popins ">phone_number</TableCell>
             <TableCell align="center" className="px-4 py-2 font-popins ">validity</TableCell>

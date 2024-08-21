@@ -26,7 +26,7 @@ const GroupView = ({ onClose, onClick }) => {
         throw new Error('Failed to fetch phone data');
       }
       const data = await response.json();
-      console.log('Fetched data:', data);
+    
       setPhones(data); // Assuming data is { phones: [...] }
     } catch (error) {
       console.error('Error fetching phone data:', error);

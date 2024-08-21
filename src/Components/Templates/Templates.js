@@ -69,7 +69,7 @@ const Templates = () => {
         onClick={handlpendingeShow}
         className="mb-2 px-6 py-2 text-sm  shadew-xl font-poppins text-green-600 border-green-500 border-2 shadow-lg rounded-lg focus:ring-0 focus:ring-gray-300 hover:bg-green-700 hover:text-white"
       >
-        Penting
+        Pending
       </button>
       </div>
       {show && (
