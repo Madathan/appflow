@@ -69,26 +69,26 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
         <MdCancel />
       </button>
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
-        <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
+        <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-[870px]'>
           <Handle type="source" position={Position.Top} id={`button_id_${id}`} style={rfStyle} />
       <input
             id="text"
             name="text"
             onChange={onChange}
-            className='rounded-2xl p-10 text-4xl w-full'
+            className=' text-center rounded-2xl p-10 text-4xl w-[850px]'
             placeholder='Enter the text'
           />
           {showSelect && (
             <select
               onChange={handleTypeChange}
-             className='rounded-2xl px-5 py-5 text-4xl w-full'
+             className='  text-center rounded-2xl p-10 text-4xl w-[850px]'
               value={selectedType}
             >
-              <option  value="">Text</option>
-              <option value="url">URL</option>
-              <option value="call">Call</option>
-              <option value="email">Email</option>
-              <option value="whatsapp">WhatsApp</option>
+              <option  className='text-lg hover:bg-green-600 font-poppins' value="">Text</option>
+              <option  className='text-lg hover:bg-green-600 font-poppins' value="url">URL</option>
+              <option  className='text-lg hover:bg-green-600 font-poppins' value="call">Call</option>
+              <option  className='text-lg hover:bg-green-600 font-poppins' value="email">Email</option>
+              <option  className='text-lg hover:bg-green-600 font-poppins' value="whatsapp">WhatsApp</option>
             </select>
           )}
           {selectedType && (
@@ -96,7 +96,7 @@ const TextUpdaterNode = ({ data, onRemove, id, type, onChangeType, showSelect })
               type="text"
               value={inputValue}
               onChange={handleInputChange}
-               className='rounded-2xl p-20 text-4xl w-full'
+               className='  text-center rounded-2xl p-10 text-4xl w-[850px]  '
               placeholder={`Enter ${selectedType} value`}
             />
           )}
@@ -234,10 +234,10 @@ const NodeContainer = ({ id, data }) => {
             id="w3review"
             name="w3review"
             rows="6"
-            cols="55"
+            cols="45"
             value={message}
             placeholder='message'
-            className='rounded-2xl border-green-600 border-3 text-4xl'
+            className=' text-center rounded-2xl border-green-600 border-3 text-4xl'
             style={{ border: "none" }}
             onChange={handleChanges}
           ></textarea>

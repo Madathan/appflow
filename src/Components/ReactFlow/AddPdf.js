@@ -84,21 +84,21 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
             name="text"
             value={textValue}
             onChange={onChange}
-            className='rounded-2xl p-10 text-2xl w-full'
+            className=' text-center rounded-2xl p-10 text-3xl w-full'
             placeholder='Enter the text'
           />
           {showSelect && (
          
             <select
               onChange={handleTypeChange}
-               className='rounded-2xl p-10 text-2xl w-full'
+               className='  text-center rounded-2xl p-10 text-3xl w-full'
               value={type}
             >
-              <option value="">Text</option>
-              <option value="url">URL</option>
-              <option value="call">Call</option>
-              <option value="email">Email</option>
-              <option value="whatsapp">WhatsApp</option>
+              <option className='text-lg font-poppins' value="">Text</option>
+              <option  className='text-lg font-poppins' value="url">URL</option>
+              <option  className='text-lg font-poppins ' value="call">Call</option>
+              <option  className='text-lg font-poppins' value="email">Email</option>
+              <option  className='text-lg font-poppins' value="whatsapp">WhatsApp</option>
             </select>
             
           ) }
@@ -108,7 +108,7 @@ function TextUpdaterNode({ data, onRemove, id, onTypeChange, showSelect, onPrifi
                 type="text"
                 value={prefix}
                 onChange={handlePrefixChange}
-                className='rounded-2xl p-10 text-2xl w-full'
+                className='  text-center rounded-2xl p-10 text-3xl w-full'
               />
             </div>
           )}
@@ -257,7 +257,7 @@ function AddPdf({ id, data }) {
   }
   return (
     <div
-      className='  bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid border-[4px] border-green-600'
+      className='  bg-[#ffffff]  rounded-[45px] p-7 shadow-2xl group hover:border-solid hover:border-[4px] hover:border-green-600'
       onMouseOver={Show}
       onMouseOut={Leave}
     >
@@ -312,7 +312,7 @@ function AddPdf({ id, data }) {
           <input
             type='text'
             placeholder='Enter media  name'
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
+            className=' text-center rounded-2xl p-10 text-3xl h-[150px] w-full'
             style={{ border: "none" }}
             value={keyword}
             onChange={handleKeywordChange}
@@ -323,7 +323,7 @@ function AddPdf({ id, data }) {
           <input
             type='text'
             placeholder='Enter a Caption'
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full'
+            className='  text-center rounded-2xl p-10 text-3xl h-[150px] w-full'
             style={{ border: "none" }}
             value={message}
             onChange={handleMessageChange}
@@ -337,10 +337,10 @@ function AddPdf({ id, data }) {
       </div>
       <button
           onClick={addInputBox}
-          className='bg-white text-black shadow-2xl mt-4 text-4xl p-7 rounded-lg px-5 mt-6 w-full'
+          className='bg-white text-black shadow-2xl mt-4 text-4xl p-7  rounded-lg px-5 mt-6 w-full'
           disabled={addButtonDisabled}
         >
-          Add Input Box
+          + Add Button
         </button>
     </div>
   );

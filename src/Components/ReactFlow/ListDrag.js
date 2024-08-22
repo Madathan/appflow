@@ -32,14 +32,14 @@ function TextUpdaterNode({ data, onRemove, id }) {
       <button onClick={onRemove} className="text-gray-600 hover:text-red-800 text-4xl mt-5"><MdCancel /></button>
       <div className='bg-white rounded-3xl p-4 shadow-lg mt-5'>
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
-          <Handle type="source" position={Position.Top} id={`List_id_${id}`} style={rfStyle} />
+          <Handle type="source" position={Position.Top} id={`list_id_${id}`} style={rfStyle} />
           <input 
             id="text" 
             name="text" 
             onChange={handleTextChange} 
             value={text} 
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
-            placeholder='Enter the text' 
+            className=' text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            placeholder='Enter the List' 
           />
           <div className='mt-3'>
             <textarea 
@@ -47,8 +47,8 @@ function TextUpdaterNode({ data, onRemove, id }) {
               name="w3review" 
               rows="4" 
               cols="43" 
-              placeholder='Description' 
-              className='rounded-2xl border-green-600 border-3 text-2xl' 
+              placeholder=' Enter the Description' 
+              className=' text-center rounded-2xl border-green-600 border-3 text-3xl' 
               style={{ border: "none" }} 
               onChange={handleCaptionChange}
               value={caption}
@@ -134,7 +134,7 @@ function ListDrag({ id, data }) {
   setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
  }
   return (
-    <div className='relative bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
+    <div className='relative bg-[#ffffff] rounded-[45px] p-7 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600' onMouseOver={shows} onMouseOut={leave}>
       <Handle type="target" position={Position.Left} id="a" className='ml[10px]' style={hfStyle} />
 
       {show && (
@@ -155,8 +155,8 @@ function ListDrag({ id, data }) {
         <div className='block bg-[#eae6df] p-2 rounded-xl relative bottom-19 w-full'>
           <input 
             type='text' 
-            placeholder='Enter a name' 
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            placeholder='Enter a Title' 
+            className='text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
             style={{ border: "none" }} 
             value={title} 
             onChange={handleKeywordChange} 
@@ -168,9 +168,9 @@ function ListDrag({ id, data }) {
             id="w3review" 
             name="w3review" 
             rows="4" 
-            cols="36" 
-            placeholder='Enter the caption' 
-            className='rounded-2xl border-green-600 border-3 text-3xl' 
+            cols="45" 
+            placeholder='Enter the Body' 
+            className=' text-center rounded-2xl border-green-600 border-3 text-3xl' 
             style={{ border: "none" }} 
             value={body} 
             onChange={handleMessageChange}
@@ -181,7 +181,7 @@ function ListDrag({ id, data }) {
           <input
             type="text"
             style={{ border: "none" }}
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            className='text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
             onChange={handleFooterChange}
             value={footer}
             placeholder='Enter the Footer'
@@ -196,7 +196,7 @@ function ListDrag({ id, data }) {
       </div>
       
       <button onClick={addInputBox} className='bg-green-500 text-4xl shadow-2xl p-7 rounded-[15px] px-5 mt-6 text-white w-full' disabled={addButtonDisabled}>
-        <span className='mr-2'>+</span>Add Button
+        <span className='mr-2'>+</span>Add List
       </button>
     </div>
   );

@@ -64,7 +64,7 @@ function  Location({ id, data }) {
   setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id))
  }
   return (
-    <div className='bg-[#ffffff] rounded-[45px] p-10 shadow-2xl hover:border-solid border-[4px] border-green-600' onMouseOver={shows} onMouseOut={leave}>
+    <div className='bg-[#ffffff] rounded-[45px] p-10 shadow-2xl hover:border-solid hover:border-[4px] hover:border-green-600' onMouseOver={shows} onMouseOut={leave}>
       <Handle type="target" position={Position.Left} id="AddImage_Handle_key" className='ml[10px]' style={hfStyle} />
 
       {show && (
@@ -89,7 +89,7 @@ function  Location({ id, data }) {
           <input 
             type='text' 
             placeholder='Enter a longitude' 
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            className=' text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
             style={{ border: "none" }} 
             value={longitude} 
             onChange={handleListChange} 
@@ -99,7 +99,7 @@ function  Location({ id, data }) {
           <input 
             type='text' 
             placeholder='Enter a Latitude' 
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            className=' text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
             style={{ border: "none" }} 
             value={title} 
             onChange={handleKeywordChange} 
@@ -109,7 +109,7 @@ function  Location({ id, data }) {
           <input
             type="text"
             style={{ border: "none" }}
-            className='rounded-2xl p-10 text-3xl h-[150px] w-full' 
+            className=' text-center rounded-2xl p-10 text-3xl h-[150px] w-full' 
             onChange={handleFooterChange}
             value={footer}
             placeholder='Enter the Name'
@@ -122,7 +122,7 @@ function  Location({ id, data }) {
             rows="4" 
             cols="36" 
             placeholder='Enter the Address' 
-            className='rounded-2xl border-green-600 border-3 text-3xl' 
+            className=' text-center rounded-2xl border-green-600 border-3 text-3xl' 
             style={{ border: "none" }} 
             value={body} 
             onChange={handleMessageChange}
